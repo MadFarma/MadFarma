@@ -1,19 +1,23 @@
-/* DosFarma Style Header */
+/* ─── Header base ──────────────────────────────────────────── */
 .df-header {
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 1000;
+  background: white;
 }
 
+/* ─── Promo bar ────────────────────────────────────────────── */
 .df-promo-bar {
   background: linear-gradient(90deg, #1a1d32 0%, #2d3142 100%);
-  color: white;
+  color: #e0e0e0;
   text-align: center;
-  padding: 8px 16px;
-  font-size: 13px;
+  padding: 7px 16px;
+  font-size: 12.5px;
 }
 
 .df-promo-bar span {
   background: #ff6b6b;
+  color: white;
   padding: 2px 8px;
   border-radius: 4px;
   font-weight: 700;
@@ -22,108 +26,103 @@
 
 .df-promo-bar strong {
   color: #4bffa3;
+  font-weight: 700;
 }
 
+/* ─── Main header row ──────────────────────────────────────── */
 .df-main-header {
   background: white;
-  padding: 12px 0;
-  border-bottom: 1px solid #eee;
+  padding: 14px 0;
+  border-bottom: 1px solid #ebebeb;
 }
 
 .df-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 24px;
 }
 
 .df-main-header-inner {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 24px;
 }
 
-.df-menu-btn-mobile {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-}
-
+/* ─── Logo ─────────────────────────────────────────────────── */
 .df-logo {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   text-decoration: none;
   flex-shrink: 0;
 }
 
 .df-logo-icon {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   background: #00897b;
   color: white;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 800;
 }
 
 .df-logo-text {
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 800;
   color: #1a1d32;
+  letter-spacing: -0.3px;
 }
 
+/* ─── Search bar ───────────────────────────────────────────── */
 .df-search-bar {
   flex: 1;
-  display: flex;
-  max-width: 600px;
-  gap: 8px;
+  max-width: 700px;
 }
 
 .df-search-input-wrap {
-  flex: 1;
   display: flex;
   align-items: center;
   background: #f2f4f8;
-  border-radius: 4px;
-  padding: 0 12px;
+  border: 1.5px solid transparent;
+  border-radius: 6px;
+  padding: 0 14px;
+  transition: border-color 0.2s;
+}
+
+.df-search-input-wrap:focus-within {
+  border-color: #00897b;
+  background: white;
 }
 
 .df-search-icon {
-  color: #888;
+  color: #aaa;
+  flex-shrink: 0;
 }
 
 .df-search-input {
   flex: 1;
   border: none;
   background: none;
-  padding: 10px 8px;
+  padding: 11px 10px;
   font-size: 14px;
+  color: #1a1d32;
   outline: none;
 }
 
-.df-search-btn {
-  background: #00897b;
-  color: white;
-  border: none;
-  padding: 10px 24px;
-  border-radius: 4px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s;
+.df-search-input::placeholder {
+  color: #aaa;
 }
 
-.df-search-btn:hover {
-  background: #007a6a;
-}
-
+/* ─── Header actions ───────────────────────────────────────── */
 .df-header-actions {
   display: flex;
-  gap: 24px;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
 }
 
 .df-action-item {
@@ -136,56 +135,84 @@
   font-size: 11px;
   font-weight: 500;
   position: relative;
+  transition: color 0.15s;
 }
 
 .df-action-item:hover {
   color: #00897b;
 }
 
+.df-cart {
+  position: relative;
+}
+
 .df-cart-count {
   position: absolute;
-  top: -8px;
+  top: -6px;
   right: -8px;
   background: #ff6b6b;
   color: white;
-  width: 18px;
-  height: 18px;
+  width: 17px;
+  height: 17px;
   border-radius: 50%;
   font-size: 10px;
   font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
+  line-height: 1;
 }
 
+/* ─── Nav bar ──────────────────────────────────────────────── */
 .df-nav {
   background: white;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #ebebeb;
+  position: relative;
 }
 
 .df-nav-container {
   display: flex;
   align-items: center;
+  gap: 0;
 }
 
+/* ─── Categorías button ────────────────────────────────────── */
 .df-categories-btn {
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: #1a1d32;
-  color: white;
+  gap: 6px;
+  background: none;
   border: none;
-  padding: 12px 20px;
+  color: #1a1d32;
+  font-size: 13.5px;
   font-weight: 600;
-  font-size: 13px;
   cursor: pointer;
-  margin-right: 20px;
+  padding: 13px 20px 13px 8px;
+  margin-right: 8px;
+  transition: color 0.15s;
+  user-select: none;
+  border-bottom: 2px solid transparent;
 }
 
+.df-categories-btn:hover,
+.df-categories-btn.active {
+  color: #00897b;
+  border-bottom-color: #00897b;
+}
+
+.df-chevron {
+  transition: transform 0.2s;
+}
+
+.df-chevron.open {
+  transform: rotate(180deg);
+}
+
+/* ─── Nav links ────────────────────────────────────────────── */
 .df-nav-links {
   display: flex;
   list-style: none;
-  gap: 24px;
+  gap: 0;
   padding: 0;
   margin: 0;
 }
@@ -194,209 +221,286 @@
   text-decoration: none;
   color: #1a1d32;
   font-weight: 500;
-  font-size: 13px;
-  padding: 14px 0;
+  font-size: 13.5px;
+  padding: 13px 16px;
   display: block;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
 }
 
 .df-nav-links a:hover {
   color: #00897b;
+  border-bottom-color: #00897b;
 }
 
 .df-nav-highlight {
-  color: #ff6b6b !important;
+  color: #e8452c !important;
   font-weight: 600 !important;
 }
 
-.df-nav-club {
-  background: #fff3e0;
-  padding: 6px 12px !important;
+.df-nav-solar {
+  background: #fff176;
   border-radius: 4px;
+  padding: 4px 10px !important;
+  margin: 5px 8px;
+  font-weight: 700 !important;
+  border-bottom: none !important;
 }
 
-/* Mega Menu */
+.df-nav-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.df-club-btn {
+  background: #e8452c;
+  color: white;
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.df-club-btn:hover {
+  background: #c73920;
+}
+
+.df-blog-link {
+  text-decoration: none;
+  color: #1a1d32;
+  font-size: 13.5px;
+  font-weight: 500;
+  padding: 13px 8px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.df-blog-link:hover {
+  color: #00897b;
+  border-bottom-color: #00897b;
+}
+
+/* ─── MEGA MENU ────────────────────────────────────────────── */
 .df-mega-menu {
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
   background: white;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.14);
+  border-top: 1px solid #ebebeb;
+  z-index: 999;
+  animation: megaFadeIn 0.15s ease;
 }
 
-.df-mega-menu-inner {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: flex;
-  min-height: 480px;
+@keyframes megaFadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.df-mega-menu-left {
-  width: 340px;
-  min-width: 340px;
-  border-right: 1px solid #eee;
-  padding: 16px 0;
+.df-mega-inner {
+  display: grid;
+  grid-template-columns: 260px 240px 1fr;
+  min-height: 420px;
 }
 
-.df-mega-menu-cats {
-  display: flex;
-  flex-direction: column;
+/* Column 1 – Category list */
+.df-mega-cats {
+  border-right: 1px solid #ebebeb;
+  padding: 10px 0;
 }
 
-.df-mega-cat-item {
+.df-mega-cat-row {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 24px;
+  justify-content: space-between;
+  padding: 11px 20px;
+  cursor: pointer;
+  transition: background 0.12s;
+  font-size: 14px;
+  color: #1a1d32;
+  font-weight: 400;
+}
+
+.df-mega-cat-row:hover,
+.df-mega-cat-row.active {
+  background: #f5f5f5;
+  font-weight: 500;
+}
+
+.df-mega-cat-row.active {
+  border-left: 3px solid #00897b;
+  padding-left: 17px;
+  color: #00897b;
+}
+
+.df-mega-cat-label {
+  flex: 1;
+}
+
+.df-mega-cat-arrow {
+  color: #bbb;
+  flex-shrink: 0;
+}
+
+.df-mega-cat-row.active .df-mega-cat-arrow {
+  color: #00897b;
+}
+
+/* Column 2 – Subcategories */
+.df-mega-subs {
+  border-right: 1px solid #ebebeb;
+  padding: 20px 24px;
+  background: #fafafa;
+}
+
+.df-mega-sub-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin: 0 0 14px;
+}
+
+.df-mega-sub-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.df-mega-sub-link {
+  display: block;
   text-decoration: none;
   color: #1a1d32;
+  font-size: 14px;
+  padding: 7px 10px;
+  border-radius: 5px;
+  transition: background 0.12s, color 0.12s;
+}
+
+.df-mega-sub-link:hover {
+  background: #e8f5e9;
+  color: #00897b;
+}
+
+/* Column 3 – Promo cards */
+.df-mega-promos {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+}
+
+.df-promo-card {
+  display: flex;
+  align-items: center;
+  background: #fafafa;
+  border: 1px solid #ebebeb;
+  border-radius: 10px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: box-shadow 0.2s, transform 0.2s;
+  min-height: 110px;
+}
+
+.df-promo-card:hover {
+  box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+  transform: translateY(-1px);
+}
+
+.df-promo-card-info {
+  flex: 1;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.df-promo-badge {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a1d32;
+}
+
+.df-promo-brand {
+  font-size: 12px;
+  color: #777;
+}
+
+.df-promo-btn {
+  margin-top: 6px;
+  align-self: flex-start;
+  background: #00897b;
+  color: white;
+  border: none;
+  padding: 7px 18px;
+  border-radius: 5px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
   transition: background 0.2s;
 }
 
-.df-mega-cat-item:hover {
-  background: #f8f9fa;
+.df-promo-btn:hover {
+  background: #00695c;
 }
 
-.df-mega-cat-icon {
-  font-size: 20px;
-}
-
-.df-mega-cat-name {
-  font-weight: 500;
-  font-size: 14px;
-}
-
-.df-club-box {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 16px 24px;
-  padding: 16px;
-  background: linear-gradient(135deg, #00897b 0%, #00695c 100%);
-  border-radius: 8px;
-  text-decoration: none;
-}
-
-.df-club-box-icon {
-  font-size: 28px;
-}
-
-.df-club-box-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.df-club-box-label {
-  color: white;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.df-club-box-title {
-  color: white;
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.df-mega-menu-right {
-  flex: 1;
-  padding: 24px;
-  background: #f8f9fa;
-}
-
-.df-mega-menu-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: #1a1d32;
-  margin: 0 0 20px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.df-blog-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-}
-
-.df-blog-card {
-  text-decoration: none;
-  background: white;
-  border-radius: 8px;
-  overflow: hidden;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.df-blog-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.df-blog-card img {
-  width: 100%;
-  height: 100px;
+.df-promo-img {
+  width: 130px;
+  height: 110px;
   object-fit: cover;
+  flex-shrink: 0;
 }
 
-.df-blog-card-content {
-  padding: 12px;
-}
-
-.df-blog-card-cat {
-  font-size: 10px;
-  font-weight: 600;
-  color: #00897b;
-  text-transform: uppercase;
-}
-
-.df-blog-card h4 {
-  font-size: 12px;
-  font-weight: 600;
-  color: #1a1d32;
-  margin: 4px 0 0;
-  line-height: 1.4;
-}
-
-/* Responsive */
+/* ─── Responsive ───────────────────────────────────────────── */
 @media (max-width: 1024px) {
-  .df-blog-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .df-mega-inner {
+    grid-template-columns: 220px 200px 1fr;
+  }
+
+  .df-nav-links a {
+    padding: 13px 10px;
+    font-size: 12.5px;
   }
 }
 
 @media (max-width: 768px) {
-  .df-menu-btn-mobile {
-    display: block;
-  }
-
   .df-search-bar {
     display: none;
   }
 
   .df-header-actions {
-    gap: 16px;
+    gap: 12px;
   }
 
   .df-nav-links {
     display: none;
   }
 
-  .df-mega-menu-inner {
-    flex-direction: column;
-  }
-
-  .df-mega-menu-left {
-    width: 100%;
-    min-width: 100%;
-  }
-
-  .df-mega-menu-right {
+  .df-nav-right {
     display: none;
   }
 
-  .df-blog-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .df-mega-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .df-mega-subs,
+  .df-mega-promos {
+    display: none;
+  }
+
+  .df-mega-cats {
+    border-right: none;
   }
 }
