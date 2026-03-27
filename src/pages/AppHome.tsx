@@ -173,9 +173,9 @@ export default function AppHome() {
                     <span className="df-product-reviews">({product.reviews})</span>
                   </div>
                   <div className="df-product-price">
-                    <span className="df-price-current">S/{product.price.toFixed(2)}</span>
+                    <span className="df-price-current">€{product.price.toFixed(2)}</span>
                     {product.originalPrice && (
-                      <span className="df-price-original">S/{product.originalPrice.toFixed(2)}</span>
+                      <span className="df-price-original">€{product.originalPrice.toFixed(2)}</span>
                     )}
                   </div>
                   <button className="df-add-cart-btn" onClick={() => addToCart(product, 1)}>
@@ -215,9 +215,9 @@ export default function AppHome() {
                     <span className="df-product-brand">{product.brand}</span>
                     <Link to={`/producto/${product.id}`} className="df-product-name">{product.name}</Link>
                     <div className="df-product-price">
-                      <span className="df-price-current">S/{product.price.toFixed(2)}</span>
+                      <span className="df-price-current">€{product.price.toFixed(2)}</span>
                       {product.originalPrice && (
-                        <span className="df-price-original">S/{product.originalPrice.toFixed(2)}</span>
+                        <span className="df-price-original">€{product.originalPrice.toFixed(2)}</span>
                       )}
                     </div>
                     <button className="df-add-cart-btn" onClick={() => addToCart(product, 1)}>

@@ -80,9 +80,9 @@ export default function ProductoDetalle() {
             </div>
 
             <div className="df-product-price-section">
-              <span className="df-current-price">S/{product.price.toFixed(2)}</span>
+              <span className="df-current-price">€{product.price.toFixed(2)}</span>
               {product.originalPrice && (
-                <span className="df-original-price">S/{product.originalPrice.toFixed(2)}</span>
+                <span className="df-original-price">€{product.originalPrice.toFixed(2)}</span>
               )}
             </div>
 
@@ -119,7 +119,7 @@ export default function ProductoDetalle() {
                 <Truck size={20} />
                 <div>
                   <strong>Envío gratis</strong>
-                  <span>En pedidos mayores a S/35</span>
+                  <span>En pedidos mayores a €35</span>
                 </div>
               </div>
               <div className="df-benefit-row">

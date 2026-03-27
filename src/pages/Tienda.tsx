@@ -154,8 +154,8 @@ export default function Tienda() {
                   onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
                 />
                 <div className="df-price-values">
-                  <span>S/{priceRange[0]}</span>
-                  <span> - S/{priceRange[1]}</span>
+                  <span>€{priceRange[0]}</span>
+                  <span> - €{priceRange[1]}</span>
                 </div>
               </div>
             </div>
@@ -240,9 +240,9 @@ export default function Tienda() {
                       <span className="df-product-brand">{product.brand}</span>
                       <Link to={`/producto/${product.id}`} className="df-product-title">{product.name}</Link>
                       <div className="df-product-price">
-                        <span className="df-price-current">S/{product.price.toFixed(2)}</span>
+                        <span className="df-price-current">€{product.price.toFixed(2)}</span>
                         {product.originalPrice && (
-                          <span className="df-price-original">S/{product.originalPrice.toFixed(2)}</span>
+                          <span className="df-price-original">€{product.originalPrice.toFixed(2)}</span>
                         )}
                       </div>
                       <button className="df-add-btn">Añadir</button>
