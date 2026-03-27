@@ -1,0 +1,252 @@
+.mapa-container {
+  height: calc(100vh - 4.5rem);
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.map-leaflet {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.map-header {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  max-width: calc(100% - 2rem);
+}
+
+.map-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-on-surface);
+}
+
+.map-subtitle {
+  font-size: 0.8125rem;
+  color: var(--color-on-surface-variant);
+  margin: 4px 0 0;
+}
+
+.pharmacy-sidebar {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-height: 50%;
+}
+
+.pharmacy-list-compact {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scrollbar-width: none;
+}
+
+.pharmacy-list-compact::-webkit-scrollbar {
+  display: none;
+}
+
+.pharmacy-card-compact {
+  flex: 0 0 auto;
+  width: 200px;
+  background: white;
+  border-radius: 8px;
+  padding: 0.75rem;
+  display: flex;
+  gap: 0.5rem;
+  border: 1px solid var(--color-surface-container);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pharmacy-card-compact:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.pharmacy-card-compact.active {
+  border-color: var(--color-primary);
+  background: var(--color-primary-container);
+}
+
+.pharmacy-card-icon {
+  width: 2rem;
+  height: 2rem;
+  background: var(--color-primary-container);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.pharmacy-card-compact.active .pharmacy-card-icon {
+  background: var(--color-primary);
+  color: white;
+}
+
+.pharmacy-card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.pharmacy-name {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--color-on-surface);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pharmacy-address {
+  font-size: 0.6875rem;
+  color: var(--color-on-surface-variant);
+  margin: 2px 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pharmacy-meta {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 4px;
+}
+
+.pharmacy-distance,
+.pharmacy-rating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 0.6875rem;
+  color: var(--color-on-surface-variant);
+}
+
+.pharmacy-rating {
+  color: var(--color-tertiary);
+}
+
+.pharmacy-detail-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: var(--shadow-lg);
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.detail-header h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--color-on-surface);
+}
+
+.detail-rating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-tertiary);
+}
+
+.detail-address {
+  font-size: 0.8125rem;
+  color: var(--color-on-surface-variant);
+  margin: 0 0 0.75rem;
+}
+
+.detail-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--color-on-surface);
+}
+
+.detail-item svg {
+  color: var(--color-primary);
+}
+
+.navigate-btn-full {
+  width: 100%;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* Mobile styles */
+@media (max-width: 640px) {
+  .pharmacy-sidebar {
+    bottom: 5rem;
+  }
+  
+  .pharmacy-card-compact {
+    width: 180px;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 768px) {
+  .mapa-container {
+    flex-direction: row;
+  }
+  
+  .map-leaflet {
+    position: relative;
+  }
+  
+  .pharmacy-sidebar {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    width: 360px;
+    flex-direction: column;
+    max-height: 100%;
+    padding: 1rem;
+    background: var(--color-surface-container-low);
+  }
+  
+  .pharmacy-list-compact {
+    flex-direction: column;
+    overflow-y: auto;
+    max-height: 50%;
+  }
+  
+  .pharmacy-card-compact {
+    width: 100%;
+  }
+}

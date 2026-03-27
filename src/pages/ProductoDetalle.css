@@ -1,0 +1,349 @@
+.df-product-page {
+  padding: 20px 0 60px;
+}
+
+.df-product-page .df-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.df-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  margin-bottom: 20px;
+  color: #666;
+}
+
+.df-breadcrumb a {
+  color: #00897b;
+  text-decoration: none;
+}
+
+.df-breadcrumb span:last-child {
+  color: #1a1d32;
+}
+
+.df-not-found {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.df-not-found h1 {
+  font-size: 24px;
+  color: #1a1d32;
+}
+
+.df-not-found p {
+  color: #666;
+  margin: 12px 0 24px;
+}
+
+.df-primary-btn {
+  display: inline-block;
+  background: #00897b;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.df-product-layout {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+/* Gallery */
+.df-product-gallery {
+  width: 450px;
+  min-width: 450px;
+}
+
+.df-main-image {
+  position: relative;
+  background: #f8f9fa;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 1;
+}
+
+.df-main-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.df-badge-offer {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: #ff6b6b;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.df-badge-discount {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: #00897b;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Info */
+.df-product-info {
+  flex: 1;
+}
+
+.df-product-brand {
+  font-size: 13px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.df-product-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1d32;
+  margin: 8px 0 16px;
+  line-height: 1.3;
+}
+
+.df-product-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.df-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.df-rating-value {
+  font-weight: 600;
+  color: #1a1d32;
+}
+
+.df-reviews-count {
+  color: #666;
+  font-size: 13px;
+}
+
+.df-product-price-section {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.df-current-price {
+  font-size: 32px;
+  font-weight: 800;
+  color: #1a1d32;
+}
+
+.df-original-price {
+  font-size: 18px;
+  color: #999;
+  text-decoration: line-through;
+}
+
+.df-stock-warning {
+  background: #fff3e0;
+  color: #e65100;
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.df-quantity-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.df-quantity-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1d32;
+}
+
+.df-quantity-controls {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.df-qty-btn {
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.df-qty-btn:hover {
+  background: #f8f9fa;
+}
+
+.df-qty-value {
+  width: 50px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.df-product-actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.df-add-to-cart-btn {
+  flex: 1;
+  padding: 16px 32px;
+  background: #00897b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.df-add-to-cart-btn:hover {
+  background: #007a6a;
+}
+
+.df-favorite-btn {
+  width: 56px;
+  height: 56px;
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.df-favorite-btn:hover {
+  background: #ffebee;
+  border-color: #ff6b6b;
+}
+
+.df-product-benefits {
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+.df-benefit-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.df-benefit-row svg {
+  color: #00897b;
+}
+
+.df-benefit-row strong {
+  display: block;
+  font-size: 14px;
+  color: #1a1d32;
+}
+
+.df-benefit-row span {
+  font-size: 13px;
+  color: #666;
+}
+
+/* Sections */
+.df-product-section {
+  border-top: 1px solid #eee;
+  padding: 24px 0;
+}
+
+.df-product-section h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1d32;
+  margin: 0 0 16px;
+}
+
+.df-product-section p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #666;
+  margin: 0;
+}
+
+.df-features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.df-features-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  font-size: 14px;
+  color: #1a1d32;
+}
+
+.df-features-list svg {
+  color: #00897b;
+}
+
+@media (max-width: 1024px) {
+  .df-product-layout {
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .df-product-gallery {
+    width: 100%;
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .df-current-price {
+    font-size: 24px;
+  }
+  
+  .df-product-actions {
+    flex-direction: column;
+  }
+  
+  .df-favorite-btn {
+    width: 100%;
+  }
+}

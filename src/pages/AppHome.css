@@ -1,0 +1,585 @@
+.df-home {
+  padding-bottom: 40px;
+}
+
+/* Hero */
+.df-hero {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+}
+
+.df-hero-slide {
+  position: relative;
+  height: 100%;
+}
+
+.df-hero-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.df-hero-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, transparent 70%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 60px;
+  color: white;
+}
+
+.df-hero-content h1 {
+  font-size: 42px;
+  font-weight: 800;
+  margin: 0 0 12px;
+  line-height: 1.1;
+}
+
+.df-hero-content p {
+  font-size: 18px;
+  margin: 0 0 24px;
+  opacity: 0.9;
+}
+
+.df-hero-btn {
+  display: inline-block;
+  background: #00897b;
+  color: white;
+  padding: 14px 32px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  width: fit-content;
+  transition: background 0.2s;
+}
+
+.df-hero-btn:hover {
+  background: #007a6a;
+}
+
+/* Quick Links */
+.df-quick-links {
+  background: #f8f9fa;
+  padding: 16px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.df-quick-links-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.df-quick-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  background: white;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #1a1d32;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.2s;
+  border: 1px solid #eee;
+}
+
+.df-quick-link:hover {
+  border-color: #00897b;
+  transform: translateY(-2px);
+}
+
+.df-quick-link-icon {
+  font-size: 20px;
+}
+
+/* Promo Section */
+.df-promo-section {
+  padding: 24px 0;
+}
+
+.df-promo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.df-promo-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  display: block;
+  height: 160px;
+}
+
+.df-promo-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s;
+}
+
+.df-promo-card:hover img {
+  transform: scale(1.05);
+}
+
+.df-promo-card-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, transparent 100%);
+}
+
+.df-promo-tag {
+  background: #ff6b6b;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  width: fit-content;
+  margin-bottom: 8px;
+}
+
+.df-promo-card-content h3 {
+  color: white;
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0 0 4px;
+}
+
+.df-promo-card-content p {
+  color: rgba(255,255,255,0.85);
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Categories */
+.df-categories-section {
+  padding: 32px 0;
+}
+
+.df-section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1d32;
+  margin: 0 0 20px;
+}
+
+.df-categories-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+}
+
+.df-category-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 12px;
+  background: white;
+  border-radius: 8px;
+  text-decoration: none;
+  border: 1px solid #eee;
+  transition: all 0.2s;
+}
+
+.df-category-card:hover {
+  border-color: #00897b;
+  transform: translateY(-2px);
+}
+
+.df-category-icon {
+  font-size: 32px;
+}
+
+.df-category-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1a1d32;
+  text-align: center;
+}
+
+/* Products Section */
+.df-products-section {
+  padding: 32px 0;
+}
+
+.df-offers-section {
+  background: #fff9f9;
+  margin: 0 -16px;
+  padding: 32px 16px;
+}
+
+.df-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.df-section-header .df-section-title {
+  margin: 0;
+}
+
+.df-carousel-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.df-carousel-controls button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.df-carousel-controls button:hover {
+  background: #00897b;
+  border-color: #00897b;
+  color: white;
+}
+
+.df-view-all {
+  color: #00897b;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.df-products-carousel {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding-bottom: 16px;
+}
+
+.df-products-carousel::-webkit-scrollbar {
+  height: 6px;
+}
+
+.df-products-carousel::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.df-products-carousel::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+.df-product-card {
+  flex: 0 0 240px;
+  scroll-snap-align: start;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #eee;
+  transition: all 0.2s;
+}
+
+.df-product-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.df-product-image {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  background: #f8f9fa;
+}
+
+.df-product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.df-product-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: #ff6b6b;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.df-offer-badge {
+  background: #00897b;
+}
+
+.df-product-info {
+  padding: 14px;
+}
+
+.df-product-brand {
+  font-size: 11px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.df-product-name {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1d32;
+  text-decoration: none;
+  margin: 6px 0;
+  line-height: 1.4;
+  min-height: 36px;
+}
+
+.df-product-name:hover {
+  color: #00897b;
+}
+
+.df-product-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.df-product-reviews {
+  color: #999;
+}
+
+.df-product-price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.df-price-current {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1d32;
+}
+
+.df-price-original {
+  font-size: 14px;
+  color: #999;
+  text-decoration: line-through;
+}
+
+.df-add-cart-btn {
+  width: 100%;
+  padding: 10px;
+  background: #00897b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.df-add-cart-btn:hover {
+  background: #007a6a;
+}
+
+/* Brands */
+.df-brands-section {
+  padding: 32px 0;
+}
+
+.df-brands-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.df-brand-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  text-decoration: none;
+  border: 1px solid #eee;
+  transition: all 0.2s;
+}
+
+.df-brand-card:hover {
+  border-color: #00897b;
+}
+
+.df-brand-logo {
+  width: 50px;
+  height: 50px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.df-brand-name {
+  font-size: 12px;
+  color: #666;
+}
+
+/* Benefits */
+.df-benefits-section {
+  padding: 32px 0;
+  background: #f8f9fa;
+}
+
+.df-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.df-benefit {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.df-benefit-icon {
+  font-size: 32px;
+}
+
+.df-benefit h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1d32;
+  margin: 0 0 2px;
+}
+
+.df-benefit p {
+  font-size: 12px;
+  color: #666;
+  margin: 0;
+}
+
+/* CTA */
+.df-cta-section {
+  padding: 40px 0;
+}
+
+.df-cta-content {
+  background: linear-gradient(135deg, #1a1d32 0%, #2d3142 100%);
+  border-radius: 12px;
+  padding: 48px;
+  text-align: center;
+  color: white;
+}
+
+.df-cta-content h2 {
+  font-size: 24px;
+  margin: 0 0 8px;
+}
+
+.df-cta-content p {
+  font-size: 16px;
+  opacity: 0.9;
+  margin: 0 0 24px;
+}
+
+.df-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  color: #1a1d32;
+  padding: 14px 28px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.2s;
+}
+
+.df-cta-btn:hover {
+  transform: scale(1.02);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .df-categories-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .df-benefits-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .df-hero {
+    height: 280px;
+  }
+  
+  .df-hero-content {
+    padding: 0 24px;
+  }
+  
+  .df-hero-content h1 {
+    font-size: 28px;
+  }
+  
+  .df-quick-links-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .df-promo-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .df-categories-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .df-product-card {
+    flex: 0 0 200px;
+  }
+  
+  .df-brands-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .df-benefits-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .df-cta-content {
+    padding: 32px 20px;
+  }
+}
