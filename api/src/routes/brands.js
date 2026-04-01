@@ -1,10 +1,19 @@
 import express from 'express';
-import { brands } from '../../data/data.js';
+import { supabase } from '../supabase.js';
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.json(brands);
+router.get('/', async (req, res) => {
+  const { data, error } = await supabase
+    .from('brands')
+    .select('*')
+    .order('name');
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.json(data || []);
 });
 
 export default router;

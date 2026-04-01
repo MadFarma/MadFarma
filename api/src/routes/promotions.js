@@ -1,29 +1,57 @@
 import express from 'express';
-import { promotions } from '../../data/data.js';
+import { supabase } from '../supabase.js';
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  const active = promotions.filter(p => p.active);
-  res.json(active);
+router.get('/', async (req, res) => {
+  const { data, error } = await supabase
+    .from('coupons')
+    .select('*')
+    .eq('active', true);
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  const promotions = (data || []).map(c => ({
+    id: c.id,
+    code: c.code,
+    title: c.description,
+    description: c.description,
+    discount: c.discount,
+    minPurchase: c.min_purchase,
+    active: c.active,
+  }));
+
+  res.json(promotions);
 });
 
-router.post('/validate', (req, res) => {
+router.post('/validate', async (req, res) => {
   const { code, total } = req.body;
-  const promo = promotions.find(p => p.code === code && p.active);
   
-  if (!promo) {
+  const { data: coupon, error } = await supabase
+    .from('coupons')
+    .select('*')
+    .eq('code', code.toUpperCase())
+    .eq('active', true)
+    .single();
+
+  if (error || !coupon) {
     return res.status(404).json({ valid: false, error: 'Cupón no válido' });
   }
   
-  if (promo.minPurchase > total) {
+  if (coupon.min_purchase && total < coupon.min_purchase) {
     return res.status(400).json({ 
       valid: false, 
-      error: `Minimum purchase: €${promo.minPurchase}` 
+      error: `Compra mínima: €${coupon.min_purchase}` 
     });
   }
   
-  res.json({ valid: true, discount: promo.discount });
+  res.json({ 
+    valid: true, 
+    discount: coupon.discount,
+    type: coupon.discount_type 
+  });
 });
 
 export default router;

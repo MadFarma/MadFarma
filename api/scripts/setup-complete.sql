@@ -2,8 +2,24 @@
 -- BOTICA ONLINE - COMPLETE DATABASE SCHEMA
 -- =============================================
 
+DROP TABLE IF EXISTS order_items CASCADE;
+DROP TABLE IF EXISTS orders CASCADE;
+DROP TABLE IF EXISTS cart_items CASCADE;
+DROP TABLE IF EXISTS favorites CASCADE;
+DROP TABLE IF EXISTS user_achievements CASCADE;
+DROP TABLE IF EXISTS user_challenges CASCADE;
+DROP TABLE IF EXISTS addresses CASCADE;
+DROP TABLE IF EXISTS reviews CASCADE;
+DROP TABLE IF EXISTS products CASCADE;
+DROP TABLE IF EXISTS categories CASCADE;
+DROP TABLE IF EXISTS brands CASCADE;
+DROP TABLE IF EXISTS coupons CASCADE;
+DROP TABLE IF EXISTS challenges CASCADE;
+DROP TABLE IF EXISTS achievements CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+
 -- Users table
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE users (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   email TEXT UNIQUE NOT NULL,
   name TEXT NOT NULL,
@@ -19,22 +35,8 @@ CREATE TABLE IF NOT EXISTS users (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- Addresses table
-CREATE TABLE IF NOT EXISTS addresses (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-  name TEXT NOT NULL,
-  street TEXT NOT NULL,
-  city TEXT NOT NULL,
-  district TEXT,
-  postal_code TEXT,
-  reference TEXT,
-  is_default BOOLEAN DEFAULT false,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
 -- Categories table
-CREATE TABLE IF NOT EXISTS categories (
+CREATE TABLE categories (
   id TEXT PRIMARY KEY,
   name TEXT NOT NULL,
   icon TEXT,
@@ -43,7 +45,7 @@ CREATE TABLE IF NOT EXISTS categories (
 );
 
 -- Brands table
-CREATE TABLE IF NOT EXISTS brands (
+CREATE TABLE brands (
   id TEXT PRIMARY KEY,
   name TEXT NOT NULL,
   logo TEXT,
@@ -51,7 +53,7 @@ CREATE TABLE IF NOT EXISTS brands (
 );
 
 -- Products table
-CREATE TABLE IF NOT EXISTS products (
+CREATE TABLE products (
   id TEXT PRIMARY KEY,
   name TEXT NOT NULL,
   description TEXT,
@@ -60,9 +62,9 @@ CREATE TABLE IF NOT EXISTS products (
   original_price NUMERIC,
   image TEXT,
   images JSONB DEFAULT '[]'::jsonb,
-  category TEXT REFERENCES categories(id),
+  category TEXT,
   subcategory TEXT,
-  brand TEXT REFERENCES brands(id),
+  brand TEXT,
   rating NUMERIC DEFAULT 0,
   reviews INTEGER DEFAULT 0,
   stock INTEGER DEFAULT 0,
@@ -78,24 +80,12 @@ CREATE TABLE IF NOT EXISTS products (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- Reviews table
-CREATE TABLE IF NOT EXISTS reviews (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  product_id TEXT REFERENCES products(id) ON DELETE CASCADE,
-  user_id UUID REFERENCES users(id) ON DELETE SET NULL,
-  user_name TEXT,
-  rating INTEGER NOT NULL CHECK (rating >= 1 AND rating <= 5),
-  comment TEXT,
-  verified BOOLEAN DEFAULT false,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
 -- Coupons table
-CREATE TABLE IF NOT EXISTS coupons (
+CREATE TABLE coupons (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   code TEXT UNIQUE NOT NULL,
   discount NUMERIC NOT NULL,
-  discount_type TEXT DEFAULT 'percent' CHECK (discount_type IN ('percent', 'fixed')),
+  discount_type TEXT DEFAULT 'percent',
   min_purchase NUMERIC DEFAULT 0,
   description TEXT,
   expires_at TIMESTAMP WITH TIME ZONE,
@@ -104,10 +94,10 @@ CREATE TABLE IF NOT EXISTS coupons (
 );
 
 -- Orders table
-CREATE TABLE IF NOT EXISTS orders (
+CREATE TABLE orders (
   id TEXT PRIMARY KEY,
-  user_id UUID REFERENCES users(id) ON DELETE SET NULL,
-  status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'processing', 'shipped', 'delivered', 'cancelled')),
+  user_id UUID,
+  status TEXT DEFAULT 'pending',
   subtotal NUMERIC NOT NULL,
   discount NUMERIC DEFAULT 0,
   shipping NUMERIC DEFAULT 0,
@@ -121,10 +111,10 @@ CREATE TABLE IF NOT EXISTS orders (
 );
 
 -- Order Items table
-CREATE TABLE IF NOT EXISTS order_items (
+CREATE TABLE order_items (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  order_id TEXT REFERENCES orders(id) ON DELETE CASCADE,
-  product_id TEXT REFERENCES products(id),
+  order_id TEXT,
+  product_id TEXT,
   product_name TEXT,
   product_image TEXT,
   price NUMERIC NOT NULL,
@@ -132,32 +122,30 @@ CREATE TABLE IF NOT EXISTS order_items (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- Cart Items table (for logged users)
-CREATE TABLE IF NOT EXISTS cart_items (
+-- Cart Items table
+CREATE TABLE cart_items (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-  product_id TEXT REFERENCES products(id),
+  user_id UUID,
+  product_id TEXT,
   quantity INTEGER DEFAULT 1,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  UNIQUE(user_id, product_id)
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 -- Favorites table
-CREATE TABLE IF NOT EXISTS favorites (
+CREATE TABLE favorites (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-  product_id TEXT REFERENCES products(id),
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  UNIQUE(user_id, product_id)
+  user_id UUID,
+  product_id TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 -- Challenges table
-CREATE TABLE IF NOT EXISTS challenges (
+CREATE TABLE challenges (
   id TEXT PRIMARY KEY,
   title TEXT NOT NULL,
   description TEXT,
   points INTEGER DEFAULT 0,
-  type TEXT CHECK (type IN ('daily', 'weekly', 'purchase', 'referral', 'streak')),
+  type TEXT,
   target INTEGER DEFAULT 1,
   reward TEXT,
   expires_at TIMESTAMP WITH TIME ZONE,
@@ -165,10 +153,10 @@ CREATE TABLE IF NOT EXISTS challenges (
 );
 
 -- User Challenges
-CREATE TABLE IF NOT EXISTS user_challenges (
+CREATE TABLE user_challenges (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-  challenge_id TEXT REFERENCES challenges(id),
+  user_id UUID,
+  challenge_id TEXT,
   progress INTEGER DEFAULT 0,
   completed BOOLEAN DEFAULT false,
   completed_at TIMESTAMP WITH TIME ZONE,
@@ -176,7 +164,7 @@ CREATE TABLE IF NOT EXISTS user_challenges (
 );
 
 -- Achievements
-CREATE TABLE IF NOT EXISTS achievements (
+CREATE TABLE achievements (
   id TEXT PRIMARY KEY,
   title TEXT NOT NULL,
   description TEXT,
@@ -185,14 +173,57 @@ CREATE TABLE IF NOT EXISTS achievements (
 );
 
 -- User Achievements
-CREATE TABLE IF NOT EXISTS user_achievements (
+CREATE TABLE user_achievements (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-  achievement_id TEXT REFERENCES achievements(id),
+  user_id UUID,
+  achievement_id TEXT,
   unlocked BOOLEAN DEFAULT false,
   unlocked_at TIMESTAMP WITH TIME ZONE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
+
+-- Addresses table
+CREATE TABLE addresses (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID,
+  name TEXT NOT NULL,
+  street TEXT NOT NULL,
+  city TEXT NOT NULL,
+  district TEXT,
+  postal_code TEXT,
+  reference TEXT,
+  is_default BOOLEAN DEFAULT false,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Reviews table
+CREATE TABLE reviews (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  product_id TEXT,
+  user_id UUID,
+  user_name TEXT,
+  rating INTEGER NOT NULL,
+  comment TEXT,
+  verified BOOLEAN DEFAULT false,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Disable RLS for simplicity
+ALTER TABLE users DISABLE ROW LEVEL SECURITY;
+ALTER TABLE categories DISABLE ROW LEVEL SECURITY;
+ALTER TABLE brands DISABLE ROW LEVEL SECURITY;
+ALTER TABLE products DISABLE ROW LEVEL SECURITY;
+ALTER TABLE coupons DISABLE ROW LEVEL SECURITY;
+ALTER TABLE orders DISABLE ROW LEVEL SECURITY;
+ALTER TABLE order_items DISABLE ROW LEVEL SECURITY;
+ALTER TABLE cart_items DISABLE ROW LEVEL SECURITY;
+ALTER TABLE favorites DISABLE ROW LEVEL SECURITY;
+ALTER TABLE challenges DISABLE ROW LEVEL SECURITY;
+ALTER TABLE user_challenges DISABLE ROW LEVEL SECURITY;
+ALTER TABLE achievements DISABLE ROW LEVEL SECURITY;
+ALTER TABLE user_achievements DISABLE ROW LEVEL SECURITY;
+ALTER TABLE addresses DISABLE ROW LEVEL SECURITY;
+ALTER TABLE reviews DISABLE ROW LEVEL SECURITY;
 
 -- =============================================
 -- DATA SEED
@@ -205,8 +236,7 @@ INSERT INTO categories (id, name, icon, subcategories) VALUES
 ('higiene', 'Higiene', '🧼', '[{"id":"higiene-bucal","name":"Higiene Bucal"},{"id":"higiene-cabello","name":"Cabello"},{"id":"higiene-corporal","name":"Corporal"},{"id":"higiene-intima","name":"Íntima"}]'),
 ('dietetica-nutricion', 'Dietética y Nutrición', '🥗', '[{"id":"vitaminas","name":"Vitaminas"},{"id":"complementos","name":"Complementos"},{"id":"adelgazar","name":"Adelgazar"},{"id":"deportistas","name":"Deportistas"},{"id":"nutricosmetica","name":"Nutricosmética"},{"id":"herbolario","name":"Herbolario"},{"id":"diabetes","name":"Diabetes"}]'),
 ('medicamentos', 'Medicamentos', '💊', '[{"id":"dolores","name":"Dolores y Fiebre"},{"id":"resfriado","name":"Resfriado y Gripe"},{"id":"alergia","name":"Alergia"},{"id":"digestivo","name":"Digestivo"},{"id":"dermatologicos","name":"Dermatológicos"},{"id":"oftalmicos","name":"Oftálmicos"}]'),
-('salud-sexual', 'Salud Sexual', '💑', '[{"id":"anticonceptivos","name":"Anticonceptivos"},{"id":"test-embarazo","name":"Test de Embarazo"},{"id":"lubricantes","name":"Lubricantes"},{"id":"viagra","name":"Disfunción Eréctil"}]')
-ON CONFLICT (id) DO NOTHING;
+('salud-sexual', 'Salud Sexual', '💑', '[{"id":"anticonceptivos","name":"Anticonceptivos"},{"id":"test-embarazo","name":"Test de Embarazo"},{"id":"lubricantes","name":"Lubricantes"},{"id":"viagra","name":"Disfunción Eréctil"}]');
 
 -- Brands
 INSERT INTO brands (id, name, logo) VALUES
@@ -219,8 +249,7 @@ INSERT INTO brands (id, name, logo) VALUES
 ('7', 'Listerine', 'https://images.unsplash.com/photo-1559594861-c66710ae4c3c?w=200'),
 ('8', 'Colgate', 'https://images.unsplash.com/photo-1559594861-c66710ae4c3c?w=200'),
 ('9', 'Aquilea', 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=200'),
-('10', 'Arkopharma', 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=200')
-ON CONFLICT (id) DO NOTHING;
+('10', 'Arkopharma', 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=200');
 
 -- Products
 INSERT INTO products (id, name, description, description_full, price, original_price, image, images, category, subcategory, brand, rating, reviews, stock, in_stock, badge, points, featured, composition, how_to_use) VALUES
@@ -242,16 +271,14 @@ INSERT INTO products (id, name, description, description_full, price, original_p
 ('16', 'Enfamil Leche de Inicio 1', 'Leche de inicio para bebés 0-6 meses', 'Fórmula infantil para lactantes desde el nacimiento hasta 6 meses.', 24.90, NULL, 'https://images.unsplash.com/photo-1555252333-978fe3c7e824?w=500', '[]', 'bebe-mama', 'alimentacion', 'Enfamil', 4.9, 142, 30, true, 'bestseller', 25, true, 'Leche descremada, Lactosa, DHA', 'Seguir instrucciones del pediatra'),
 ('17', 'Evra Parche Anticonceptivo', 'Parche anticonceptivo semanal', 'Parche transdérmico anticonceptivo con eficacia del 99%.', 39.90, NULL, 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500', '[]', 'salud-sexual', 'anticonceptivos', 'Evra', 4.5, 34, 12, true, NULL, 40, true, 'Norelgestromina, Etinilestradiol', 'Cambiar cada semana'),
 ('18', 'Durex Preservativos Classic', 'Caja de 12 preservativos', 'Preservativos lubricados de látex natural.', 9.50, 12.90, 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500', '[]', 'salud-sexual', 'anticonceptivos', 'Durex', 4.5, 3456, 150, true, 'sale', 10, true, 'Látex de caucho natural', 'Usar antes de la relación'),
-('19', 'Clearblue Test de Embarazo', 'Test de embarazo digital', 'Test de embarazo digital con indicador de semanas.', 14.90, NULL, 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500', '[]', 'salud-sexual', 'test-embarazo', 'Clearblue', 4.7, 2134, 40, true, NULL, 15, true, 'Detección de hormona hCG', 'Seguir instrucciones del paquete')
-ON CONFLICT (id) DO NOTHING;
+('19', 'Clearblue Test de Embarazo', 'Test de embarazo digital', 'Test de embarazo digital con indicador de semanas.', 14.90, NULL, 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500', '[]', 'salud-sexual', 'test-embarazo', 'Clearblue', 4.7, 2134, 40, true, NULL, 15, true, 'Detección de hormona hCG', 'Seguir instrucciones del paquete');
 
 -- Coupons
 INSERT INTO coupons (code, discount, discount_type, min_purchase, description, expires_at, active) VALUES
 ('BIENVENIDO15', 15, 'percent', 50, '15% de descuento en tu primera compra', NULL, true),
 ('SALUD20', 20, 'percent', 50, '20% de descuento en pedidos mayores a 50€', NULL, true),
 ('ENVIOGRATIS', 5, 'fixed', 35, '5€ de descuento (envío gratis desde 35€)', NULL, true),
-('PUNTOS25', 25, 'percent', 0, '25% de descuento por tus puntos', NULL, true)
-ON CONFLICT (code) DO NOTHING;
+('PUNTOS25', 25, 'percent', 0, '25% de descuento por tus puntos', NULL, true);
 
 -- Challenges
 INSERT INTO challenges (id, title, description, points, type, target, reward, active) VALUES
@@ -261,8 +288,7 @@ INSERT INTO challenges (id, title, description, points, type, target, reward, ac
 ('purchase_1', 'Compra skincare', '3 productos de cuidado facial', 100, 'purchase', 3, NULL, true),
 ('purchase_2', 'Primera compra del mes', 'Realiza una compra', 75, 'purchase', 1, NULL, true),
 ('referral_1', 'Invita a un amigo', 'Comparte tu código', 150, 'referral', 1, NULL, true),
-('streak_1', 'Mantén la racha', '7 días comprando', 300, 'streak', 7, 'Badge Exclusivo', true)
-ON CONFLICT (id) DO NOTHING;
+('streak_1', 'Mantén la racha', '7 días comprando', 300, 'streak', 7, 'Badge Exclusivo', true);
 
 -- Achievements
 INSERT INTO achievements (id, title, description, icon, points_required) VALUES
@@ -271,24 +297,6 @@ INSERT INTO achievements (id, title, description, icon, points_required) VALUES
 ('points_5000', 'Veterano', 'Acumula 5000 puntos', '🏆', 5000),
 ('referral_1', 'Embajador', 'Referencia a 1 amigo', '🤝', 1),
 ('referral_5', 'Líder', 'Referencia 5 amigos', '👑', 5),
-('streak_7', 'Racha Semanal', '7 días consecutivos', '🔥', 7)
-ON CONFLICT (id) DO NOTHING;
-
--- Disable RLS for simplicity (configure later for security)
-ALTER TABLE users DISABLE ROW LEVEL SECURITY;
-ALTER TABLE addresses DISABLE ROW LEVEL SECURITY;
-ALTER TABLE categories DISABLE ROW LEVEL SECURITY;
-ALTER TABLE brands DISABLE ROW LEVEL SECURITY;
-ALTER TABLE products DISABLE ROW LEVEL SECURITY;
-ALTER TABLE reviews DISABLE ROW LEVEL SECURITY;
-ALTER TABLE coupons DISABLE ROW LEVEL SECURITY;
-ALTER TABLE orders DISABLE ROW LEVEL SECURITY;
-ALTER TABLE order_items DISABLE ROW LEVEL SECURITY;
-ALTER TABLE cart_items DISABLE ROW LEVEL SECURITY;
-ALTER TABLE favorites DISABLE ROW LEVEL SECURITY;
-ALTER TABLE challenges DISABLE ROW LEVEL SECURITY;
-ALTER TABLE user_challenges DISABLE ROW LEVEL SECURITY;
-ALTER TABLE achievements DISABLE ROW LEVEL SECURITY;
-ALTER TABLE user_achievements DISABLE ROW LEVEL SECURITY;
+('streak_7', 'Racha Semanal', '7 días consecutivos', '🔥', 7);
 
 SELECT 'Database setup complete!' as result;

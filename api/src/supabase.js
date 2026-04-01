@@ -1,19 +1,11 @@
 import { createClient } from '@supabase/supabase-js';
-import fs from 'fs';
-import path from 'path';
 
-const envPath = path.join(process.cwd(), '.env');
-const envFile = fs.readFileSync(envPath, 'utf-8');
-const envVars = Object.fromEntries(
-  envFile.split('\n').filter(Boolean).map(line => line.split('='))
-);
-
-const supabaseUrl = envVars.SUPABASE_URL;
-const supabaseKey = envVars.SUPABASE_ANON_KEY;
+const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseKey) {
   console.error('Missing SUPABASE_URL or SUPABASE_ANON_KEY');
-  process.exit(1);
+  console.log('Available env vars:', Object.keys(process.env).filter(k => k.includes('SUPABASE')));
 }
 
 export const supabase = createClient(supabaseUrl, supabaseKey);

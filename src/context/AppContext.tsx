@@ -616,9 +616,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   const logout = async () => {
-    await supabase.auth.signOut();
-    setUser(defaultUser);
-    localStorage.removeItem('user');
+    try {
+      await supabase.auth.signOut();
+    } catch (error) {
+      console.error('Error signing out from Supabase:', error);
+    } finally {
+      setUser(defaultUser);
+      localStorage.removeItem('user');
+      // Forzar recarga para limpiar cualquier estado persistente
+      window.location.href = '/';
+    }
   };
 
   const register = async (data: { email: string; password: string; name: string; phone: string }): Promise<boolean> => {

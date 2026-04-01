@@ -1,9 +1,9 @@
 import express from 'express';
 import Stripe from 'stripe';
 
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '');
+
 const router = express.Router();
-// El proceso es usar STRIPE_SECRET_KEY de un .env
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 router.post('/create-checkout-session', async (req, res) => {
   try {

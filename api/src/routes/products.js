@@ -1,88 +1,169 @@
 import express from 'express';
-import { products } from '../../data/data.js';
+import { supabase } from '../supabase.js';
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   const { category, subcategory, brand, search, minPrice, maxPrice, sort, limit } = req.query;
   
-  let filtered = [...products];
+  let query = supabase.from('products').select('*');
 
   if (category && category !== 'all') {
-    filtered = filtered.filter(p => p.category === category);
+    query = query.eq('category', category);
   }
   
   if (subcategory && subcategory !== 'all') {
-    filtered = filtered.filter(p => p.subcategory === subcategory);
+    query = query.eq('subcategory', subcategory);
   }
   
   if (brand) {
-    filtered = filtered.filter(p => p.brand.toLowerCase().includes(brand.toLowerCase()));
+    query = query.ilike('brand', `%${brand}%`);
   }
   
   if (search) {
-    const searchLower = search.toLowerCase();
-    filtered = filtered.filter(p => 
-      p.name.toLowerCase().includes(searchLower) ||
-      p.description.toLowerCase().includes(searchLower) ||
-      p.brand.toLowerCase().includes(searchLower)
-    );
+    query = query.or(`name.ilike.%${search}%,description.ilike.%${search}%`);
   }
   
   if (minPrice) {
-    filtered = filtered.filter(p => p.price >= parseFloat(minPrice));
+    query = query.gte('price', parseFloat(minPrice));
   }
   
   if (maxPrice) {
-    filtered = filtered.filter(p => p.price <= parseFloat(maxPrice));
+    query = query.lte('price', parseFloat(maxPrice));
   }
 
   if (sort) {
     switch (sort) {
       case 'price-asc':
-        filtered.sort((a, b) => a.price - b.price);
+        query = query.order('price', { ascending: true });
         break;
       case 'price-desc':
-        filtered.sort((a, b) => b.price - a.price);
+        query = query.order('price', { ascending: false });
         break;
       case 'rating':
-        filtered.sort((a, b) => b.rating - a.rating);
+        query = query.order('rating', { ascending: false });
         break;
       case 'reviews':
-        filtered.sort((a, b) => b.reviews - a.reviews);
+        query = query.order('reviews', { ascending: false });
         break;
       case 'newest':
-        filtered.sort((a, b) => (b.badge === 'new' ? 1 : 0) - (a.badge === 'new' ? 1 : 0));
+        query = query.order('created_at', { ascending: false });
         break;
+      default:
+        query = query.order('id', { ascending: true });
     }
+  } else {
+    query = query.order('id', { ascending: true });
   }
 
   if (limit) {
-    filtered = filtered.slice(0, parseInt(limit));
+    query = query.limit(parseInt(limit));
   }
 
+  const { data, error } = await query;
+  
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  const products = (data || []).map(p => ({
+    id: p.id,
+    name: p.name,
+    price: p.price,
+    originalPrice: p.original_price,
+    category: p.category,
+    subcategory: p.subcategory,
+    brand: p.brand,
+    image: p.image,
+    images: p.images,
+    badge: p.badge,
+    description: p.description,
+    descriptionFull: p.description_full,
+    points: p.points,
+    inStock: p.in_stock,
+    stockCount: p.stock,
+    rating: p.rating,
+    reviews: p.reviews,
+    features: p.features,
+    composition: p.composition,
+    howToUse: p.how_to_use,
+    ageGroup: p.age_group,
+    skinType: p.skin_type,
+  }));
+
   res.json({
-    total: filtered.length,
-    data: filtered
+    total: products.length,
+    data: products
   });
 });
 
-router.get('/featured', (req, res) => {
-  const featured = products.filter(p => p.featured);
-  res.json(featured);
-});
+router.get('/featured', async (req, res) => {
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .eq('featured', true)
+    .limit(8);
 
-router.get('/offers', (req, res) => {
-  const offers = products.filter(p => p.badge === 'offer');
-  res.json(offers);
-});
-
-router.get('/:id', (req, res) => {
-  const product = products.find(p => p.id === req.params.id);
-  if (!product) {
-    return res.status(404).json({ error: 'Producto no encontrado' });
+  if (error) {
+    return res.status(500).json({ error: error.message });
   }
-  res.json(product);
+
+  res.json(data || []);
+});
+
+router.get('/offers', async (req, res) => {
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .in('badge', ['sale', '2x1'])
+    .not('original_price', 'is', null)
+    .limit(8);
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.json(data || []);
+});
+
+router.get('/:id', async (req, res) => {
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .eq('id', req.params.id)
+    .single();
+
+  if (error) {
+    if (error.code === 'PGRST116') {
+      return res.status(404).json({ error: 'Producto no encontrado' });
+    }
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.json({
+    id: data.id,
+    name: data.name,
+    price: data.price,
+    originalPrice: data.original_price,
+    category: data.category,
+    subcategory: data.subcategory,
+    brand: data.brand,
+    image: data.image,
+    images: data.images,
+    badge: data.badge,
+    description: data.description,
+    descriptionFull: data.description_full,
+    points: data.points,
+    inStock: data.in_stock,
+    stockCount: data.stock,
+    rating: data.rating,
+    reviews: data.reviews,
+    features: data.features,
+    composition: data.composition,
+    howToUse: data.how_to_use,
+    ageGroup: data.age_group,
+    skinType: data.skin_type,
+  });
 });
 
 export default router;

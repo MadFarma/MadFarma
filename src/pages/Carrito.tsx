@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { ShoppingCart, Plus, Minus, Trash2, Gift, CreditCard, ArrowLeft, Check, Tag, MapPin, Truck, Loader2 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { api } from '../utils/api';
-import { loadStripe } from '@stripe/stripe-js';
 import './Carrito.css';
 
 export default function Carrito() {
