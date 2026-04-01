@@ -157,6 +157,24 @@ export const api = {
       return { data };
     },
   },
+  
+  checkout: {
+    createSession: async (data: {
+      items: any[];
+      userId: string;
+      shippingAddress: any;
+      success_url: string;
+      cancel_url: string;
+    }) => {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || '/api'}/checkout/create-checkout-session`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error('Error creating checkout session');
+      return res.json();
+    }
+  }
 };
 
 // Mapea nombres de columnas de Supabase (snake_case) al formato del frontend (camelCase)

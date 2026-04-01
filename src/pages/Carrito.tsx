@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Plus, Minus, Trash2, Gift, CreditCard, ArrowLeft, Check, Tag, MapPin, Truck } from 'lucide-react';
+import { ShoppingCart, Plus, Minus, Trash2, Gift, CreditCard, ArrowLeft, Check, Tag, MapPin, Truck, Loader2 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { api } from '../utils/api';
+import { loadStripe } from '@stripe/stripe-js';
 import './Carrito.css';
 
 export default function Carrito() {
@@ -12,6 +14,7 @@ export default function Carrito() {
   const [couponError, setCouponError] = useState('');
   const [selectedAddress, setSelectedAddress] = useState(user.addresses?.[0]?.id || '');
   const [paymentMethod, setPaymentMethod] = useState('tarjeta');
+  const [loading, setLoading] = useState(false);
 
   const handleApplyCoupon = () => {
     const success = applyCoupon(couponCode);
@@ -22,11 +25,33 @@ export default function Carrito() {
     }
   };
 
-  const handlePlaceOrder = () => {
-    const address = user.addresses?.find(a => a.id === selectedAddress) || user.addresses![0];
-    placeOrder(address, paymentMethod);
-    setShowCheckout(false);
-    setOrderPlaced(true);
+  const handlePlaceOrder = async () => {
+    if (paymentMethod === 'tarjeta') {
+      setLoading(true);
+      try {
+        const address = user.addresses?.find(a => a.id === selectedAddress) || user.addresses![0];
+        const { url } = await api.checkout.createSession({
+          items: cart,
+          userId: user.id.toString(),
+          shippingAddress: address,
+          success_url: `${window.location.origin}/perfil`,
+          cancel_url: `${window.location.origin}/carrito`,
+        });
+        
+        window.location.href = url;
+      } catch (err) {
+        console.error('Checkout error:', err);
+        alert('Error al iniciar el pago. Inténtalo de nuevo.');
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      // Otros métodos de pago (Yape, Efectivo) siguen igual
+      const address = user.addresses?.find(a => a.id === selectedAddress) || user.addresses![0];
+      placeOrder(address, paymentMethod);
+      setShowCheckout(false);
+      setOrderPlaced(true);
+    }
   };
 
   const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -228,8 +253,9 @@ export default function Carrito() {
                 </div>
               </div>
 
-              <button onClick={handlePlaceOrder} className="checkout-btn btn-primary">
-                Confirmar Pedido - €{total.toFixed(2)}
+              <button onClick={handlePlaceOrder} className="checkout-btn btn-primary" disabled={loading}>
+                {loading ? <Loader2 className="animate-spin" size={20} /> : <CreditCard size={20} />}
+                {paymentMethod === 'tarjeta' ? 'Pagar ahora con Tarjeta' : 'Confirmar Pedido'} - €{total.toFixed(2)}
               </button>
               <button onClick={() => setShowCheckout(false)} className="cancel-btn">
                 Volver al carrito

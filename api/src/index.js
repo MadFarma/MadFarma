@@ -12,6 +12,7 @@ import brandsRouter from './routes/brands.js';
 import promotionsRouter from './routes/promotions.js';
 import usersRouter from './routes/users.js';
 import ordersRouter from './routes/orders.js';
+import checkoutRouter from './routes/checkout.js';
 
 app.use('/products', productsRouter);
 app.use('/categories', categoriesRouter);
@@ -19,6 +20,7 @@ app.use('/brands', brandsRouter);
 app.use('/promotions', promotionsRouter);
 app.use('/users', usersRouter);
 app.use('/orders', ordersRouter);
+app.use('/checkout', checkoutRouter);
 
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
