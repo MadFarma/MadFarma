@@ -1,68 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Search, User, Heart, ShoppingCart, ChevronRight, ChevronDown } from 'lucide-react';
-import { useApp, categories } from '../context/AppContext';
-import { useState, useRef, useEffect } from 'react';
+import { useApp, categories, productsList } from '../context/AppContext';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import './Header.css';
-
-interface PromoCard {
-  id: number;
-  badge: string;
-  brand: string;
-  image: string;
-  catId: string;
-}
-
-const promoCards: PromoCard[] = [
-  {
-    id: 1,
-    badge: '30% dto. en 2ª ud.',
-    brand: 'En Mitosyl',
-    image: 'https://images.unsplash.com/photo-1555252333-978fe3c7e824?w=300&h=200&fit=crop',
-    catId: 'bebe-mama',
-  },
-  {
-    id: 2,
-    badge: '2x1 en selección',
-    brand: 'En Trofolastin',
-    image: 'https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?w=300&h=200&fit=crop',
-    catId: 'bebe-mama',
-  },
-  {
-    id: 3,
-    badge: '-20% primera compra',
-    brand: 'En La Roche-Posay',
-    image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=300&h=200&fit=crop',
-    catId: 'cosmetica-belleza',
-  },
-  {
-    id: 4,
-    badge: '3x2 en vitaminas',
-    brand: 'En Redoxon',
-    image: 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=300&h=200&fit=crop',
-    catId: 'dietetica-nutricion',
-  },
-  {
-    id: 5,
-    badge: '-15% hoy',
-    brand: 'En Colgate',
-    image: 'https://images.unsplash.com/photo-1559594861-c66710ae4c3c?w=300&h=200&fit=crop',
-    catId: 'higiene',
-  },
-  {
-    id: 6,
-    badge: '30% dto. en 2ª ud.',
-    brand: 'En Paracetamol',
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=300&h=200&fit=crop',
-    catId: 'medicamentos',
-  },
-  {
-    id: 7,
-    badge: 'Oferta especial',
-    brand: 'En Evra',
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=300&h=200&fit=crop',
-    catId: 'salud-sexual',
-  },
-];
 
 export default function Header() {
   const { getCartItemsCount, user } = useApp();
@@ -103,9 +43,12 @@ export default function Header() {
   };
 
   const activeCat = categories.find(c => c.id === hoveredCat) || categories[0];
-  const activePromos = promoCards.filter(p => p.catId === hoveredCat).slice(0, 2);
-  const fallbackPromos = promoCards.slice(0, 2);
-  const displayPromos = activePromos.length > 0 ? activePromos : fallbackPromos;
+  
+  const categoryProducts = useMemo(() => {
+    return productsList
+      .filter(p => p.category === hoveredCat)
+      .slice(0, 8);
+  }, [hoveredCat]);
 
   return (
     <header className="df-header">
@@ -222,23 +165,44 @@ export default function Header() {
                 </ul>
               </div>
 
-              {/* Column 3: Promo cards */}
-              <div className="df-mega-col df-mega-promos">
-                {displayPromos.map((promo) => (
-                  <Link
-                    key={promo.id}
-                    to={`/tienda?cat=${promo.catId}`}
-                    className="df-promo-card"
-                    onClick={() => setShowMenu(false)}
-                  >
-                    <div className="df-promo-card-info">
-                      <span className="df-promo-badge">{promo.badge}</span>
-                      <span className="df-promo-brand">{promo.brand}</span>
-                      <button className="df-promo-btn">Comprar</button>
-                    </div>
-                    <img src={promo.image} alt={promo.brand} className="df-promo-img" />
-                  </Link>
-                ))}
+              {/* Column 3: Products grid */}
+              <div className="df-mega-col df-mega-products">
+                <p className="df-mega-prod-title">Productos</p>
+                <div className="df-mega-prod-grid">
+                  {categoryProducts.map((product) => (
+                    <Link
+                      key={product.id}
+                      to={`/producto/${product.id}`}
+                      className="df-mega-prod-card"
+                      onClick={() => setShowMenu(false)}
+                    >
+                      <div className="df-mega-prod-img-wrap">
+                        <img src={product.image} alt={product.name} className="df-mega-prod-img" />
+                        {product.badge && (
+                          <span className={`df-mega-prod-badge ${product.badge}`}>
+                            {product.badge === 'sale' ? `-${Math.round((1 - product.price / (product.originalPrice || product.price)) * 100)}%` :
+                             product.badge === 'new' ? 'Nuevo' :
+                             product.badge === 'bestseller' ? 'Top' :
+                             product.badge === '2x1' ? '2x1' : product.badge}
+                          </span>
+                        )}
+                      </div>
+                      <div className="df-mega-prod-info">
+                        <span className="df-mega-prod-brand">{product.brand}</span>
+                        <span className="df-mega-prod-name">{product.name}</span>
+                        <div className="df-mega-prod-price-row">
+                          {product.originalPrice && (
+                            <span className="df-mega-prod-orig-price">{product.originalPrice.toFixed(2)}€</span>
+                          )}
+                          <span className="df-mega-prod-price">{product.price.toFixed(2)}€</span>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+                <Link to={`/tienda?cat=${hoveredCat}`} className="df-mega-prod-view-all" onClick={() => setShowMenu(false)}>
+                  Ver todos <ChevronRight size={14} />
+                </Link>
               </div>
             </div>
           </div>

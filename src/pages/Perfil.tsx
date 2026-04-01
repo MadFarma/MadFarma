@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Settings, Bell, Shield, HelpCircle, LogOut, ChevronRight, Star, Package, Gift, MapPin, CreditCard } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import './Perfil.css';
@@ -12,7 +13,19 @@ const levelColors: Record<string, string> = {
 };
 
 export default function Perfil() {
-  const { user, orders, favorites } = useApp();
+  const { user, orders, favorites, logout } = useApp();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user.isLoggedIn && user.id === 'guest') {
+      navigate('/auth?mode=login');
+    }
+  }, [user.isLoggedIn, user.id, navigate]);
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/');
+  };
 
   const menuItems = [
     { icon: <Package size={20} />, label: 'Mis Pedidos', path: '/perfil', color: 'text-primary' },
@@ -31,16 +44,29 @@ export default function Perfil() {
         <h1 className="headline-lg">Mi Perfil</h1>
       </header>
 
-      <section className="user-info-card surface-lowest soft-lift">
+      <section className="user-info-card surface-lowest soft-lift" style={{ '--level-color': levelColors[user.level] } as React.CSSProperties}>
         <div className="avatar-wrapper">
           <img src={user.avatar} alt={user.name} className="avatar-image" />
         </div>
         <div className="user-details">
           <h2 className="title-md">{user.name}</h2>
           <p className="body-lg text-outline">{user.email}</p>
-          <div className="user-level" style={{ '--level-color': levelColors[user.level] } as React.CSSProperties}>
-            <Star size={16} fill="var(--level-color)" color="var(--level-color)" />
-            <span className="label-md">Nivel {user.level}</span>
+          <div className="user-level-container">
+            <div className="user-level" style={{ '--level-color': levelColors[user.level] } as React.CSSProperties}>
+              <Star size={16} fill="var(--level-color)" color="var(--level-color)" />
+              <span className="label-md">Nivel {user.level}</span>
+            </div>
+            <div className="points-progress-wrap">
+              <div className="points-text">
+                <span className="label-sm">{user.points} / {user.points + user.pointsToNextLevel} puntos</span>
+              </div>
+              <div className="progress-bar-bg">
+                <div 
+                  className="progress-bar-fill" 
+                  style={{ width: `${(user.points / (user.points + user.pointsToNextLevel)) * 100}%` }}
+                ></div>
+              </div>
+            </div>
           </div>
         </div>
         <button className="edit-profile-btn btn-secondary">Editar</button>
@@ -115,7 +141,7 @@ export default function Perfil() {
       </section>
 
       <section className="section-spacing logout-section">
-        <button className="logout-btn surface-low soft-lift">
+        <button onClick={handleLogout} className="logout-btn surface-low soft-lift">
           <LogOut size={20} className="text-error" />
           <span className="body-lg text-error">Cerrar Sesión</span>
         </button>

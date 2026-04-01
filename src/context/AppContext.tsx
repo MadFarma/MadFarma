@@ -1,4 +1,6 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import { api } from '../utils/api';
+import { supabase } from '../lib/supabase';
 
 export interface Product {
   id: number;
@@ -67,7 +69,7 @@ export interface CartItem extends Product {
 }
 
 export interface User {
-  id: number;
+  id: string | number;
   name: string;
   email: string;
   phone?: string;
@@ -142,6 +144,7 @@ interface AppContextType {
   brands: Brand[];
   coupons: Coupon[];
   reviews: Review[];
+  categoriesLoading: boolean;
   addToCart: (product: Product, quantity?: number) => void;
   removeFromCart: (productId: number) => void;
   updateQuantity: (productId: number, quantity: number) => void;
@@ -275,31 +278,21 @@ export const sampleReviews: Review[] = [
 ];
 
 const defaultUser: User = {
-  id: 1,
-  name: 'David',
-  email: 'david@crpharma.es',
-  phone: '+34 666 123 456',
-  avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=David',
-  points: 1240,
-  level: 'Oro',
-  pointsToNextLevel: 760,
-  totalPoints: 3500,
-  referrals: 3,
-  streak: 7,
-  joinedDate: '2024-06-15',
-  addresses: [
-    { id: '1', name: 'Casa', street: 'Calle Gran Vía 25', city: 'Madrid', district: 'Centro', reference: 'Bajo farmacia', isDefault: true },
-    { id: '2', name: 'Trabajo', street: 'Calle Serrano 50', city: 'Madrid', district: 'Salamanca', reference: 'Oficinas', isDefault: false },
-  ],
-  achievements: [
-    { id: 'first_purchase', title: 'Primera Compra', description: 'Realiza tu primera compra', icon: '🛒', unlocked: true, unlockedDate: '2024-06-16' },
-    { id: 'points_100', title: 'Puntos de Oro', description: 'Acumula 1000 puntos', icon: '⭐', unlocked: true, unlockedDate: '2024-08-20' },
-    { id: 'referral_1', title: 'Embajador', description: 'Referencia a 1 amigo', icon: '🤝', unlocked: true, unlockedDate: '2024-09-05' },
-    { id: 'streak_7', title: 'Racha Semanal', description: '7 días consecutivos', icon: '🔥', unlocked: true, unlockedDate: '2024-11-10' },
-    { id: 'points_5000', title: 'Veterano', description: 'Acumula 5000 puntos', icon: '🏆', unlocked: false, progress: 3500, maxProgress: 5000 },
-    { id: 'referral_5', title: 'Líder', description: 'Referencia 5 amigos', icon: '👑', unlocked: false, progress: 3, maxProgress: 5 },
-  ],
-  isLoggedIn: true,
+  id: 'guest',
+  name: 'Invitado',
+  email: '',
+  phone: '',
+  avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=guest',
+  points: 0,
+  level: 'Bronce',
+  pointsToNextLevel: 500,
+  totalPoints: 0,
+  referrals: 0,
+  streak: 0,
+  joinedDate: new Date().toISOString().split('T')[0],
+  addresses: [],
+  achievements: [],
+  isLoggedIn: false,
 };
 
 const initialChallenges: Challenge[] = [
@@ -365,6 +358,95 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [favorites, setFavorites] = useState<Product[]>([]);
   const [appliedCoupon, setAppliedCoupon] = useState<Coupon | null>(null);
   const [reviews, setReviews] = useState<Review[]>(sampleReviews);
+  const [dynamicCategories, setDynamicCategories] = useState<Category[]>(categories);
+  const [dynamicBrands, setDynamicBrands] = useState<Brand[]>(brands);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
+
+  // Escuchar cambios en la autenticación de Supabase
+  useEffect(() => {
+    // 1. Obtener la sesión inicial
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user) {
+        syncUserProfile(session.user);
+      }
+    });
+
+    // 2. Suscribirse a cambios
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'SIGNED_IN' && session?.user) {
+        syncUserProfile(session.user);
+      } else if (event === 'SIGNED_OUT') {
+        setUser(defaultUser);
+        localStorage.removeItem('user');
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  const syncUserProfile = async (supabaseUser: any) => {
+    try {
+      const { data: profile } = await supabase
+        .from('users')
+        .select('*')
+        .eq('id', supabaseUser.id)
+        .single();
+
+      if (profile) {
+        const fullUser: User = {
+          id: profile.id,
+          name: profile.name || supabaseUser.email.split('@')[0],
+          email: supabaseUser.email,
+          phone: profile.phone || '',
+          avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${profile.id}`,
+          points: profile.points || 0,
+          level: (profile.level as User['level']) || 'Bronce',
+          pointsToNextLevel: 500, // Lógica simple para ahora
+          totalPoints: profile.total_points || 0,
+          referrals: 0,
+          streak: 0,
+          achievements: [],
+          joinedDate: profile.created_at?.split('T')[0] || new Date().toISOString().split('T')[0],
+          isLoggedIn: true,
+        };
+        setUser(fullUser);
+        localStorage.setItem('user', JSON.stringify(fullUser));
+      } else {
+        // Si no hay perfil, lo creamos con los datos mínimos
+        const { data: newProfile } = await supabase.from('users').insert({
+          id: supabaseUser.id,
+          email: supabaseUser.email,
+          name: supabaseUser.user_metadata?.name || supabaseUser.email.split('@')[0],
+          phone: supabaseUser.user_metadata?.phone || '',
+        }).select().single();
+        
+        if (newProfile) syncUserProfile(supabaseUser);
+      }
+    } catch (err) {
+      console.error('Error syncing profile:', err);
+    }
+  };
+
+  // Cargar categorías y marcas desde Supabase
+  useEffect(() => {
+    const loadCatalog = async () => {
+      try {
+        const [catsRes, brandsRes] = await Promise.all([
+          api.categories.getAll(),
+          api.brands.getAll(),
+        ]);
+        if (catsRes.data?.length) setDynamicCategories(catsRes.data);
+        if (brandsRes.data?.length) setDynamicBrands(brandsRes.data);
+      } catch (err) {
+        console.error('Error loading catalog from Supabase:', err);
+      } finally {
+        setCategoriesLoading(false);
+      }
+    };
+    loadCatalog();
+  }, []);
 
   useEffect(() => {
     const savedCart = localStorage.getItem('cart');
@@ -533,29 +615,29 @@ export function AppProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('user', JSON.stringify(userData));
   };
 
-  const logout = () => {
-    const defaultUserData = {
-      ...defaultUser,
-      isLoggedIn: false,
-    };
-    setUser(defaultUserData);
+  const logout = async () => {
+    await supabase.auth.signOut();
+    setUser(defaultUser);
     localStorage.removeItem('user');
   };
 
   const register = async (data: { email: string; password: string; name: string; phone: string }): Promise<boolean> => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || '/api'}/users/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+      const { data: authData, error } = await supabase.auth.signUp({
+        email: data.email,
+        password: data.password,
+        options: {
+          data: {
+            name: data.name,
+            phone: data.phone,
+          }
+        }
       });
-      if (res.ok) {
-        const userData = await res.json();
-        login(userData);
-        return true;
-      }
-      return false;
-    } catch {
+
+      if (error) throw error;
+      return !!authData.user;
+    } catch (err) {
+      console.error('Registration error:', err);
       return false;
     }
   };
@@ -585,10 +667,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
       cart,
       challenges,
       orders,
-      categories,
-      brands,
+      categories: dynamicCategories,
+      brands: dynamicBrands,
       coupons,
       reviews,
+      categoriesLoading,
       addToCart,
       removeFromCart,
       updateQuantity,
