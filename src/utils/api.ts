@@ -1,168 +1,105 @@
-import { supabase } from '../lib/supabase';
+import { products as localProducts, categories, brands as localBrands, type Product } from '../context/AppContext';
+
+export interface ApiResponse<T> {
+  data: T | null;
+  error?: string;
+}
 
 export const api = {
   products: {
-    getAll: async (params?: Record<string, string>) => {
-      let query = supabase
-        .from('products')
-        .select('*');
-
-      if (params?.category) {
-        query = query.eq('category_id', params.category);
-      }
-      if (params?.subcategory) {
-        query = query.eq('subcategory_id', params.subcategory);
-      }
+    getAll: async (params?: Record<string, string>): Promise<ApiResponse<Product[]>> => {
+      let filtered = [...localProducts];
+      
       if (params?.search) {
-        query = query.ilike('name', `%${params.search}%`);
+        filtered = filtered.filter(p => 
+          p.name.toLowerCase().includes(params.search!.toLowerCase()) ||
+          p.brand.toLowerCase().includes(params.search!.toLowerCase())
+        );
+      }
+      if (params?.category && params.category !== 'all') {
+        filtered = filtered.filter(p => p.category === params.category);
+      }
+      if (params?.subcategory && params.subcategory !== 'all') {
+        filtered = filtered.filter(p => p.subcategory === params.subcategory);
       }
       if (params?.sort === 'price-asc') {
-        query = query.order('price', { ascending: true });
+        filtered.sort((a, b) => a.price - b.price);
       } else if (params?.sort === 'price-desc') {
-        query = query.order('price', { ascending: false });
+        filtered.sort((a, b) => b.price - a.price);
       } else if (params?.sort === 'rating') {
-        query = query.order('rating', { ascending: false });
-      } else if (params?.sort === 'reviews') {
-        query = query.order('reviews_count', { ascending: false });
-      } else {
-        query = query.order('id', { ascending: true });
+        filtered.sort((a, b) => b.rating - a.rating);
       }
 
-      const { data, error } = await query;
-      if (error) throw error;
-
-      return { data: data?.map(mapProduct) ?? [] };
+      return { data: filtered };
     },
 
-    getFeatured: async () => {
-      const { data, error } = await supabase
-        .from('products')
-        .select('*')
-        .in('badge', ['bestseller', 'new'])
-        .limit(8);
-      if (error) throw error;
-      return { data: data?.map(mapProduct) ?? [] };
+    getFeatured: async (): Promise<ApiResponse<Product[]>> => {
+      const featured = localProducts.filter(p => p.badge === 'bestseller' || p.badge === 'new').slice(0, 8);
+      return { data: featured };
     },
 
-    getOffers: async () => {
-      const { data, error } = await supabase
-        .from('products')
-        .select('*')
-        .in('badge', ['sale', '2x1'])
-        .not('original_price', 'is', null)
-        .limit(8);
-      if (error) throw error;
-      return { data: data?.map(mapProduct) ?? [] };
+    getOffers: async (): Promise<ApiResponse<Product[]>> => {
+      const offers = localProducts.filter(p => p.badge === 'sale' || p.badge === '2x1' || !!p.originalPrice).slice(0, 8);
+      return { data: offers };
     },
 
-    getById: async (id: string) => {
-      const { data, error } = await supabase
-        .from('products')
-        .select('*')
-        .eq('id', id)
-        .single();
-      if (error) throw error;
-      return { data: mapProduct(data) };
+    getById: async (id: string): Promise<ApiResponse<Product | null>> => {
+      const product = localProducts.find(p => p.id === Number(id));
+      return { data: product || null };
     },
   },
 
   categories: {
     getAll: async () => {
-      const { data: cats, error: catError } = await supabase
-        .from('categories')
-        .select('*')
-        .order('name');
-      if (catError) throw catError;
-
-      const { data: subs, error: subError } = await supabase
-        .from('subcategories')
-        .select('*');
-      if (subError) throw subError;
-
-      const result = cats?.map(cat => ({
-        id: cat.id,
-        name: cat.name,
-        icon: cat.icon,
-        subcategories: subs
-          ?.filter(s => s.category_id === cat.id)
-          .map(s => ({ id: s.id, name: s.name })) ?? [],
-      })) ?? [];
-
-      return { data: result };
+      return { data: categories };
     },
   },
 
   brands: {
     getAll: async () => {
-      const { data, error } = await supabase.from('brands').select('*');
-      if (error) throw error;
-      return { data };
+      return { data: localBrands };
     },
   },
 
   orders: {
     create: async (data: {
       userId: string;
-      items: any[];
+      items: Array<{ id: number; price: number; quantity: number }>;
       total: number;
-      shippingAddress: any;
+      shippingAddress: Record<string, unknown>;
       paymentMethod: string;
     }) => {
       const orderId = `ORD-${Date.now()}`;
-      const subtotal = data.items.reduce(
-        (sum: number, item: any) => sum + item.price * item.quantity,
-        0
-      );
-      const shipping = subtotal >= 35 ? 0 : 7.9;
-
-      const { data: order, error } = await supabase
-        .from('orders')
-        .insert({
-          id: orderId,
-          user_id: data.userId,
-          subtotal,
-          shipping,
-          total: data.total,
-          payment_method: data.paymentMethod,
-          shipping_address: data.shippingAddress,
-          status: 'pending',
-        })
-        .select()
-        .single();
-
-      if (error) throw error;
-
-      const orderItems = data.items.map((item: any) => ({
-        order_id: orderId,
-        product_id: item.id,
-        quantity: item.quantity,
-        price: item.price,
-      }));
-
-      const { error: itemsError } = await supabase
-        .from('order_items')
-        .insert(orderItems);
-      if (itemsError) throw itemsError;
-
-      return { data: order };
+      const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+      const newOrder = {
+        id: orderId,
+        userId: data.userId,
+        items: data.items,
+        subtotal: data.items.reduce((sum, item) => sum + item.price * item.quantity, 0),
+        shipping: 0,
+        total: data.total,
+        status: 'pending',
+        date: new Date().toISOString(),
+        paymentMethod: data.paymentMethod,
+        shippingAddress: data.shippingAddress,
+      };
+      orders.push(newOrder);
+      localStorage.setItem('orders', JSON.stringify(orders));
+      return { data: newOrder };
     },
 
     getByUser: async (userId: string) => {
-      const { data, error } = await supabase
-        .from('orders')
-        .select('*, order_items(*)')
-        .eq('user_id', userId)
-        .order('created_at', { ascending: false });
-      if (error) throw error;
-      return { data };
+      const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+      const userOrders = orders.filter((o: { userId: string }) => o.userId === userId);
+      return { data: userOrders };
     },
   },
   
   checkout: {
     createSession: async (data: {
-      items: any[];
+      items: unknown[];
       userId: string;
-      shippingAddress: any;
+      shippingAddress: unknown;
       success_url: string;
       cancel_url: string;
     }) => {
@@ -176,30 +113,3 @@ export const api = {
     }
   }
 };
-
-// Mapea nombres de columnas de Supabase (snake_case) al formato del frontend (camelCase)
-function mapProduct(p: any) {
-  return {
-    id: p.id,
-    name: p.name,
-    price: p.price,
-    originalPrice: p.original_price,
-    category: p.category_id,
-    subcategory: p.subcategory_id,
-    brand: p.brand,
-    image: p.image,
-    badge: p.badge,
-    description: p.description,
-    descriptionFull: p.description_full,
-    points: p.points,
-    inStock: p.in_stock,
-    stockCount: p.stock_count,
-    rating: p.rating,
-    reviews: p.reviews_count,
-    features: p.features,
-    composition: p.composition,
-    howToUse: p.how_to_use,
-    ageGroup: p.age_group,
-    skinType: p.skin_type,
-  };
-}

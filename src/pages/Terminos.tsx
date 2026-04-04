@@ -6,8 +6,8 @@ export default function Terminos() {
   return (
     <>
       <SEO 
-        title="Términos y Condiciones | CR Pharma"
-        description="Términos y condiciones de uso de la tienda online CR Pharma."
+        title="Términos y Condiciones | MadFarma"
+        description="Términos y condiciones de uso de la tienda online MadFarma."
       />
       <div className="legal-page">
         <div className="legal-container">
@@ -17,9 +17,9 @@ export default function Terminos() {
           <section>
             <h2>1. Información General</h2>
             <p>
-              CR Pharma es una parafarmacia online propiedad de CR Farmacéuticos S.L., 
-              con CIF XXX y domicilio en Madrid, España. El acceso y uso de este sitio web 
-              constituye un acuerdo legally binding entre usted y CR Pharma.
+              MadFarma es una farmacia online propiedad de MadFarma S.L., 
+              con domicilio social en Madrid. El acceso y uso de este sitio web 
+              constituye un acuerdo legal entre usted y MadFarma.
             </p>
           </section>
 
@@ -32,18 +32,18 @@ export default function Terminos() {
             </p>
             <p>
               Queda prohibido el uso del sitio web con fines ilícitos o que puedan损坏 
-              la imagen de CR Pharma o de terceros.
+              la imagen de MadFarma o de terceros.
             </p>
           </section>
 
           <section>
             <h2>3. Productos y Precios</h2>
             <p>
-              Los productos ofertados en CR Pharma están destinados a particulares y 
+              Los productos ofertados en MadFarma están destinados a particulares y 
               profesionales de la salud. Los precios mostrados incluyen el IVA aplicable.
             </p>
             <p>
-              CR Pharma se reserva el derecho a modificar los precios en cualquier momento, 
+              MadFarma se reserva el derecho a modificar los precios en cualquier momento, 
               siendo aplicable el precio vigente en el momento de la confirmación del pedido.
             </p>
           </section>
@@ -96,14 +96,14 @@ export default function Terminos() {
             <h2>8. Propiedad Intelectual</h2>
             <p>
               Todos los contenidos del sitio web (textos, imágenes, logotipos, etc.) 
-              son propiedad de CR Pharma o de terceros que han autorizado su uso.
+              son propiedad de MadFarma o de terceros que han autorizado su uso.
             </p>
           </section>
 
           <section>
             <h2>9. Responsabilidad</h2>
             <p>
-              CR Pharma no será responsable de los daños derivados del uso indebido 
+              MadFarma no será responsable de los daños derivados del uso indebido 
               del sitio web ni de las购买的 realizadas a través del mismo.
             </p>
           </section>
@@ -112,7 +112,7 @@ export default function Terminos() {
             <h2>10. Contacto</h2>
             <p>
               Para cualquier consulta relacionada con estos términos, puede contactar 
-              con nosotros en <strong>info@crpharma.es</strong>
+              con nosotros en <strong>info@madfarma.es</strong>
             </p>
           </section>
 

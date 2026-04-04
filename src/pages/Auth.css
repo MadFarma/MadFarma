@@ -49,6 +49,85 @@
   margin: 0;
 }
 
+/* Social Login */
+.auth-social {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.auth-social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: white;
+  color: #333;
+}
+
+.auth-social-btn:hover:not(:disabled) {
+  background: #f5f5f5;
+  border-color: #ccc;
+}
+
+.auth-social-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-social-btn.google {
+  background: #fff;
+}
+
+.auth-social-btn.apple {
+  background: #000;
+  color: white;
+  border-color: #000;
+}
+
+.auth-social-btn.apple:hover:not(:disabled) {
+  background: #333;
+}
+
+.auth-social-btn.facebook {
+  background: #1877F2;
+  color: white;
+  border-color: #1877F2;
+}
+
+.auth-social-btn.facebook:hover:not(:disabled) {
+  background: #166fe5;
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  margin: 24px 0;
+  color: #999;
+  font-size: 13px;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #eee;
+}
+
+.auth-divider span {
+  padding: 0 16px;
+}
+
 .auth-error {
   background: #ffebee;
   color: #c62828;

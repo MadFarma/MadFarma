@@ -7,8 +7,10 @@ import './ProductoDetalle.css';
 
 export default function ProductoDetalle() {
   const { id } = useParams();
-  const { addToCart, favorites, toggleFavorite } = useApp();
+  const { addToCart, favorites, toggleFavorite, reviews, addReview } = useApp();
   const [quantity, setQuantity] = useState(1);
+  const [showReviewForm, setShowReviewForm] = useState(false);
+  const [newReview, setNewReview] = useState({ rating: 5, comment: '' });
 
   const product = products.find(p => p.id === Number(id));
 
@@ -33,11 +35,21 @@ export default function ProductoDetalle() {
     addToCart(product, quantity);
   };
 
+  const productReviews = reviews.filter(r => r.productId === product.id);
+
+  const handleSubmitReview = () => {
+    if (newReview.comment.trim()) {
+      addReview(product.id, newReview.rating, newReview.comment);
+      setNewReview({ rating: 5, comment: '' });
+      setShowReviewForm(false);
+    }
+  };
+
   return (
     <div className="df-product-page">
       {product && (
         <SEO 
-          title={`${product.name} - ${product.brand} | CR Pharma`}
+          title={`${product.name} - ${product.brand} | MadFarma`}
           description={product.description}
         />
       )}
@@ -159,6 +171,83 @@ export default function ProductoDetalle() {
             </ul>
           </div>
         )}
+
+        {/* Reviews Section */}
+        <div className="df-product-section df-reviews-section">
+          <div className="df-reviews-header">
+            <h2>Valoraciones y Opiniones</h2>
+            <button 
+              className="df-write-review-btn"
+              onClick={() => setShowReviewForm(!showReviewForm)}
+            >
+              Escribir opinión
+            </button>
+          </div>
+
+          {showReviewForm && (
+            <div className="df-review-form">
+              <h3>Tu opinión sobre {product.name}</h3>
+              <div className="df-rating-select">
+                <span>Tu puntuación:</span>
+                <div className="df-stars-input">
+                  {[1, 2, 3, 4, 5].map(star => (
+                    <button
+                      key={star}
+                      onClick={() => setNewReview({ ...newReview, rating: star })}
+                      className="df-star-btn"
+                    >
+                      <Star 
+                        size={24} 
+                        fill={star <= newReview.rating ? '#fbbf24' : 'none'} 
+                        color={star <= newReview.rating ? '#fbbf24' : '#ccc'} 
+                      />
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <textarea
+                placeholder="Comparte tu experiencia con este producto..."
+                value={newReview.comment}
+                onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
+                rows={4}
+              />
+              <button 
+                className="df-submit-review-btn"
+                onClick={handleSubmitReview}
+              >
+                Publicar opinión
+              </button>
+            </div>
+          )}
+
+          {/* Reviews List */}
+          <div className="df-reviews-list">
+            {productReviews.length === 0 ? (
+              <p className="df-no-reviews">Aún no hay opiniones. ¡Sé el primero en valorar este producto!</p>
+            ) : (
+              productReviews.map(review => (
+                <div key={review.id} className="df-review-card">
+                  <div className="df-review-header">
+                    <span className="df-review-author">{review.userName}</span>
+                    <span className="df-review-date">{review.date}</span>
+                  </div>
+                  <div className="df-review-rating">
+                    {[1, 2, 3, 4, 5].map(star => (
+                      <Star key={star} size={14} fill={star <= review.rating ? '#fbbf24' : 'none'} color="#fbbf24" />
+                    ))}
+                  </div>
+                  <p className="df-review-comment">{review.comment}</p>
+                  {review.verified && (
+                    <div className="df-review-verified">
+                      <Check size={12} />
+                      <span>Compra verificada</span>
+                    </div>
+                  )}
+                </div>
+              ))
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

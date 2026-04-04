@@ -106,6 +106,31 @@
   color: #666;
 }
 
+.df-brand-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.df-brand-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #555;
+}
+
+.df-brand-checkbox input {
+  width: 16px;
+  height: 16px;
+  accent-color: #00897b;
+}
+
+.df-brand-checkbox:hover {
+  color: #00897b;
+}
+
 .df-tienda-main {
   flex: 1;
 }
@@ -386,5 +411,86 @@
   .df-products-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
+  }
+}
+
+.df-marcas-page {
+  padding: 20px 0;
+}
+
+.df-marcas-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.df-marcas-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a1d32;
+  margin-bottom: 8px;
+}
+
+.df-marcas-header p {
+  color: #666;
+  font-size: 16px;
+}
+
+.df-marcas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.df-marca-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 20px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.df-marca-card:hover {
+  border-color: #00897b;
+  box-shadow: 0 4px 12px rgba(0, 137, 123, 0.1);
+  transform: translateY(-2px);
+}
+
+.df-marca-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.df-marca-logo img {
+  max-width: 120px;
+  max-height: 60px;
+  object-fit: contain;
+}
+
+.df-marca-logo span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1d32;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .df-marcas-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+  }
+  
+  .df-marca-card {
+    padding: 16px;
+  }
+  
+  .df-marca-logo img {
+    max-width: 100px;
+    max-height: 50px;
   }
 }

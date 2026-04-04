@@ -347,3 +347,159 @@
     width: 100%;
   }
 }
+
+/* Reviews Section */
+.df-reviews-section {
+  margin-top: 40px;
+  padding-top: 40px;
+  border-top: 1px solid #eee;
+}
+
+.df-reviews-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.df-reviews-header h2 {
+  font-size: 22px;
+  color: #1a1d32;
+}
+
+.df-write-review-btn {
+  background: #00897b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.df-write-review-btn:hover {
+  background: #00695c;
+}
+
+/* Review Form */
+.df-review-form {
+  background: #f9f9f9;
+  padding: 24px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.df-review-form h3 {
+  font-size: 16px;
+  margin-bottom: 16px;
+  color: #1a1d32;
+}
+
+.df-rating-select {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.df-stars-input {
+  display: flex;
+  gap: 4px;
+}
+
+.df-star-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.df-review-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: inherit;
+  resize: vertical;
+  margin-bottom: 16px;
+}
+
+.df-review-form textarea:focus {
+  outline: none;
+  border-color: #00897b;
+}
+
+.df-submit-review-btn {
+  background: #1a1d32;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.df-submit-review-btn:hover {
+  background: #2d3142;
+}
+
+/* Reviews List */
+.df-reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.df-no-reviews {
+  text-align: center;
+  color: #666;
+  padding: 24px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.df-review-card {
+  background: white;
+  border: 1px solid #eee;
+  padding: 16px;
+  border-radius: 10px;
+}
+
+.df-review-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.df-review-author {
+  font-weight: 600;
+  color: #1a1d32;
+}
+
+.df-review-date {
+  color: #999;
+  font-size: 13px;
+}
+
+.df-review-rating {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 8px;
+}
+
+.df-review-comment {
+  color: #555;
+  line-height: 1.5;
+}
+
+.df-review-verified {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+  color: #00897b;
+  font-size: 12px;
+  font-weight: 500;
+}

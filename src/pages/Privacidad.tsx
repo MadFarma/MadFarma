@@ -6,8 +6,8 @@ export default function Privacidad() {
   return (
     <>
       <SEO 
-        title="Política de Privacidad | CR Pharma"
-        description="Política de privacidad y protección de datos de CR Pharma."
+        title="Política de Privacidad | MadFarma"
+        description="Política de privacidad y protección de datos de MadFarma."
       />
       <div className="legal-page">
         <div className="legal-container">
@@ -17,10 +17,10 @@ export default function Privacidad() {
           <section>
             <h2>1. Responsable del Tratamiento</h2>
             <p>
-              <strong>CR Farmacéuticos S.L.</strong><br />
+              <strong>MadFarma S.L.</strong><br />
               CIF: XXX<br />
               Domicilio: Madrid, España<br />
-              Email: info@crpharma.es
+              Email: info@madfarma.es
             </p>
           </section>
 
@@ -99,7 +99,7 @@ export default function Privacidad() {
               <li><strong>Portabilidad:</strong> Recibir sus datos en formato estructurado</li>
             </ul>
             <p>
-              Para ejercer estos derechos, envíe un email a <strong>info@crpharma.es</strong> 
+              Para ejercer estos derechos, envíe un email a <strong>info@madfarma.es</strong> 
               adjuntando copia de su DNI.
             </p>
           </section>
@@ -134,7 +134,7 @@ export default function Privacidad() {
             <h2>12. Contacto</h2>
             <p>
               Para cualquier consulta sobre esta política, contacte con nuestro 
-              Delegado de Protección de Datos en: <strong>info@crpharma.es</strong>
+              Delegado de Protección de Datos en: <strong>info@madfarma.es</strong>
             </p>
           </section>
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Trophy, Target, Award, CheckCircle, Clock, Crown, Gift as GiftIcon } from 'lucide-react';
-import { useApp } from '../context/AppContext';
+import { useApp, type Challenge } from '../context/AppContext';
 import './Retos.css';
 
 const levelConfig = {
@@ -57,6 +57,7 @@ export default function Retos() {
   const lockedAchievements = user.achievements.filter(a => !a.unlocked);
 
   const handleRedeem = (_rewardId: number) => {
+    console.log('Reward ID:', _rewardId);
     alert('¡Premio canjeado exitosamente!');
   };
 
@@ -69,8 +70,8 @@ export default function Retos() {
             <span className="level-icon">{levelData.icon}</span>
             <span className="level-name">{currentLevel}</span>
           </div>
-          <h1>Mi CR Club</h1>
-          <p className="club-tagline">Tu programa de puntos y beneficios exclusivos</p>
+          <h1>MF ELITE</h1>
+          <p className="club-tagline">Excellence in health and exclusive benefits</p>
           
           <div className="club-stats">
             <div className="stat-box">
@@ -244,7 +245,7 @@ export default function Retos() {
             </div>
             
             <div className="levels-showcase">
-              {Object.entries(levelConfig).map(([level, data], _index) => (
+              {Object.entries(levelConfig).map(([level, data]) => (
                 <div 
                   key={level} 
                   className={`level-card ${currentLevel === level ? 'current' : ''} ${levelConfig[currentLevel as keyof typeof levelConfig].minPoints < data.minPoints ? 'locked' : ''}`}
@@ -278,7 +279,7 @@ export default function Retos() {
 }
 
 function ChallengeCard({ challenge, onComplete, horizontal = false }: { 
-  challenge: any; 
+  challenge: Challenge; 
   onComplete: (id: string) => void;
   horizontal?: boolean;
 }) {

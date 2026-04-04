@@ -9,7 +9,7 @@ import './Mapa.css';
 const pharmacies = [
   { 
     id: 1, 
-    title: 'CR Pharma - Gran Vía', 
+    title: 'MadFarma - Gran Vía', 
     distance: '0.2 km', 
     address: 'Calle Gran Vía 25, Madrid',
     phone: '+34 91 234 56 78',
@@ -20,7 +20,7 @@ const pharmacies = [
   },
   { 
     id: 2, 
-    title: 'CR Pharma - Serrano', 
+    title: 'MadFarma - Serrano', 
     distance: '1.5 km', 
     address: 'Calle Serrano 50, Madrid',
     phone: '+34 91 345 67 89',
@@ -31,7 +31,7 @@ const pharmacies = [
   },
   { 
     id: 3, 
-    title: 'CR Pharma - Callao', 
+    title: 'MadFarma - Callao', 
     distance: '2.1 km', 
     address: 'Plaza Callao 4, Madrid',
     phone: '+34 91 456 78 90',
@@ -42,7 +42,7 @@ const pharmacies = [
   },
   { 
     id: 4, 
-    title: 'CR Pharma - Atocha', 
+    title: 'MadFarma - Atocha', 
     distance: '2.8 km', 
     address: 'Calle Atocha 89, Madrid',
     phone: '+34 91 567 89 01',
@@ -98,7 +98,7 @@ export default function Mapa() {
       </MapContainer>
 
       <div className="map-header">
-        <h1 className="map-title">Encuentra tu Farmacia CR</h1>
+        <h1 className="map-title">Encuentra tu Farmacia MadFarma</h1>
         <p className="map-subtitle">{pharmacies.length} farmacias en Madrid</p>
       </div>
 

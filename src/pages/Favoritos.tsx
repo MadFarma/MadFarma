@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import { Heart, ShoppingCart, Trash2 } from 'lucide-react';
-import { useApp } from '../context/AppContext';
+import { useApp, type Product } from '../context/AppContext';
 import './Favoritos.css';
 
 export default function Favoritos() {
   const { favorites, toggleFavorite, addToCart } = useApp();
 
-  const handleAddToCart = (product: any) => {
+  const handleAddToCart = (product: Product) => {
     addToCart(product, 1);
     toggleFavorite(product);
   };
@@ -34,7 +34,7 @@ export default function Favoritos() {
       </div>
 
       <div className="favoritos-grid">
-        {favorites.map((product: any) => (
+        {favorites.map((product) => (
           <div key={product.id} className="favorito-card">
             <Link to={`/producto/${product.id}`} className="favorito-image">
               <img src={product.image} alt={product.name} />

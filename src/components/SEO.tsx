@@ -9,10 +9,10 @@ interface SEOProps {
 }
 
 export default function SEO({ 
-  title = 'CR Pharma - Parafarmacia Online | Envío 24-48h',
-  description = 'Tu parafarmacia online de confianza. Encuentra los mejores productos de cuidado personal, belleza y salud con envío rápido a toda España.',
-  image = 'https://botica-online.vercel.app/og-image.png',
-  url = 'https://botica-online.vercel.app',
+  title = 'MadFarma | Advanced Health & Lifestyle',
+  description = 'Discover the future of health with MadFarma. Optimized pharmaceutical solutions and premium care in Madrid.',
+  image = 'https://madfarma.es/og-image.png',
+  url = 'https://madfarma.es',
   type = 'website'
 }: SEOProps) {
   useEffect(() => {

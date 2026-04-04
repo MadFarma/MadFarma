@@ -6,7 +6,7 @@ import './BottomNav.css';
 const navItems = [
   { path: '/', label: 'Inicio', icon: Home },
   { path: '/tienda', label: 'Tienda', icon: ShoppingBag },
-  { path: '/mapa', label: 'Botica', icon: Map },
+  { path: '/mapa', label: 'Farmacia', icon: Map },
   { path: '/retos', label: 'Retos', icon: Target },
   { path: '/perfil', label: 'Perfil', icon: User },
 ];

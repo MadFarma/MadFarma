@@ -11,6 +11,8 @@ export default function Header() {
   const [showMenu, setShowMenu] = useState(false);
   const [hoveredCat, setHoveredCat] = useState(categories[0].id);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showSearchSuggestions, setShowSearchSuggestions] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -59,21 +61,70 @@ export default function Header() {
       <div className="df-main-header">
         <div className="df-container df-main-header-inner">
           <Link to="/" className="df-logo">
-            <span className="df-logo-icon">+</span>
-            <span className="df-logo-text">CR Pharma</span>
+            <div className="df-logo-icon-wrap mf-monogram">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 32V8L16 24L26 8V32" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M26 12H34M26 20H32" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <span className="df-logo-text">MadFarma</span>
           </Link>
 
           <form className="df-search-bar" onSubmit={handleSearch}>
             <div className="df-search-input-wrap">
               <Search size={18} className="df-search-icon" />
               <input
+                ref={searchInputRef}
                 type="text"
                 placeholder="¿Qué estás buscando?"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setShowSearchSuggestions(e.target.value.length > 1);
+                }}
+                onFocus={() => setShowSearchSuggestions(searchQuery.length > 1)}
+                onBlur={() => setTimeout(() => setShowSearchSuggestions(false), 200)}
                 className="df-search-input"
               />
             </div>
+            {showSearchSuggestions && searchQuery.length > 1 && (
+              <div className="df-search-suggestions">
+                {productsList
+                  .filter(p => 
+                    p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    p.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    p.category.toLowerCase().includes(searchQuery.toLowerCase())
+                  )
+                  .slice(0, 6)
+                  .map(product => (
+                    <div
+                      key={product.id}
+                      className="df-suggestion-item"
+                      onClick={() => {
+                        navigate(`/producto/${product.id}`);
+                        setShowSearchSuggestions(false);
+                        setSearchQuery('');
+                      }}
+                    >
+                      <img src={product.image} alt={product.name} className="df-suggestion-img" />
+                      <div className="df-suggestion-info">
+                        <span className="df-suggestion-brand">{product.brand}</span>
+                        <span className="df-suggestion-name">{product.name}</span>
+                        <span className="df-suggestion-price">{product.price.toFixed(2)}€</span>
+                      </div>
+                    </div>
+                  ))}
+                <div
+                  className="df-suggestion-all"
+                  onClick={() => {
+                    navigate(`/tienda?search=${encodeURIComponent(searchQuery)}`);
+                    setShowSearchSuggestions(false);
+                  }}
+                >
+                  Ver todos los resultados para "{searchQuery}"
+                </div>
+              </div>
+            )}
           </form>
 
           <div className="df-header-actions">
@@ -112,7 +163,7 @@ export default function Header() {
           </div>
 
           <ul className="df-nav-links">
-            <li><Link to="/tienda">Marcas</Link></li>
+            <li><Link to="/marcas">Marcas</Link></li>
             <li><Link to="/tienda?sale=true" className="df-nav-highlight">Promociones</Link></li>
             <li><Link to="/tienda">Packs Ahorro</Link></li>
             <li><Link to="/tienda?badge=new">Novedades</Link></li>
@@ -120,7 +171,7 @@ export default function Header() {
           </ul>
 
           <div className="df-nav-right">
-            <Link to="/retos" className="df-club-btn">Club CR Pharma</Link>
+            <Link to="/retos" className="df-club-btn">Club MadFarma</Link>
             <Link to="/blog" className="df-blog-link">Blog</Link>
           </div>
         </div>

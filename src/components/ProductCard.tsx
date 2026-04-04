@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import { Star, ShoppingBasket } from 'lucide-react';
-import { useApp } from '../context/AppContext';
+import { useApp, type Product } from '../context/AppContext';
 import './ProductCard.css';
 
 interface ProductCardProps {
-  product: any;
+  product: Product;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {

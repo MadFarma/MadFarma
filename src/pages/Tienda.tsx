@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useLocation } from 'react-router-dom';
 import { Search, Grid, List, ChevronRight, X } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { api } from '../utils/api';
@@ -7,6 +7,8 @@ import SEO from '../components/SEO';
 import './Tienda.css';
 
 export default function Tienda() {
+  const location = useLocation();
+  const isMarcasPage = location.pathname === '/marcas';
   const [searchParams] = useSearchParams();
   const urlCategory = searchParams.get('cat');
   const urlSubcategory = searchParams.get('sub');
@@ -18,7 +20,7 @@ export default function Tienda() {
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState('relevance');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const { categories } = useApp();
+  const { categories, brands } = useApp();
   const urlSearch = searchParams.get('search') || '';
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -34,7 +36,18 @@ export default function Tienda() {
         if (sortBy && sortBy !== 'relevance') params.sort = sortBy;
         
         const data = await api.products.getAll(params);
-        if (data.data) setProducts(data.data);
+        if (data.data) {
+          let filtered = data.data;
+          // Apply price filter
+          if (priceRange[0] > 0 || priceRange[1] < 200) {
+            filtered = filtered.filter((p: any) => p.price >= priceRange[0] && p.price <= priceRange[1]);
+          }
+          // Apply brand filter
+          if (selectedBrands.length > 0) {
+            filtered = filtered.filter((p: any) => selectedBrands.includes(p.brand));
+          }
+          setProducts(filtered);
+        }
       } catch (error) {
         console.error('Error fetching products:', error);
       } finally {
@@ -42,7 +55,7 @@ export default function Tienda() {
       }
     };
     fetchProducts();
-  }, [selectedCategory, selectedSubcategory, searchQuery, urlSearch, sortBy]);
+  }, [selectedCategory, selectedSubcategory, searchQuery, urlSearch, sortBy, priceRange, selectedBrands]);
 
   useEffect(() => {
     setSelectedCategory(urlCategory || 'all');
@@ -61,6 +74,14 @@ export default function Tienda() {
     setSearchQuery('');
   };
 
+  const toggleBrand = (brand: string) => {
+    setSelectedBrands(prev => 
+      prev.includes(brand) 
+        ? prev.filter(b => b !== brand)
+        : [...prev, brand]
+    );
+  };
+
   const hasActiveFilters = selectedCategory !== 'all' || selectedSubcategory !== 'all' || 
                           searchQuery || selectedBrands.length > 0 || 
                           priceRange[0] > 0 || priceRange[1] < 200;
@@ -68,7 +89,7 @@ export default function Tienda() {
   return (
     <div className="df-tienda">
       <SEO 
-        title="Tienda - CR Pharma | Productos de Parafarmacia Online"
+        title="Tienda - MadFarma | Tu Parafarmacia en Madrid"
         description="Explora nuestro catálogo de parafarmacia online. Cuidado facial, corporal, vitaminas, bebé y mamá, higiene y más. Envío 24-48h."
       />
       <div className="df-container">
@@ -76,15 +97,41 @@ export default function Tienda() {
         <div className="df-breadcrumb">
           <Link to="/">Inicio</Link>
           <ChevronRight size={14} />
-          <span>La Tienda</span>
-          {selectedCategory !== 'all' && (
+          {isMarcasPage ? (
+            <span>Marcas</span>
+          ) : (
             <>
-              <ChevronRight size={14} />
-              <span>{selectedCategoryData?.name || selectedCategory}</span>
+              <span>La Tienda</span>
+              {selectedCategory !== 'all' && (
+                <>
+                  <ChevronRight size={14} />
+                  <span>{selectedCategoryData?.name || selectedCategory}</span>
+                </>
+              )}
             </>
           )}
         </div>
 
+        {isMarcasPage ? (
+          <div className="df-marcas-page">
+            <SEO title="Marcas - MadFarma | Nuestras Marcas" description="Descubre todas las marcas de parafarmacia disponibles en MadFarma." />
+            <div className="df-marcas-header">
+              <h1>Nuestras Marcas</h1>
+              <p>Todas las marcas con las que trabajamos</p>
+            </div>
+            <div className="df-marcas-grid">
+              {brands.map(brand => (
+                <Link key={brand.id} to={`/tienda?brand=${encodeURIComponent(brand.name)}`} className="df-marca-card">
+                  <div className="df-marca-logo">
+                    <img src={brand.logo} alt={brand.name} onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                    <span>{brand.name}</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        ) : (
+        <>
         <div className="df-tienda-layout">
           {/* Sidebar */}
           <aside className="df-sidebar">
@@ -157,6 +204,22 @@ export default function Tienda() {
                   <span>€{priceRange[0]}</span>
                   <span> - €{priceRange[1]}</span>
                 </div>
+              </div>
+            </div>
+
+            <div className="df-sidebar-section">
+              <h3 className="df-sidebar-title">Marcas</h3>
+              <div className="df-brand-filters">
+                {brands.map(brand => (
+                  <label key={brand.id} className="df-brand-checkbox">
+                    <input
+                      type="checkbox"
+                      checked={selectedBrands.includes(brand.name)}
+                      onChange={() => toggleBrand(brand.name)}
+                    />
+                    <span>{brand.name}</span>
+                  </label>
+                ))}
               </div>
             </div>
           </aside>
@@ -259,6 +322,8 @@ export default function Tienda() {
             )}
           </div>
         </div>
+        </>
+        )}
       </div>
     </div>
   );
