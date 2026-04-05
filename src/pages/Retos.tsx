@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Trophy, Target, Award, CheckCircle, Clock, Crown, Gift as GiftIcon, Star, ShoppingBag, TrendingUp, Users, Zap } from 'lucide-react';
+import { Trophy, Target, Award, CheckCircle, Clock, Crown, Gift as GiftIcon } from 'lucide-react';
 import { useApp, type Challenge } from '../context/AppContext';
 import './Retos.css';
 
@@ -54,12 +54,6 @@ const levelConfig = {
   },
 };
 
-const howItWorks = [
-  { icon: '🛒', title: 'Compra', description: 'Gasta 1€ y earn 1 punto' },
-  { icon: '📈', title: 'Sube nivel', description: 'Más puntos = mejores beneficios' },
-  { icon: '🎁', title: 'Canjea', description: 'Usa puntos por descuentos y productos' },
-];
-
 const rewards = [
   { id: 1, name: 'Bálsamo labial', points: 150, icon: '💋', description: 'Variedad de sabores', category: 'bebe-mama', stock: 50 },
   { id: 2, name: 'Gel hidroalcoholico 50ml', points: 200, icon: '🧴', description: 'Pack de 2 unidades', category: 'higiene', stock: 100 },
@@ -110,18 +104,6 @@ export default function Retos() {
 
   const unlockedAchievements = user.achievements.filter(a => a.unlocked);
   const lockedAchievements = user.achievements.filter(a => !a.unlocked);
-
-  const getPointsMultiplier = (level: string): number => {
-    switch(level) {
-      case 'Bronce': return 1;
-      case 'Plata': return 1.2;
-      case 'Oro': return 1.5;
-      case 'Platino': return 2;
-      case 'Esmeralda': return 2.5;
-      case 'Diamante': return 3;
-      default: return 1;
-    }
-  };
 
   const handleRedeem = (_rewardId: number) => {
     alert('¡Premio canjeado! Recibirás tu código por email.');
@@ -323,7 +305,7 @@ export default function Retos() {
                   </div>
                   <div className="level-benefits">
                     <ul>
-                      {benefitsByLevel[level as keyof typeof benefitsByLevel].map((benefit, i) => (
+                      {data.benefits.map((benefit, i) => (
                         <li key={i}>
                           <CheckCircle size={14} />
                           {benefit}
@@ -332,7 +314,7 @@ export default function Retos() {
                     </ul>
                   </div>
                   <div className="level-requirement">
-                    <span>Desde {data.minPoints.toLocaleString()} puntos</span>
+                    <span>Desde {data.spendLabel}</span>
                   </div>
                 </div>
               ))}
