@@ -73,9 +73,10 @@ export interface User {
   phone?: string;
   avatar: string;
   points: number;
-  level: 'Bronce' | 'Plata' | 'Oro' | 'Platino' | 'Diamante';
+  level: 'Bronce' | 'Plata' | 'Oro' | 'Platino' | 'Esmeralda' | 'Diamante';
   pointsToNextLevel: number;
   totalPoints: number;
+  totalSpent: number;
   referrals: number;
   streak: number;
   achievements: Achievement[];
