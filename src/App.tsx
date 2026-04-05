@@ -39,6 +39,7 @@ function AuthListener() {
           level: 'Bronce',
           pointsToNextLevel: 400,
           totalPoints: 100,
+          totalSpent: 0,
           referrals: 0,
           streak: 0,
           achievements: [],

@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams, useLocation } from 'react-router-dom';
-import { Search, Grid, List, ChevronRight, X } from 'lucide-react';
+import { Search, Grid, List, ChevronRight, X, Scale } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { api } from '../utils/api';
 import SEO from '../components/SEO';
+import ProductCard from '../components/ProductCard';
 import './Tienda.css';
 
 export default function Tienda() {
@@ -20,6 +21,8 @@ export default function Tienda() {
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState('relevance');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [compareMode, setCompareMode] = useState(false);
+  const [compareList, setCompareList] = useState<any[]>([]);
   const { categories, brands } = useApp();
   const urlSearch = searchParams.get('search') || '';
   const [products, setProducts] = useState<any[]>([]);
@@ -80,6 +83,14 @@ export default function Tienda() {
         ? prev.filter(b => b !== brand)
         : [...prev, brand]
     );
+  };
+
+  const handleToggleCompare = (product: any) => {
+    if (compareList.find(p => p.id === product.id)) {
+      setCompareList(compareList.filter(p => p.id !== product.id));
+    } else if (compareList.length < 4) {
+      setCompareList([...compareList, product]);
+    }
   };
 
   const hasActiveFilters = selectedCategory !== 'all' || selectedSubcategory !== 'all' || 
@@ -264,8 +275,33 @@ export default function Tienda() {
                 <button className={viewMode === 'list' ? 'active' : ''} onClick={() => setViewMode('list')}>
                   <List size={18} />
                 </button>
+                <button 
+                  className={`df-compare-toggle ${compareMode ? 'active' : ''}`} 
+                  onClick={() => setCompareMode(!compareMode)}
+                  title="Comparar productos"
+                >
+                  <Scale size={18} />
+                  {compareList.length > 0 && <span className="compare-count">{compareList.length}</span>}
+                </button>
               </div>
             </div>
+
+            {/* Compare Bar */}
+            {compareList.length > 0 && (
+              <div className="df-compare-bar">
+                <span>Comparando {compareList.length} productos:</span>
+                <div className="df-compare-items">
+                  {compareList.map(p => (
+                    <div key={p.id} className="df-compare-item">
+                      <img src={p.image} alt={p.name} />
+                      <button onClick={() => handleToggleCompare(p)}><X size={14} /></button>
+                    </div>
+                  ))}
+                </div>
+                <button className="df-compare-btn">Ver comparación</button>
+                <button className="df-compare-clear" onClick={() => setCompareList([])}>Limpiar</button>
+              </div>
+            )}
 
             {/* Active Filters */}
             {hasActiveFilters && (
@@ -292,15 +328,16 @@ export default function Tienda() {
             ) : products.length > 0 ? (
               <div className={`df-products-grid ${viewMode}`}>
                 {products.map((product: any) => (
-                  <div key={product.id} className="df-product-card">
-                    <Link to={`/producto/${product.id}`} className="df-product-img">
-                      {product.badge === 'offer' && (
-                        <span className="df-product-badge">Oferta</span>
-                      )}
-                      <img src={product.image} alt={product.name} />
-                    </Link>
-                    <div className="df-product-details">
-                      <span className="df-product-brand">{product.brand}</span>
+                  <ProductCard 
+                    key={product.id} 
+                    product={product}
+                    showCompare={compareMode}
+                    isComparing={compareList.some(p => p.id === product.id)}
+                    onToggleCompare={handleToggleCompare}
+                  />
+                ))}
+              </div>
+            ) : (
                       <Link to={`/producto/${product.id}`} className="df-product-title">{product.name}</Link>
                       <div className="df-product-price">
                         <span className="df-price-current">€{product.price.toFixed(2)}</span>
