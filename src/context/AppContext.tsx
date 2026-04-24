@@ -28,7 +28,6 @@ export interface Product {
 export interface Category {
   id: string;
   name: string;
-  icon: string;
   color: string;
   subcategories: Subcategory[];
 }
@@ -174,7 +173,6 @@ export const categories: Category[] = [
   {
     id: 'bebe-mama',
     name: 'Bebé y Mamá',
-    icon: '👶',
     color: '#E8B4BC',
     subcategories: [
       { id: 'alimentacion-bebe', name: 'Alimentación' },
@@ -190,7 +188,6 @@ export const categories: Category[] = [
   {
     id: 'cosmetica-belleza',
     name: 'Cosmética y Belleza',
-    icon: '💄',
     color: '#D4A5A5',
     subcategories: [
       { id: 'cuidado-facial', name: 'Cuidado Facial' },
@@ -206,7 +203,6 @@ export const categories: Category[] = [
   {
     id: 'higiene',
     name: 'Higiene',
-    icon: '🧼',
     color: '#A8D8EA',
     subcategories: [
       { id: 'higiene-bucal', name: 'Higiene Bucal' },
@@ -220,7 +216,6 @@ export const categories: Category[] = [
   {
     id: 'dietetica-nutricion',
     name: 'Dietética y Nutrición',
-    icon: '🥗',
     color: '#B5D89A',
     subcategories: [
       { id: 'vitaminas', name: 'Vitaminas' },
@@ -236,7 +231,6 @@ export const categories: Category[] = [
   {
     id: 'medicamentos',
     name: 'Medicamentos',
-    icon: '💊',
     color: '#E8A8A8',
     subcategories: [
       { id: 'dolores', name: 'Dolores y Fiebre' },
@@ -250,7 +244,6 @@ export const categories: Category[] = [
   {
     id: 'salud-sexual',
     name: 'Salud Sexual',
-    icon: '💑',
     color: '#C9B1D9',
     subcategories: [
       { id: 'anticonceptivos', name: 'Anticonceptivos' },
@@ -262,7 +255,6 @@ export const categories: Category[] = [
   {
     id: 'optica',
     name: 'Óptica',
-    icon: '👓',
     color: '#B8C5D6',
     subcategories: [
       { id: 'gafas-sol', name: 'Gafas de Sol' },
@@ -276,7 +268,6 @@ export const categories: Category[] = [
   {
     id: 'ortopedia',
     name: 'Ortopedia',
-    icon: '🦴',
     color: '#E8D4A8',
     subcategories: [
       { id: 'movilidad', name: 'Movilidad' },
@@ -290,7 +281,6 @@ export const categories: Category[] = [
   {
     id: 'fitoterapia',
     name: 'Fitoterapia',
-    icon: '🌿',
     color: '#B8D4B8',
     subcategories: [
       { id: 'plantas-medicinales', name: 'Plantas Medicinales' },
@@ -303,7 +293,6 @@ export const categories: Category[] = [
   {
     id: 'mascotas',
     name: 'Mascotas',
-    icon: '🐾',
     color: '#C5D4B8',
     subcategories: [
       { id: 'perros', name: 'Perros' },
@@ -317,7 +306,6 @@ export const categories: Category[] = [
   {
     id: 'solar',
     name: 'Protección Solar',
-    icon: '☀️',
     color: '#F5D6A5',
     subcategories: [
       { id: 'solar-facial', name: 'Solar Facial' },
@@ -331,8 +319,7 @@ export const categories: Category[] = [
   {
     id: 'primeros-auxilios',
     name: 'Primeros Auxilios',
-    icon: '🩹',
-    color: '#EF4444',
+    color: '#E8A8A8',
     subcategories: [
       { id: 'vendajes', name: 'Vendajes' },
       { id: 'gasas', name: 'Gasas y Algodón' },

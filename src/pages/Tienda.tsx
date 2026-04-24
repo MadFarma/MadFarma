@@ -157,7 +157,7 @@ export default function Tienda() {
                       className={`df-cat-item ${selectedCategory === cat.id ? 'active' : ''}`}
                       onClick={() => { setSelectedCategory(cat.id); setSelectedSubcategory('all'); }}
                     >
-                      <span>{cat.icon}</span> {cat.name}
+                      <span style={{ backgroundColor: cat.color, width: 8, height: 8, borderRadius: '50%', display: 'inline-block', marginRight: 8 }}></span> {cat.name}
                     </button>
                   </li>
                 ))}

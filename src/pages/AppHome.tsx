@@ -194,8 +194,8 @@ export default function AppHome() {
           <h2 className="df-section-title">Categorías</h2>
           <div className="df-categories-grid">
             {categories.map((cat) => (
-              <Link key={cat.id} to={`/tienda?cat=${cat.id}`} className="df-category-card">
-                <span className="df-category-icon">{cat.icon}</span>
+              <Link key={cat.id} to={`/tienda?cat=${cat.id}`} className="df-category-card" style={{ '--cat-color': cat.color } as React.CSSProperties}>
+                <span className="df-category-dot" style={{ backgroundColor: cat.color }} />
                 <span className="df-category-name">{cat.name}</span>
               </Link>
             ))}

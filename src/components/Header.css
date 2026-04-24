@@ -8,7 +8,7 @@
 
 /* ─── Promo bar ────────────────────────────────────────────── */
 .df-promo-bar {
-  background: #e53e3e;
+  background: var(--color-primary, #5D8A82);
   color: white;
   font-size: 12.5px;
   text-align: center;
@@ -17,7 +17,7 @@
 
 .df-promo-bar span {
   background: white;
-  color: #e53e3e;
+  color: var(--color-primary, #5D8A82);
   padding: 2px 8px;
   border-radius: 4px;
   font-weight: 700;
@@ -420,7 +420,7 @@
   left: 0;
   bottom: 0;
   width: 6px;
-  background: var(--active-color, --color-primary);
+  background: var(--active-color, var(--color-primary, #5D8A82));
   opacity: 0;
   transition: opacity 0.15s;
 }
@@ -454,19 +454,19 @@
   top: 0;
   bottom: 0;
   width: 4px;
-  background: var(--cat-color, --color-primary);
+  background: var(--cat-color, var(--color-primary, #5D8A82));
   opacity: 0;
   transition: opacity 0.15s;
 }
 
 .df-mega-cat-row:hover,
 .df-mega-cat-row.active {
-  background: color-mix(in srgb, var(--cat-color, --color-primary) 8%, transparent);
-  font-weight: 500;
+  background: color-mix(in srgb, var(--cat-color, var(--color-primary, #5D8A82)) 15%, transparent);
+  font-weight: 600;
 }
 
 .df-mega-cat-row.active {
-  color: var(--cat-color, --color-primary);
+  color: var(--color-primary, #5D8A82);
   font-weight: 600;
 }
 
@@ -500,13 +500,13 @@
 .df-mega-cat-row.active .df-mega-cat-arrow {
   opacity: 1;
   transform: translateX(0);
-  color: var(--cat-color, --color-primary);
+  color: var(--cat-color, var(--color-primary, #5D8A82));
 }
 
 /* Column 2 – Subcategories */
 .df-mega-subs {
   padding: 16px 0;
-  background: linear-gradient(135deg, var(--active-color, --color-primary) 0%, color-mix(in srgb, var(--active-color, --color-primary) 90%, white) 100%);
+  background: linear-gradient(135deg, var(--active-color, var(--color-primary, #5D8A82)) 0%, color-mix(in srgb, var(--active-color, var(--color-primary, #5D8A82)) 90%, white) 100%);
 }
 
 .df-mega-sub-title {
@@ -577,7 +577,7 @@
 .df-mega-prod-card:hover {
   box-shadow: 0 6px 16px rgba(0,0,0,0.12);
   transform: translateY(-3px);
-  border-color: var(--active-color, --color-primary);
+  border-color: var(--active-color, var(--color-primary, #5D8A82));
 }
 
 .df-mega-prod-img-wrap {
@@ -744,7 +744,7 @@
 }
 
 .df-account-btn:hover {
-  color: --color-primary;
+  color: var(--color-primary, #5D8A82);
 }
 
 .df-account-popup {
@@ -796,7 +796,7 @@
 .df-create-account-btn {
   display: inline-block;
   padding: 10px 20px;
-  background: --color-primary;
+  background: var(--color-primary, #5D8A82);
   color: white;
   text-decoration: none;
   border-radius: 8px;
@@ -806,7 +806,7 @@
 }
 
 .df-create-account-btn:hover {
-  background: #0F766E;
+  background: var(--color-primary, #5D8A82);
   transform: translateY(-1px);
 }
 
@@ -850,7 +850,7 @@
 }
 
 .df-input-group:focus-within {
-  border-color: --color-primary;
+  border-color: var(--color-primary, #5D8A82);
   background: white;
 }
 
@@ -883,7 +883,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: var(--color-primary);
+  background: var(--color-primary, #5D8A82);
   color: white;
   border: none;
   padding: 14px;
@@ -907,7 +907,7 @@
 
 .df-forgot-password {
   font-size: 13px;
-  color: --color-primary;
+  color: var(--color-primary, #5D8A82);
   text-decoration: none;
   text-align: right;
   display: block;

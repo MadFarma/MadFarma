@@ -168,7 +168,7 @@
 }
 
 .auth-input-wrap:focus-within {
-  border-color: --color-primary;
+  border-color: var(--color-primary, #5D8A82);
   box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
 }
 
@@ -209,7 +209,7 @@
   background: none;
   border: none;
   font-size: 13px;
-  color: --color-primary;
+  color: var(--color-primary, #5D8A82);
   cursor: pointer;
   padding: 0;
 }
@@ -247,12 +247,12 @@
   margin-top: 2px;
   width: 18px;
   height: 18px;
-  accent-color: --color-primary;
+  accent-color: var(--color-primary, #5D8A82);
   cursor: pointer;
 }
 
 .auth-terms a {
-  color: --color-primary;
+  color: var(--color-primary, #5D8A82);
   text-decoration: none;
 }
 
@@ -263,7 +263,7 @@
 .auth-submit {
   width: 100%;
   padding: 16px;
-  background: --color-primary;
+  background: var(--color-primary, #5D8A82);
   color: white;
   border: none;
   border-radius: 8px;
@@ -298,7 +298,7 @@
 .auth-switch button {
   background: none;
   border: none;
-  color: --color-primary;
+  color: var(--color-primary, #5D8A82);
   font-weight: 600;
   cursor: pointer;
   font-size: 14px;
@@ -344,7 +344,7 @@
 }
 
 .auth-benefits li svg {
-  color: --color-primary;
+  color: var(--color-primary, #5D8A82);
   flex-shrink: 0;
 }
 
