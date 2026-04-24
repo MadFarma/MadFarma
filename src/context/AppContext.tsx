@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 import { supabase } from '../lib/supabase';
 import { alimentacionInfantilProducts } from '../data/alimentacionInfantil';
+import { suavinexProducts } from '../data/suavinexProducts';
 
 export interface Product {
   id: number;
@@ -334,6 +335,7 @@ const initialChallenges: Challenge[] = [
 
 export const productsList: Product[] = [
   ...alimentacionInfantilProducts,
+  ...suavinexProducts,
 ];
 
 export const products = productsList;

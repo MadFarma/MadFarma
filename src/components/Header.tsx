@@ -292,16 +292,18 @@ export default function Header() {
               {/* Column 1: Category list */}
               <div className={`df-mega-col df-mega-cats ${hoveredCat === activeCat.id ? 'active' : ''}`} style={{ '--active-color': activeCat.color } as React.CSSProperties}>
                 {categories.map((cat) => (
-                  <div
+                  <Link
                     key={cat.id}
+                    to={`/${cat.id}`}
                     className={`df-mega-cat-row ${hoveredCat === cat.id ? 'active' : ''}`}
                     style={{ '--cat-color': cat.color } as React.CSSProperties}
                     onMouseEnter={() => handleCatHover(cat.id)}
+                    onClick={() => setShowMenu(false)}
                   >
                     <span className="df-mega-cat-dot" style={{ backgroundColor: cat.color }} />
                     <span className="df-mega-cat-label">{cat.name}</span>
                     <ChevronRight size={14} className="df-mega-cat-arrow" />
-                  </div>
+                  </Link>
                 ))}
               </div>
 

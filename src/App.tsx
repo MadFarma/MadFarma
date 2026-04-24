@@ -4,6 +4,7 @@ import { AppProvider, useApp } from './context/AppContext';
 import { supabase } from './lib/supabase';
 import AppHome from './pages/AppHome';
 import Tienda from './pages/Tienda';
+import CategoryPage from './pages/CategoryPage';
 import ProductoDetalle from './pages/ProductoDetalle';
 import Mapa from './pages/Mapa';
 import Perfil from './pages/Perfil';
@@ -106,6 +107,7 @@ function App() {
             <Routes>
               <Route path="/" element={<AppHome />} />
               <Route path="/tienda" element={<Tienda />} />
+              <Route path="/:slug" element={<CategoryPage />} />
               <Route path="/marcas" element={<Tienda />} />
               <Route path="/producto/:id" element={<ProductoDetalle />} />
               <Route path="/mapa" element={<Mapa />} />
