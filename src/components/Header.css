@@ -244,21 +244,31 @@
   position: relative;
 }
 
+.df-cart-icon {
+  color: #5D8A82;
+  transition: color 0.2s;
+}
+
+.df-cart:hover .df-cart-icon {
+  color: #4a7268;
+}
+
 .df-cart-count {
   position: absolute;
   top: -6px;
   right: -8px;
-  background: #ff6b6b;
+  background: #5D8A82;
   color: white;
-  width: 17px;
-  height: 17px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
   line-height: 1;
+  box-shadow: 0 2px 4px rgba(93, 138, 130, 0.3);
 }
 
 /* ─── Nav bar ──────────────────────────────────────────────── */

@@ -1,16 +1,19 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Heart, Minus, Plus, Star, Truck, Shield, Check } from 'lucide-react';
+import { Heart, Minus, Plus, ChevronRight, Package, Truck, Shield, Check, ChevronDown } from 'lucide-react';
 import { useApp, products } from '../context/AppContext';
 import SEO from '../components/SEO';
 import './ProductoDetalle.css';
 
 export default function ProductoDetalle() {
   const { id } = useParams();
-  const { addToCart, favorites, toggleFavorite, reviews, addReview } = useApp();
+  const { addToCart, favorites, toggleFavorite } = useApp();
   const [quantity, setQuantity] = useState(1);
-  const [showReviewForm, setShowReviewForm] = useState(false);
-  const [newReview, setNewReview] = useState({ rating: 5, comment: '' });
+  const [openTabs, setOpenTabs] = useState<Record<string, boolean>>({
+    descripcion: true,
+    composicion: false,
+    modo: false
+  });
 
   const product = products.find(p => p.id === Number(id));
 
@@ -21,7 +24,7 @@ export default function ProductoDetalle() {
           <div className="df-not-found">
             <h1>Producto no encontrado</h1>
             <p>El producto que buscas no existe</p>
-            <Link to="/tienda" className="df-primary-btn">Volver a la tienda</Link>
+            <Link to="/tienda" className="df-btn df-btn-primary">Volver a la tienda</Link>
           </div>
         </div>
       </div>
@@ -30,225 +33,261 @@ export default function ProductoDetalle() {
 
   const isFavorite = favorites.some(f => f.id === product.id);
   const discount = product.originalPrice ? Math.round((1 - product.price / product.originalPrice) * 100) : 0;
+  const savings = product.originalPrice ? (product.originalPrice - product.price).toFixed(2).replace('.', ',') : '0,00';
 
   const handleAddToCart = () => {
     addToCart(product, quantity);
   };
 
-  const productReviews = reviews.filter(r => r.productId === product.id);
-
-  const handleSubmitReview = () => {
-    if (newReview.comment.trim()) {
-      addReview(product.id, newReview.rating, newReview.comment);
-      setNewReview({ rating: 5, comment: '' });
-      setShowReviewForm(false);
-    }
+  const toggleTab = (tab: string) => {
+    setOpenTabs(prev => ({ ...prev, [tab]: !prev[tab] }));
   };
+
+  const relatedProducts = products.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
 
   return (
     <div className="df-product-page">
-      {product && (
-        <SEO 
-          title={`${product.name} - ${product.brand} | MadFarma`}
-          description={product.description}
-        />
-      )}
-      <div className="df-container">
-        <div className="df-breadcrumb">
-          <Link to="/">Inicio</Link>
-          <span>/</span>
-          <Link to="/tienda">Productos</Link>
-          <span>/</span>
-          <span>{product.name}</span>
-        </div>
+      <SEO 
+        title={`${product.name} - ${product.brand} | MadFarma`}
+        description={product.description}
+      />
 
-        <div className="df-product-layout">
-          {/* Image */}
-          <div className="df-product-gallery">
-            <div className="df-main-image">
-              {product.badge && (
-                <span className="df-badge-offer">{product.badge === 'new' ? 'Nuevo' : 'Oferta'}</span>
-              )}
-              {discount > 0 && (
-                <span className="df-badge-discount">-{discount}%</span>
-              )}
-              <img src={product.image} alt={product.name} />
-            </div>
-          </div>
-
-          {/* Info */}
-          <div className="df-product-info">
-            <span className="df-product-brand">{product.brand}</span>
-            <h1 className="df-product-title">{product.name}</h1>
-
-            <div className="df-product-rating">
-              <div className="df-stars">
-                {[1, 2, 3, 4, 5].map(star => (
-                  <Star key={star} size={16} fill={star <= product.rating ? '#fbbf24' : 'none'} color="#fbbf24" />
-                ))}
-              </div>
-              <span className="df-rating-value">{product.rating}</span>
-              <span className="df-reviews-count">({product.reviews} valoraciones)</span>
-            </div>
-
-            <div className="df-product-price-section">
-              <span className="df-current-price">€{product.price.toFixed(2)}</span>
-              {product.originalPrice && (
-                <span className="df-original-price">€{product.originalPrice.toFixed(2)}</span>
-              )}
-            </div>
-
-            {product.stockCount && product.stockCount < 20 && (
-              <div className="df-stock-warning">
-                ¡Solo quedan {product.stockCount} unidades!
-              </div>
-            )}
-
-            <div className="df-quantity-section">
-              <span className="df-quantity-label">Cantidad:</span>
-              <div className="df-quantity-controls">
-                <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="df-qty-btn">
-                  <Minus size={18} />
-                </button>
-                <span className="df-qty-value">{quantity}</span>
-                <button onClick={() => setQuantity(quantity + 1)} className="df-qty-btn">
-                  <Plus size={18} />
-                </button>
-              </div>
-            </div>
-
-            <div className="df-product-actions">
-              <button className="df-add-to-cart-btn" onClick={handleAddToCart}>
-                Añadir al carrito
-              </button>
-              <button className="df-favorite-btn" onClick={() => toggleFavorite(product)}>
-                <Heart size={22} fill={isFavorite ? '#ff6b6b' : 'none'} color={isFavorite ? '#ff6b6b' : 'currentColor'} />
-              </button>
-            </div>
-
-            <div className="df-product-benefits">
-              <div className="df-benefit-row">
-                <Truck size={20} />
-                <div>
-                  <strong>Envío gratis</strong>
-                  <span>En pedidos mayores a €35</span>
-                </div>
-              </div>
-              <div className="df-benefit-row">
-                <Shield size={20} />
-                <div>
-                  <strong>Compra segura</strong>
-                  <span>100% garantizado</span>
-                </div>
-              </div>
-              <div className="df-benefit-row">
-                <Check size={20} />
-                <div>
-                  <strong>Devolución</strong>
-                  <span>30 días sin preguntas</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Description */}
-        <div className="df-product-section">
-          <h2>Descripción</h2>
-          <p>{product.description}</p>
-        </div>
-
-        {product.features && product.features.length > 0 && (
-          <div className="df-product-section">
-            <h2>Características</h2>
-            <ul className="df-features-list">
-              {product.features.map((feature, idx) => (
-                <li key={idx}>
-                  <Check size={16} />
-                  <span>{feature}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {/* Reviews Section */}
-        <div className="df-product-section df-reviews-section">
-          <div className="df-reviews-header">
-            <h2>Valoraciones y Opiniones</h2>
-            <button 
-              className="df-write-review-btn"
-              onClick={() => setShowReviewForm(!showReviewForm)}
-            >
-              Escribir opinión
-            </button>
-          </div>
-
-          {showReviewForm && (
-            <div className="df-review-form">
-              <h3>Tu opinión sobre {product.name}</h3>
-              <div className="df-rating-select">
-                <span>Tu puntuación:</span>
-                <div className="df-stars-input">
-                  {[1, 2, 3, 4, 5].map(star => (
-                    <button
-                      key={star}
-                      onClick={() => setNewReview({ ...newReview, rating: star })}
-                      className="df-star-btn"
-                    >
-                      <Star 
-                        size={24} 
-                        fill={star <= newReview.rating ? '#fbbf24' : 'none'} 
-                        color={star <= newReview.rating ? '#fbbf24' : '#ccc'} 
-                      />
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <textarea
-                placeholder="Comparte tu experiencia con este producto..."
-                value={newReview.comment}
-                onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
-                rows={4}
-              />
-              <button 
-                className="df-submit-review-btn"
-                onClick={handleSubmitReview}
-              >
-                Publicar opinión
-              </button>
-            </div>
-          )}
-
-          {/* Reviews List */}
-          <div className="df-reviews-list">
-            {productReviews.length === 0 ? (
-              <p className="df-no-reviews">Aún no hay opiniones. ¡Sé el primero en valorar este producto!</p>
-            ) : (
-              productReviews.map(review => (
-                <div key={review.id} className="df-review-card">
-                  <div className="df-review-header">
-                    <span className="df-review-author">{review.userName}</span>
-                    <span className="df-review-date">{review.date}</span>
-                  </div>
-                  <div className="df-review-rating">
-                    {[1, 2, 3, 4, 5].map(star => (
-                      <Star key={star} size={14} fill={star <= review.rating ? '#fbbf24' : 'none'} color="#fbbf24" />
-                    ))}
-                  </div>
-                  <p className="df-review-comment">{review.comment}</p>
-                  {review.verified && (
-                    <div className="df-review-verified">
-                      <Check size={12} />
-                      <span>Compra verificada</span>
-                    </div>
-                  )}
-                </div>
-              ))
-            )}
-          </div>
+      {/* Breadcrumbs */}
+      <div className="df-breadcrumbs">
+        <div className="df-container">
+          <nav className="breadcrumb-list">
+            <span className="breadcrumb-item">
+              <Link to="/">Inicio</Link>
+            </span>
+            <span className="separator"><ChevronRight size={14} /></span>
+            <span className="breadcrumb-item">
+              <Link to="/tienda">Productos</Link>
+            </span>
+            <span className="separator"><ChevronRight size={14} /></span>
+            <span className="breadcrumb-item">
+              <Link to={`/tienda?cat=${product.category}`}>{product.brand}</Link>
+            </span>
+            <span className="separator"><ChevronRight size={14} /></span>
+            <span className="breadcrumb-item">
+              <span>{product.name}</span>
+            </span>
+          </nav>
         </div>
       </div>
+
+      <main className="page-main">
+        <div className="columns">
+          {/* Left Column - Image Gallery */}
+          <div className="product-image-gallery">
+            <div className="gallery-main">
+              {discount > 0 && (
+                <span className="product-label">-{discount}%</span>
+              )}
+              <img 
+                src={product.image} 
+                alt={product.name} 
+                className="product-image active" 
+              />
+              <button className="fullscreen-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+              </button>
+            </div>
+            <div className="gallery-thumbnails">
+              <button className="thumbnail-item active">
+                <img src={product.image} alt={product.name} className="thumbnail-image" />
+              </button>
+            </div>
+          </div>
+
+          {/* Right Column - Product Info */}
+          <div className="product-info-main">
+            <div className="add-to-wishlist">
+              <button className={`wish-btn ${isFavorite ? 'active' : ''}`} onClick={() => toggleFavorite(product)}>
+                <Heart size={24} fill={isFavorite ? '#E3596C' : 'none'} color={isFavorite ? '#E3596C' : '#6B7580'} />
+              </button>
+            </div>
+
+            <div className="product-header">
+              <span className="product-brand">{product.brand}</span>
+              <h1 className="h1">{product.name}</h1>
+            </div>
+
+            {/* Price Box - DosFarma Style */}
+            <div className="price-box">
+              <div className="price-container-wrapper">
+                <div className="price-container">
+                  {product.originalPrice && (
+                    <span className="old-price">
+                      <span className="price-wrapper">{product.originalPrice.toFixed(2).replace('.', ',')} €</span>
+                    </span>
+                  )}
+                  <span className="final-price">
+                    <span className="price-container price-final_price">
+                      <span className="price-label">Precio especial</span>
+                      <span className="price-wrapper">{product.price.toFixed(2).replace('.', ',')}<span className="decimals">,00 €</span></span>
+                    </span>
+                  </span>
+                </div>
+                {discount > 0 && (
+                  <div className="additional-price-container">
+                    ahorras {savings} €
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Stock */}
+            <div className="stock">
+              <Package size={16} />
+              <span>En stock</span>
+            </div>
+
+            {/* Add to Cart */}
+            <div className="addtocart-container">
+              <div className="qty-selector">
+                <button className="qty-btn" onClick={() => setQuantity(Math.max(1, quantity - 1))}>
+                  <Minus size={16} />
+                </button>
+                <input type="text" className="qty-input" value={quantity} readOnly />
+                <button className="qty-btn" onClick={() => setQuantity(quantity + 1)}>
+                  <Plus size={16} />
+                </button>
+              </div>
+              <button className="btn-primary" onClick={handleAddToCart}>
+                <svg className="add-to-cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <span>Añadir al carrito</span>
+              </button>
+            </div>
+
+            {/* Shipping Info */}
+            <div className="shipping-info">
+              <div className="shipping-list">
+                <div className="shipping-item">
+                  <Truck size={24} />
+                  <div className="shipping-text">
+                    <strong>Envío 24-48h</strong>
+                    <span>Gratis a partir de 35€</span>
+                  </div>
+                </div>
+                <div className="shipping-item">
+                  <Shield size={24} />
+                  <div className="shipping-text">
+                    <strong>Compra 100% segura</strong>
+                    <span>Pago seguro SSL</span>
+                  </div>
+                </div>
+                <div className="shipping-item">
+                  <Check size={24} />
+                  <div className="shipping-text">
+                    <strong>Devolución 30 días</strong>
+                    <span>Sin preguntas</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Club Savings Card */}
+            <div className="savings-card">
+              <div className="savings-card-header">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+                <span>Ahorra con Club MadFarma</span>
+              </div>
+              <p className="savings-amount">Ahorra un 5% en tu próximo pedido al acumular puntos</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Product Tabs - DosFarma Accordion Style */}
+        <div className="product-details-tabs">
+          <div className="tabs__heading">
+            <ul>
+              <li className="tabs__item">
+                <button className="tabs__title" onClick={() => toggleTab('descripcion')}>
+                  <h3>Descripción</h3>
+                  <ChevronDown size={20} className={`tabs__icon ${openTabs.descripcion ? 'rotate-180' : ''}`} />
+                </button>
+                {openTabs.descripcion && (
+                  <div className="tabs__content">
+                    <div className="description">
+                      <p>{product.description}</p>
+                      {product.features && product.features.length > 0 && (
+                        <ul className="details-grid">
+                          {product.features.map((feature, idx) => (
+                            <li key={idx}>
+                              <span className="label">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </li>
+              <li className="tabs__item">
+                <button className="tabs__title" onClick={() => toggleTab('composicion')}>
+                  <h3>Composición</h3>
+                  <ChevronDown size={20} className={`tabs__icon ${openTabs.composicion ? 'rotate-180' : ''}`} />
+                </button>
+                {openTabs.composicion && (
+                  <div className="tabs__content">
+                    <div className="description">
+                      <p>{product.composition || 'Información sobre composición no disponible.'}</p>
+                    </div>
+                  </div>
+                )}
+              </li>
+              <li className="tabs__item">
+                <button className="tabs__title" onClick={() => toggleTab('modo')}>
+                  <h3>Modo de empleo</h3>
+                  <ChevronDown size={20} className={`tabs__icon ${openTabs.modo ? 'rotate-180' : ''}`} />
+                </button>
+                {openTabs.modo && (
+                  <div className="tabs__content">
+                    <div className="description">
+                      <p>{product.howToUse || 'Siga las instrucciones del fabricante.'}</p>
+                    </div>
+                  </div>
+                )}
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Related Products */}
+        {relatedProducts.length > 0 && (
+          <div className="related-products">
+            <h2 className="related-products-title">Productos relacionados</h2>
+            <div className="product-grid">
+              {relatedProducts.map(relProduct => (
+                <div key={relProduct.id} className="product-item">
+                  <Link to={`/producto/${relProduct.id}`}>
+                    <img 
+                      src={relProduct.image} 
+                      alt={relProduct.name} 
+                      className="product-item-image" 
+                    />
+                  </Link>
+                  <div className="product-item-name">
+                    <Link to={`/producto/${relProduct.id}`}>{relProduct.name}</Link>
+                  </div>
+                  <span className="product-item-price">
+                    {relProduct.price.toFixed(2).replace('.', ',')}<span className="decimals">,00 €</span>
+                  </span>
+                  <button className="btn df-btn-add-rel" onClick={() => addToCart(relProduct, 1)}>
+                    Añadir
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </main>
     </div>
   );
 }

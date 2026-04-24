@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { Star, ShoppingBasket } from 'lucide-react';
+import { Star, ShoppingBasket, Check } from 'lucide-react';
 import { useApp, type Product } from '../context/AppContext';
+import { useState } from 'react';
 import './ProductCard.css';
 
 interface ProductCardProps {
@@ -9,11 +10,14 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useApp();
+  const [added, setAdded] = useState(false);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     addToCart(product);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 600);
   };
 
   const discount = product.originalPrice 
@@ -50,8 +54,12 @@ export default function ProductCard({ product }: ProductCardProps) {
             <span className="current-price">€{product.price.toFixed(2)}</span>
           </div>
           
-          <button className="add-to-cart-btn" onClick={handleAddToCart} title="Añadir al carrito">
-            <ShoppingBasket size={20} />
+          <button 
+            className={`add-to-cart-btn ${added ? 'added' : ''}`} 
+            onClick={handleAddToCart} 
+            title="Añadir al carrito"
+          >
+            {added ? <Check size={20} /> : <ShoppingBasket size={20} />}
           </button>
         </div>
       </div>

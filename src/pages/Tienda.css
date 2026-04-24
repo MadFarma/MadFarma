@@ -1,183 +1,436 @@
 .df-tienda {
-  padding: 20px 0 40px;
+  min-height: 100vh;
+  background: #f7f7f7;
 }
 
-.df-tienda .df-container {
+/* Category Banner - DosFarma Style */
+.df-category-view {
+  padding: 24px 20px 32px;
+  margin-bottom: 0;
+}
+
+.df-category-container {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.df-category-content {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 16px;
 }
 
-.df-breadcrumb {
+.df-category-content h1 {
+  font-family: 'Poppins', Georgia, serif;
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 56px;
+  color: #212429;
+  margin: 0;
+}
+
+.df-breadcrumbs {
   display: flex;
   align-items: center;
   gap: 8px;
   font-size: 13px;
-  margin-bottom: 20px;
-  color: #666;
+  margin-bottom: 16px;
+  padding-top: 8px;
 }
 
-.df-breadcrumb a,
-.df-breadcrumb .df-breadcrumb-link {
-  color: var(--color-primary, #5D8A82);
+.df-breadcrumbs a {
+  color: #6B7580;
   text-decoration: none;
+  transition: color 0.2s;
 }
 
-.df-breadcrumb a:hover,
-.df-breadcrumb .df-breadcrumb-link:hover {
-  text-decoration: underline;
+.df-breadcrumbs a:hover {
+  color: #212429;
 }
 
-.df-breadcrumb span:last-child {
-  color: #1a1d32;
-  font-weight: 500;
+.df-breadcrumbs span {
+  color: #212429;
 }
 
-.df-tienda-layout {
-  display: flex;
-  gap: 24px;
+/* Container */
+.df-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
-.df-sidebar {
-  width: 260px;
-  min-width: 260px;
+/* Columns Layout */
+.df-columns {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 32px;
+  padding-top: 32px;
 }
 
-.df-sidebar-section {
-  margin-bottom: 24px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid #eee;
-}
-
-.df-sidebar-title {
+/* Mobile Filter Button */
+.df-mobile-filter-btn {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: #fff;
+  border: 1px solid #DDE2E5;
+  border-radius: 4px;
   font-size: 14px;
-  font-weight: 700;
-  color: #1a1d32;
-  margin: 0 0 16px;
+  font-weight: 500;
+  color: #212429;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+/* Sidebar */
+.df-sidebar {
+  background: #fff;
+  border-radius: 8px;
+  padding: 0;
+  height: fit-content;
+  position: sticky;
+  top: 100px;
+}
+
+.df-sidebar-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #f0f0f0;
 }
 
-.df-clear-btn {
-  font-size: 12px;
-  color: var(--color-primary, #5D8A82)
+.df-sidebar-header span {
+  font-weight: 600;
+  font-size: 16px;
+  color: #212429;
+}
+
+.df-sidebar-close {
+  display: none;
   background: none;
   border: none;
   cursor: pointer;
-  font-weight: 500;
+  padding: 4px;
+  color: #6B7580;
 }
 
-.df-cat-list, .df-subcat-list {
+.df-sidebar-content {
+  padding: 0;
+}
+
+/* Filter Block */
+.df-filter-block {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.df-filter-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #212429;
+  cursor: pointer;
+  user-select: none;
+}
+
+.df-filter-title:hover {
+  background: #fafafa;
+}
+
+.df-filter-arrow {
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #6B7580;
+  border-bottom: 2px solid #6B7580;
+  transform: rotate(45deg);
+  transition: transform 0.2s;
+}
+
+.df-filter-arrow.open {
+  transform: rotate(-135deg);
+}
+
+.df-filter-content {
+  padding: 0 20px 16px;
+  max-height: 500px;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.df-filter-content.collapsed {
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* Category List */
+.df-cat-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.df-cat-item, .df-subcat-item {
+.df-cat-list li {
+  margin-bottom: 4px;
+}
+
+.df-cat-item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   width: 100%;
-  padding: 10px 12px;
+  padding: 8px 12px;
   background: none;
   border: none;
   text-align: left;
-  font-size: 13px;
-  color: #1a1d32;
+  font-size: 14px;
+  color: #495057;
   cursor: pointer;
   border-radius: 4px;
   transition: all 0.2s;
 }
 
-.df-cat-item:hover, .df-subcat-item:hover {
-  background: #f8f9fa;
+.df-cat-item:hover {
+  background: #f7f7f7;
 }
 
-.df-cat-item.active, .df-subcat-item.active {
-  background: #e0f2f1;
-  color: var(--color-primary, #5D8A82)
+.df-cat-item.active {
+  background: #f7f7f7;
+  color: #212429;
   font-weight: 600;
 }
 
-.df-price-slider input {
+.df-cat-item span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Subcategory List */
+.df-subcat-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.df-subcat-item {
+  display: block;
   width: 100%;
-  margin-bottom: 12px;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 14px;
+  color: #495057;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.df-subcat-item:hover {
+  background: #f7f7f7;
+}
+
+.df-subcat-item.active {
+  background: #f7f7f7;
+  color: #212429;
+  font-weight: 600;
+}
+
+/* Price Slider */
+.df-price-slider {
+  padding: 8px 0;
+}
+
+.df-price-slider input[type="range"] {
+  width: 100%;
+  height: 4px;
+  background: #DDE2E5;
+  border-radius: 2px;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.df-price-slider input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #212429;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 .df-price-values {
   display: flex;
   justify-content: space-between;
-  font-size: 13px;
-  color: #666;
+  margin-top: 12px;
+  font-size: 14px;
+  color: #495057;
+}
+
+/* Brand Filters */
+.df-brand-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #f7f7f7;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.df-brand-search input {
+  flex: 1;
+  border: none;
+  background: none;
+  font-size: 14px;
+  outline: none;
+}
+
+.df-brand-search svg {
+  color: #6B7580;
 }
 
 .df-brand-filters {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  max-height: 200px;
+  overflow-y: auto;
 }
 
 .df-brand-checkbox {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  padding: 6px 0;
+  font-size: 14px;
+  color: #495057;
   cursor: pointer;
-  font-size: 13px;
-  color: #555;
 }
 
 .df-brand-checkbox input {
-  width: 16px;
-  height: 16px;
-  accent-color: var(--color-primary, #5D8A82)
+  width: 18px;
+  height: 18px;
+  accent-color: #212429;
 }
 
-.df-brand-checkbox:hover {
-  color: var(--color-primary, #5D8A82)
+.df-brand-checkbox:hover span {
+  color: #212429;
 }
 
-.df-tienda-main {
-  flex: 1;
+.df-no-brands {
+  font-size: 13px;
+  color: #6B7580;
+  text-align: center;
+  padding: 12px 0;
 }
 
-.df-tienda-header {
+/* Clear All Filters */
+.df-clear-all-filters {
+  display: block;
+  width: calc(100% - 40px);
+  margin: 16px 20px;
+  padding: 12px;
+  background: #f7f7f7;
+  border: 1px solid #DDE2E5;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.df-clear-all-filters:hover {
+  background: #212429;
+  color: #fff;
+  border-color: #212429;
+}
+
+/* Products Section */
+.df-products-section {
+  min-height: 400px;
+}
+
+/* Active Filters */
+.df-active-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.df-filter-tag {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #fff;
+  border: 1px solid #DDE2E5;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #495057;
 }
 
-.df-tienda-header h1 {
-  font-size: 24px;
-  font-weight: 700;
-  color: #1a1d32;
-  margin: 0;
+.df-filter-tag button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #6B7580;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
 }
 
-.df-products-count {
-  background: #f0f0f0;
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 12px;
-  color: #666;
+.df-filter-tag button:hover {
+  color: #212429;
 }
 
-.df-tienda-controls {
+.df-clear-all {
+  padding: 6px 12px;
+  background: none;
+  border: none;
+  font-size: 13px;
+  color: #6B7580;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.df-clear-all:hover {
+  color: #212429;
+}
+
+/* Controls Bar */
+.df-controls-bar {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 16px;
-  margin-bottom: 20px;
+  padding: 16px 0;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #DDE2E5;
 }
 
 .df-search-box {
-  flex: 1;
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: #f8f9fa;
+  gap: 10px;
   padding: 10px 16px;
+  background: #fff;
+  border: 1px solid #DDE2E5;
   border-radius: 4px;
+  flex: 1;
+  max-width: 320px;
+}
+
+.df-search-box svg {
+  color: #6B7580;
+  flex-shrink: 0;
 }
 
 .df-search-box input {
@@ -191,280 +444,308 @@
 .df-search-box button {
   background: none;
   border: none;
+  padding: 4px;
   cursor: pointer;
-  color: #999;
+  color: #6B7580;
+}
+
+.df-controls-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.df-products-count {
+  font-size: 14px;
+  color: #6B7580;
 }
 
 .df-sort-select select {
-  padding: 10px 16px;
-  border: 1px solid #ddd;
+  padding: 10px 32px 10px 12px;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B7580' d='M6 8L1 3h10z'/%3E%3C/svg%3E") no-repeat right 12px center;
+  border: 1px solid #DDE2E5;
   border-radius: 4px;
   font-size: 14px;
-  background: white;
+  color: #212429;
   cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.df-sort-select select:focus {
+  outline: none;
+  border-color: #212429;
 }
 
 .df-view-toggle {
   display: flex;
-  border: 1px solid #ddd;
+  border: 1px solid #DDE2E5;
   border-radius: 4px;
   overflow: hidden;
 }
 
 .df-view-toggle button {
-  padding: 10px 14px;
-  background: white;
+  padding: 10px 12px;
+  background: #fff;
   border: none;
   cursor: pointer;
+  color: #6B7580;
   transition: all 0.2s;
+}
+
+.df-view-toggle button:not(:last-child) {
+  border-right: 1px solid #DDE2E5;
+}
+
+.df-view-toggle button:hover {
+  color: #212429;
 }
 
 .df-view-toggle button.active {
-  background: var(--color-primary, #5D8A82)
-  color: white;
+  background: #212429;
+  color: #fff;
 }
 
-.df-active-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-
-.df-filter-tag {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: #e0f2f1;
-  color: var(--color-primary, #5D8A82)
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 13px;
-  font-weight: 500;
-}
-
-.df-filter-tag button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--color-primary, #5D8A82)
-  font-size: 16px;
-}
-
-.df-clear-all {
-  background: none;
-  border: none;
-  color: #666;
-  font-size: 13px;
-  cursor: pointer;
-  text-decoration: underline;
-}
-
+/* Products Grid */
 .df-products-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
 }
 
-.df-products-grid.list {
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.df-product-card {
-  background: white;
-  border: 1px solid #eee;
+/* Product Item - DosFarma Style */
+.df-product-item {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
   border-radius: 8px;
   overflow: hidden;
-  transition: all 0.2s;
+  transition: all 0.3s ease;
 }
 
-.df-product-card:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+.df-product-item:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  transform: translateY(-4px);
 }
 
-.df-product-img {
-  position: relative;
-  display: block;
-  aspect-ratio: 1;
-  background: #f8f9fa;
+.df-product-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: #fff;
+  min-height: 240px;
 }
 
-.df-product-img img {
+.df-product-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  max-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.df-product-badge {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  background: #ff6b6b;
-  color: white;
-  padding: 4px 10px;
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 700;
+.df-product-image img {
+  max-width: 100%;
+  max-height: 180px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
 }
 
-.df-product-details {
-  padding: 14px;
+.df-product-item:hover .df-product-image img {
+  transform: scale(1.05);
+}
+
+.df-product-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 16px;
+  padding-top: 0;
 }
 
 .df-product-brand {
-  font-size: 11px;
-  color: #888;
+  font-size: 12px;
+  color: #6B7580;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
 }
 
-.df-product-title {
-  display: block;
-  font-size: 13px;
+.df-product-name {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 14px;
   font-weight: 600;
-  color: #1a1d32;
+  color: #212429;
   text-decoration: none;
-  margin: 6px 0 10px;
   line-height: 1.4;
-  min-height: 36px;
+  margin-bottom: 12px;
+  min-height: 58px;
 }
 
-.df-product-title:hover {
-  color: var(--color-primary, #5D8A82)
+.df-product-name:hover {
+  color: #5D8A82;
 }
 
 .df-product-price {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
-.df-price-current {
-  font-size: 18px;
-  font-weight: 700;
-  color: #1a1d32;
+.df-price-final {
+  font-size: 24px;
+  font-weight: 600;
+  color: #212429;
 }
 
-.df-price-original {
+.df-price-old {
+  display: block;
   font-size: 14px;
-  color: #999;
+  color: #6B7580;
   text-decoration: line-through;
+  margin-top: 2px;
+}
+
+.df-product-actions {
+  margin-top: auto;
 }
 
 .df-add-btn {
   width: 100%;
-  padding: 10px;
-  background: #5D9A8A;
-  color: white;
+  padding: 14px 20px;
+  background: #5D8A82;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-size: 14px;
   font-weight: 600;
-  font-size: 13px;
+  color: #fff;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(93, 138, 130, 0.3);
 }
 
 .df-add-btn:hover {
-  background: #4A7A73;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(93, 138, 130, 0.3);
+  background: #4a7268;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(93, 138, 130, 0.4);
 }
 
-.df-loading, .df-empty {
+.df-add-btn:active {
+  transform: translateY(0);
+}
+
+.df-add-btn.added {
+  background: #5D8A82;
+}
+
+.df-add-btn.added:hover {
+  background: #5D8A82;
+}
+
+.df-add-btn.added::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.3);
+  border-radius: 50%;
+  transform: scale(0);
+  animation: pulse-add 0.6s ease-out;
+}
+
+@keyframes pulse-add {
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+/* Empty State */
+.df-empty {
   text-align: center;
   padding: 60px 20px;
+  background: #fff;
+  border-radius: 8px;
 }
 
 .df-empty h3 {
-  font-size: 18px;
-  color: #1a1d32;
-  margin: 0 0 8px;
-}
-
-.df-empty p {
-  color: #666;
-  margin: 0 0 20px;
-}
-
-.df-view-all-btn {
-  background: var(--color-primary, #5D8A82)
-  color: white;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 4px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-@media (max-width: 1024px) {
-  .df-products-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .df-tienda-layout {
-    flex-direction: column;
-  }
-  
-  .df-sidebar {
-    width: 100%;
-    min-width: 100%;
-  }
-  
-  .df-tienda-controls {
-    flex-wrap: wrap;
-  }
-  
-  .df-products-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-}
-
-.df-marcas-page {
-  padding: 20px 0;
-}
-
-.df-marcas-header {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.df-marcas-header h1 {
-  font-size: 32px;
-  font-weight: 700;
-  color: #1a1d32;
+  font-size: 20px;
+  color: #212429;
   margin-bottom: 8px;
 }
 
-.df-marcas-header p {
-  color: #666;
+.df-empty p {
+  font-size: 14px;
+  color: #6B7580;
+  margin-bottom: 24px;
+}
+
+.df-view-all-btn {
+  padding: 12px 24px;
+  background: #212429;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+}
+
+.df-view-all-btn:hover {
+  background: #5D8A82;
+}
+
+/* Loading */
+.df-loading {
+  text-align: center;
+  padding: 60px 20px;
   font-size: 16px;
+  color: #6B7580;
+}
+
+/* Overlay */
+.df-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 99;
+}
+
+/* Marcas Page */
+.df-marcas-page {
+  padding: 40px 0;
 }
 
 .df-marcas-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 16px;
+  gap: 20px;
 }
 
 .df-marca-card {
-  background: #fff;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  padding: 20px;
-  text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  padding: 32px 20px;
+  background: #fff;
+  border: 1px solid #DDE2E5;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s;
 }
 
 .df-marca-card:hover {
-  border-color: var(--color-primary, #5D8A82)
-  box-shadow: 0 4px 12px rgba(0, 137, 123, 0.1);
-  transform: translateY(-2px);
+  border-color: #5D8A82;
+  box-shadow: 0 4px 12px rgba(93,138,130,0.15);
 }
 
 .df-marca-logo {
@@ -483,22 +764,163 @@
 .df-marca-logo span {
   font-size: 14px;
   font-weight: 500;
-  color: #1a1d32;
-  text-align: center;
+  color: #212429;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .df-products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .df-columns {
+    grid-template-columns: 260px 1fr;
+    gap: 24px;
+  }
+  
+  .df-products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 991px) {
+  .df-mobile-filter-btn {
+    display: flex;
+  }
+  
+  .df-columns {
+    grid-template-columns: 1fr;
+  }
+  
+  .df-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 320px;
+    max-width: 100%;
+    z-index: 100;
+    border-radius: 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+  }
+  
+  .df-sidebar.df-sidebar-open {
+    transform: translateX(0);
+  }
+  
+  .df-sidebar-close {
+    display: block;
+  }
+  
+  .df-overlay {
+    display: block;
+  }
+  
+  .df-controls-bar {
+    flex-wrap: wrap;
+  }
+  
+  .df-search-box {
+    max-width: 100%;
+    width: 100%;
+    order: 1;
+  }
+  
+  .df-controls-right {
+    width: 100%;
+    order: 2;
+    justify-content: space-between;
+  }
+  
+  .df-products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
+  .df-category-view {
+    padding: 16px 16px 24px;
+  }
+  
+  .df-category-content h1 {
+    font-size: 32px;
+    line-height: 40px;
+  }
+  
+  .df-container {
+    padding: 0 16px;
+  }
+  
+  .df-columns {
+    padding-top: 20px;
+  }
+  
+  .df-products-grid {
+    gap: 12px;
+  }
+  
+  .df-product-link {
+    min-height: 180px;
+    padding: 16px;
+  }
+  
+  .df-product-image img {
+    max-height: 140px;
+  }
+  
+  .df-product-info {
+    padding: 12px;
+  }
+  
+  .df-price-final {
+    font-size: 20px;
+  }
+  
+  .df-add-btn {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+  
   .df-marcas-grid {
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 12px;
   }
   
   .df-marca-card {
-    padding: 16px;
+    padding: 20px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .df-products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
   }
   
-  .df-marca-logo img {
-    max-width: 100px;
-    max-height: 50px;
+  .df-product-name {
+    font-size: 13px;
+    min-height: 52px;
+  }
+  
+  .df-price-final {
+    font-size: 18px;
+  }
+  
+  .df-controls-right {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .df-sort-select {
+    order: 3;
+    width: 100%;
+  }
+  
+  .df-sort-select select {
+    width: 100%;
   }
 }
