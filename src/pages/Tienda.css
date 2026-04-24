@@ -354,18 +354,20 @@
 .df-add-btn {
   width: 100%;
   padding: 10px;
-  background: var(--color-primary, #5D8A82)
+  background: #5D9A8A;
   color: white;
   border: none;
   border-radius: 4px;
   font-weight: 600;
   font-size: 13px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
 }
 
 .df-add-btn:hover {
-  background: #007a6a;
+  background: #4A7A73;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(93, 138, 130, 0.3);
 }
 
 .df-loading, .df-empty {

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useSearchParams, useLocation } from 'react-router-dom';
 import { Search, Grid, List, ChevronRight, X } from 'lucide-react';
 import { useApp } from '../context/AppContext';
@@ -24,6 +24,7 @@ export default function Tienda() {
   const urlSearch = searchParams.get('search') || '';
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const productsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -47,6 +48,10 @@ export default function Tienda() {
             filtered = filtered.filter((p: any) => selectedBrands.includes(p.brand));
           }
           setProducts(filtered);
+          // Scroll to products section when filters change
+          if (productsRef.current) {
+            productsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
         }
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -85,6 +90,8 @@ export default function Tienda() {
   const hasActiveFilters = selectedCategory !== 'all' || selectedSubcategory !== 'all' || 
                           searchQuery || selectedBrands.length > 0 || 
                           priceRange[0] > 0 || priceRange[1] < 200;
+
+  const availableBrands = [...new Set(products.map(p => p.brand).filter(Boolean))].sort();
 
   return (
     <div className="df-tienda">
@@ -204,22 +211,26 @@ export default function Tienda() {
             <div className="df-sidebar-section">
               <h3 className="df-sidebar-title">Marcas</h3>
               <div className="df-brand-filters">
-                {brands.map(brand => (
-                  <label key={brand.id} className="df-brand-checkbox">
-                    <input
-                      type="checkbox"
-                      checked={selectedBrands.includes(brand.name)}
-                      onChange={() => toggleBrand(brand.name)}
-                    />
-                    <span>{brand.name}</span>
-                  </label>
-                ))}
+                {availableBrands.length > 0 ? (
+                  availableBrands.map(brand => (
+                    <label key={brand} className="df-brand-checkbox">
+                      <input
+                        type="checkbox"
+                        checked={selectedBrands.includes(brand)}
+                        onChange={() => toggleBrand(brand)}
+                      />
+                      <span>{brand}</span>
+                    </label>
+                  ))
+                ) : (
+                  <p className="df-no-brands">No hay marcas disponibles</p>
+                )}
               </div>
             </div>
           </aside>
 
           {/* Main Content */}
-          <div className="df-tienda-main">
+          <div className="df-tienda-main" ref={productsRef}>
             {/* Header */}
             <div className="df-tienda-header">
               <h1>{selectedCategoryData?.name || 'Todos los productos'}</h1>

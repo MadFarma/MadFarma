@@ -128,18 +128,22 @@
 
 /* Add to Cart Button */
 .add-to-cart-btn {
-  background: var(--color-primary);
-  color: #2D4F4B;
+  background: #5D9A8A;
+  color: white;
   border: none;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 0 4px 8px rgba(75, 221, 160, 0.2);
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.add-to-cart-btn:hover {
+  background: #4A7A73;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(93, 138, 130, 0.3);
 }
 
 .add-to-cart-btn:hover {

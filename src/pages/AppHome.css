@@ -60,7 +60,7 @@
 }
 
 .df-hero-btn:hover {
-  background: #007a6a;
+  background: var(--color-primary-dark, #4A7A73);
 }
 
 /* Quick Links */
@@ -434,16 +434,22 @@
 }
 
 .df-add-cart-btn {
-  width: 100%;
-  padding: 10px;
-  background: var(--color-primary, #5D8A82);
+  background: #5D9A8A;
   color: white;
   border: none;
   border-radius: 4px;
-  font-weight: 600;
+  padding: 10px 16px;
   font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.df-add-cart-btn:hover {
+  background: #4A7A73;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(93, 138, 130, 0.3);
 }
 
 .df-add-cart-btn:hover {

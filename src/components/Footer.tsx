@@ -9,16 +9,7 @@ export default function Footer() {
       <div className="footer-container">
         <div className="footer-section footer-about">
           <div className="footer-logo">
-            <div className="mf-monogram mf-footer">
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6 32V8L16 24L26 8V32" stroke="#a71e2c" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M26 12H34M26 20H32" stroke="#a71e2c" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div>
-              <h3 className="footer-title">MadFarma</h3>
-              <p className="footer-tagline">Tu farmacia online de confianza</p>
-            </div>
+            <img src="/logo.svg" alt="MadFarma" className="footer-logo-img" />
           </div>
           <p className="footer-description">
             Tu farmacia y parafarmacia online de confianza en Madrid. Encuentra los mejores productos de cuidado personal, belleza y salud con envío rápido a toda España.

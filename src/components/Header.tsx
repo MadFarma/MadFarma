@@ -10,6 +10,7 @@ export default function Header() {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const [hoveredCat, setHoveredCat] = useState(categories[0].id);
+  const [categoryChanging, setCategoryChanging] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearchSuggestions, setShowSearchSuggestions] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -33,6 +34,16 @@ export default function Header() {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  const handleCatHover = (catId: string) => {
+    if (hoveredCat !== catId) {
+      setCategoryChanging(true);
+      setTimeout(() => {
+        setHoveredCat(catId);
+        setCategoryChanging(false);
+      }, 150);
+    }
+  };
 
   const handleMenuEnter = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -110,7 +121,7 @@ export default function Header() {
             <Menu size={24} />
           </button>
           <Link to="/" className="df-logo">
-            <img src="/logo.png" alt="MadFarma" className="df-logo-img" />
+            <img src="/logo.svg" alt="MadFarma" className="df-logo-img" />
           </Link>
 
           <form className="df-search-bar" onSubmit={handleSearch}>
@@ -249,6 +260,7 @@ export default function Header() {
           {/* Categorías trigger */}
           <div
             className={`df-categories-btn ${showMenu ? 'active' : ''}`}
+            onClick={() => setShowMenu(!showMenu)}
             onMouseEnter={handleMenuEnter}
             onMouseLeave={handleMenuLeave}
           >
@@ -271,12 +283,11 @@ export default function Header() {
         </div>
 
         {/* DosFarma-style 3-column mega-menu */}
-        {showMenu && (
-          <div
-            className="df-mega-menu"
-            onMouseEnter={handleMenuEnter}
-            onMouseLeave={handleMenuLeave}
-          >
+        <div
+          className={`df-mega-menu ${showMenu ? 'open' : ''}`}
+          onMouseEnter={handleMenuEnter}
+          onMouseLeave={handleMenuLeave}
+        >
             <div className="df-mega-inner df-container">
               {/* Column 1: Category list */}
               <div className={`df-mega-col df-mega-cats ${hoveredCat === activeCat.id ? 'active' : ''}`} style={{ '--active-color': activeCat.color } as React.CSSProperties}>
@@ -285,7 +296,7 @@ export default function Header() {
                     key={cat.id}
                     className={`df-mega-cat-row ${hoveredCat === cat.id ? 'active' : ''}`}
                     style={{ '--cat-color': cat.color } as React.CSSProperties}
-                    onMouseEnter={() => setHoveredCat(cat.id)}
+                    onMouseEnter={() => handleCatHover(cat.id)}
                   >
                     <span className="df-mega-cat-dot" style={{ backgroundColor: cat.color }} />
                     <span className="df-mega-cat-label">{cat.name}</span>
@@ -295,7 +306,7 @@ export default function Header() {
               </div>
 
               {/* Column 2: Subcategories */}
-              <div className="df-mega-col df-mega-subs" style={{ '--active-color': activeCat.color } as React.CSSProperties}>
+              <div className={`df-mega-col df-mega-subs ${categoryChanging ? 'fading' : ''}`} style={{ '--active-color': activeCat.color } as React.CSSProperties}>
                 <p className="df-mega-sub-title">{activeCat.name}</p>
                 <ul className="df-mega-sub-list">
                   {activeCat.subcategories.map((sub) => (
@@ -353,7 +364,6 @@ export default function Header() {
               </div>
             </div>
           </div>
-        )}
       </nav>
 
       {/* Mobile Menu Overlay */}
@@ -364,7 +374,7 @@ export default function Header() {
       {/* Mobile Menu Panel */}
       <div className={`df-mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
         <div className="df-mobile-menu-header">
-          <img src="/logo.png" alt="MadFarma" className="df-mobile-menu-logo" />
+          <img src="/logo.svg" alt="MadFarma" className="df-mobile-menu-logo" />
           <button className="df-mobile-menu-close" onClick={() => setMobileMenuOpen(false)}>
             <X size={24} />
           </button>

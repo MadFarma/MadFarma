@@ -129,18 +129,20 @@
   justify-content: center;
   gap: 6px;
   padding: 10px;
-  background: var(--color-primary, #5D8A82)
+  background: #5D9A8A;
   color: white;
   border: none;
   border-radius: 8px;
   font-weight: 600;
   font-size: 0.8rem;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
 }
 
 .btn-add-cart:hover {
-  background: #007a6a;
+  background: #4A7A73;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(93, 138, 130, 0.3);
 }
 
 .btn-remove {

@@ -1,6 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
-  <!-- Background circle -->
-  <circle cx="50" cy="50" r="48" fill="#00897b"/>
-  <!-- M letter -->
-  <path d="M25 70V30h8l12 25 12-25h8v40h-7V42l-11 22h-4l-11-22v28h-7z" fill="white"/>
+  <!-- Background circle with MadFarma green -->
+  <circle cx="50" cy="50" r="48" fill="#5D8A82"/>
+  <!-- M letter stylized as pharmacy/medical -->
+  <path d="M20 70V30h10v17h12V30h10v40H62V46H50v24H40V46H30v24H20z" fill="white"/>
+  <!-- Small cross detail -->
+  <rect x="65" y="60" width="8" height="8" fill="white" rx="2"/>
 </svg>

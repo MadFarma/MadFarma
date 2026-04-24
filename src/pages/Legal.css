@@ -88,7 +88,7 @@
 }
 
 .legal-back a:hover {
-  background: #007a6a;
+  background: var(--color-primary-dark, #4A7A73);
 }
 
 @media (max-width: 768px) {
