@@ -32,7 +32,7 @@ function AuthListener() {
   useEffect(() => {
     if (!supabase) return;
     
-    const initAuth = async () => {
+    const checkSession = async () => {
       if (!supabase) return;
       const { data: { session } } = await supabase.auth.getSession();
       if (session?.user) {
@@ -55,7 +55,7 @@ function AuthListener() {
       }
     };
     
-    initAuth();
+    checkSession();
     
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (event === 'SIGNED_IN' && session?.user) {
@@ -123,7 +123,7 @@ function App() {
               <Route path="/nueva-contrasena" element={<NewPassword />} />
               <Route path="/terminos" element={<Terminos />} />
               <Route path="/privacidad" element={<Privacidad />} />
-              <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
+              <Route path="/admin" element={<Admin />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>

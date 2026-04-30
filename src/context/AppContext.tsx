@@ -361,6 +361,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const savedCart = localStorage.getItem('cart');
     if (savedCart) setCart(JSON.parse(savedCart));
+    
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      try {
+        const savedUserData = JSON.parse(savedUser);
+        if (savedUserData.isLoggedIn) {
+          setUser(savedUserData);
+        }
+      } catch {}
+    }
+    
     const savedFavorites = localStorage.getItem('favorites');
     if (savedFavorites) setFavorites(JSON.parse(savedFavorites));
   }, []);

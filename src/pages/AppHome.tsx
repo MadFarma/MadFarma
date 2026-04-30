@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ChevronRight, ChevronLeft, MessageCircle, Star } from 'lucide-react';
+import { ChevronRight, ChevronLeft, MessageCircle, Star, Tag, MapPin, Award, Truck, Package, Store, Pill, Shield } from 'lucide-react';
 import { useApp, type Product } from '../context/AppContext';
 import { api } from '../utils/api';
 import SEO from '../components/SEO';
@@ -115,19 +115,19 @@ export default function AppHome() {
         <div className="df-container">
           <div className="df-quick-links-grid">
             <Link to="/tienda?sale=true" className="df-quick-link">
-              <span className="df-quick-link-icon">🏷️</span>
+              <span className="df-quick-link-icon"><Tag size={20} /></span>
               <span>Promociones</span>
             </Link>
             <Link to="/mapa" className="df-quick-link">
-              <span className="df-quick-link-icon">📍</span>
+              <span className="df-quick-link-icon"><MapPin size={20} /></span>
               <span>Localizador</span>
             </Link>
             <Link to="/retos" className="df-quick-link">
-              <span className="df-quick-link-icon">🎁</span>
+              <span className="df-quick-link-icon"><Award size={20} /></span>
               <span>MF ELITE</span>
             </Link>
             <Link to="/carrito" className="df-quick-link">
-              <span className="df-quick-link-icon">🚚</span>
+              <span className="df-quick-link-icon"><Truck size={20} /></span>
               <span>Mi Pedido</span>
             </Link>
           </div>
@@ -157,28 +157,28 @@ export default function AppHome() {
         <div className="df-container">
           <div className="df-shipping-grid">
             <div className="df-shipping-item">
-              <div className="df-shipping-icon">📦</div>
+              <div className="df-shipping-icon"><Package size={24} /></div>
               <div className="df-shipping-content">
                 <h4>Envío 24-48h</h4>
                 <p>Gratis desde 35€</p>
               </div>
             </div>
             <div className="df-shipping-item">
-              <div className="df-shipping-icon">🏪</div>
+              <div className="df-shipping-icon"><Store size={24} /></div>
               <div className="df-shipping-content">
                 <h4>Recogida en Farmacia</h4>
                 <p>Recoge tu pedido en tienda</p>
               </div>
             </div>
             <div className="df-shipping-item">
-              <div className="df-shipping-icon">💊</div>
+              <div className="df-shipping-icon"><Pill size={24} /></div>
               <div className="df-shipping-content">
                 <h4>Farmacéuticos Expertos</h4>
                 <p>Asesoría personalizada</p>
               </div>
             </div>
             <div className="df-shipping-item">
-              <div className="df-shipping-icon">🔒</div>
+              <div className="df-shipping-icon"><Shield size={24} /></div>
               <div className="df-shipping-content">
                 <h4>Pago Seguro</h4>
                 <p>Tarjeta, PayPal o Bizum</p>
@@ -308,28 +308,28 @@ export default function AppHome() {
         <div className="df-container">
           <div className="df-benefits-grid">
             <div className="df-benefit">
-              <span className="df-benefit-icon">🚚</span>
+              <span className="df-benefit-icon"><Truck size={24} /></span>
               <div>
                 <h4>Envío rápido</h4>
                 <p>Entrega en 24-48 horas</p>
               </div>
             </div>
             <div className="df-benefit">
-              <span className="df-benefit-icon">🛡️</span>
+              <span className="df-benefit-icon"><Shield size={24} /></span>
               <div>
                 <h4>Compra segura</h4>
                 <p>100% garantizado</p>
               </div>
             </div>
             <div className="df-benefit">
-              <span className="df-benefit-icon">💬</span>
+              <span className="df-benefit-icon"><MessageCircle size={24} /></span>
               <div>
                 <h4>Asesoría MadFarma</h4>
                 <p>Farmacéuticos disponibles</p>
               </div>
             </div>
             <div className="df-benefit">
-              <span className="df-benefit-icon">🎁</span>
+              <span className="df-benefit-icon"><Award size={24} /></span>
               <div>
                 <h4>Puntos</h4>
                 <p>En cada compra</p>

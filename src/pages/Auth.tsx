@@ -143,7 +143,7 @@ export default function Auth() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider,
         options: {
-          redirectTo: `${window.location.origin}/perfil?social_login=true`,
+          redirectTo: `${window.location.origin}/?social_login=true`,
         },
       });
       
