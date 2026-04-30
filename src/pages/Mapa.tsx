@@ -69,7 +69,7 @@ export default function Mapa() {
   const [selectedPharmacy, setSelectedPharmacy] = useState(pharmacies[0]);
 
   return (
-    <div className="mapa-container">
+    <div className="mapa-page">
       <MapContainer 
         center={madridCenter}
         zoom={13}

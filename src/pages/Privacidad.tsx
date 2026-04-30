@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
+import PageBanner from '../components/PageBanner';
 import './Legal.css';
 
 export default function Privacidad() {
@@ -10,9 +11,12 @@ export default function Privacidad() {
         description="Política de privacidad y protección de datos de MadFarma."
       />
       <div className="legal-page">
+        <PageBanner 
+          title="Política de Privacidad"
+          backgroundColor="#374151"
+          breadcrumbs={[{ label: 'Política de Privacidad' }]}
+        />
         <div className="legal-container">
-          <h1>Política de Privacidad</h1>
-          <p className="legal-date">Última actualización: Marzo 2026</p>
 
           <section>
             <h2>1. Responsable del Tratamiento</h2>

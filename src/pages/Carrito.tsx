@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Plus, Minus, Trash2, Gift, CreditCard, ArrowLeft, Check, Tag, MapPin, Truck, Loader2 } from 'lucide-react';
+import { ShoppingCart, Plus, Minus, Trash2, Gift, CreditCard, Check, Tag, MapPin, Truck, Loader2 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { api } from '../utils/api';
+import PageBanner from '../components/PageBanner';
 import './Carrito.css';
 
 export default function Carrito() {
@@ -80,10 +81,12 @@ export default function Carrito() {
 
   if (cart.length === 0) {
     return (
-      <div className="page-container carrito">
-        <header className="carrito-header">
-          <h1 className="headline-lg">Mi Carrito</h1>
-        </header>
+      <div className="carrito-page">
+        <PageBanner 
+          title="Mi Carrito"
+          backgroundColor="#F59E0B"
+          breadcrumbs={[{ label: 'Carrito' }]}
+        />
         <div className="empty-cart">
           <ShoppingCart size={64} className="text-outline" />
           <h2 className="title-md">Tu carrito está vacío</h2>
@@ -95,15 +98,13 @@ export default function Carrito() {
   }
 
   return (
-    <div className="page-container carrito">
-      <header className="carrito-header">
-        <Link to="/" className="back-btn">
-          <ArrowLeft size={24} />
-        </Link>
-        <h1 className="headline-lg">Mi Carrito</h1>
-        <span className="item-count">{cart.length}</span>
-      </header>
-
+    <div className="carrito-page">
+      <PageBanner 
+        title="Mi Carrito"
+        backgroundColor="#F59E0B"
+        breadcrumbs={[{ label: 'Carrito' }]}
+      />
+      <div className="carrito-count">{cart.length} productos</div>
       <div className="free-shipping-banner">
         <Truck size={20} />
         {subtotal >= 35 ? (

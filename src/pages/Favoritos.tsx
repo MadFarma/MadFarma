@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Heart, ShoppingCart, Trash2 } from 'lucide-react';
 import { useApp, type Product } from '../context/AppContext';
+import PageBanner from '../components/PageBanner';
 import './Favoritos.css';
 
 export default function Favoritos() {
@@ -13,7 +14,12 @@ export default function Favoritos() {
 
   if (favorites.length === 0) {
     return (
-      <div className="page-container favoritos-page">
+      <div className="favoritos-page">
+        <PageBanner 
+          title="Mis Favoritos"
+          backgroundColor="#ef4444"
+          breadcrumbs={[{ label: 'Favoritos' }]}
+        />
         <div className="favoritos-empty">
           <Heart size={64} className="empty-icon" />
           <h1>Tu lista de favoritos está vacía</h1>
@@ -27,11 +33,12 @@ export default function Favoritos() {
   }
 
   return (
-    <div className="page-container favoritos-page">
-      <div className="favoritos-header">
-        <h1>Mis Favoritos</h1>
-        <span className="favoritos-count">{favorites.length} productos</span>
-      </div>
+    <div className="favoritos-page">
+      <PageBanner 
+        title="Mis Favoritos"
+        backgroundColor="#ef4444"
+        breadcrumbs={[{ label: 'Favoritos' }]}
+      />
 
       <div className="favoritos-grid">
         {favorites.map((product) => (

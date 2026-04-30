@@ -1,7 +1,58 @@
 .favoritos-page {
-  max-width: 1200px;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.favoritos-banner {
+  padding: 24px 20px 32px;
+  margin-bottom: 0;
+}
+
+.favoritos-banner-content {
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 32px 20px;
+}
+
+.favoritos-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  margin-bottom: 16px;
+  padding-top: 8px;
+}
+
+.favoritos-breadcrumbs a {
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.favoritos-breadcrumbs a:hover {
+  color: #fff;
+}
+
+.favoritos-breadcrumbs span {
+  color: #fff;
+}
+
+.favoritos-banner h1 {
+  font-family: 'Poppins', Georgia, serif;
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 56px;
+  color: #fff;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.favoritos-banner .favoritos-count {
+  background: rgba(255,255,255,0.2);
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 0.875rem;
+  color: #fff;
 }
 
 .favoritos-header {
@@ -9,6 +60,7 @@
   align-items: center;
   gap: 16px;
   margin-bottom: 32px;
+  padding: 0 20px;
 }
 
 .favoritos-header h1 {
@@ -28,6 +80,8 @@
 .favoritos-empty {
   text-align: center;
   padding: 80px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .favoritos-empty .empty-icon {
@@ -50,6 +104,9 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
+  padding: 0 20px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .favorito-card {

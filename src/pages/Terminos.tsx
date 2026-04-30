@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
+import PageBanner from '../components/PageBanner';
 import './Legal.css';
 
 export default function Terminos() {
@@ -10,9 +11,12 @@ export default function Terminos() {
         description="Términos y condiciones de uso de la tienda online MadFarma."
       />
       <div className="legal-page">
+        <PageBanner 
+          title="Términos y Condiciones"
+          backgroundColor="#374151"
+          breadcrumbs={[{ label: 'Términos y Condiciones' }]}
+        />
         <div className="legal-container">
-          <h1>Términos y Condiciones</h1>
-          <p className="legal-date">Última actualización: Marzo 2026</p>
 
           <section>
             <h2>1. Información General</h2>

@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useSearchParams, useLocation } from 'react-router-dom';
-import { Search, Grid, List, ChevronRight, X, Check, SlidersHorizontal } from 'lucide-react';
+import { Search, Grid, List, X, Check, SlidersHorizontal } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { api } from '../utils/api';
 import SEO from '../components/SEO';
+import PageBanner from '../components/PageBanner';
 import './Tienda.css';
 
 export default function Tienda() {
@@ -115,28 +116,16 @@ export default function Tienda() {
         description="Explora nuestro catálogo de parafarmacia online. Envío 24-48h."
       />
       
-      <div className="df-category-view" style={{ backgroundColor: selectedCategory !== 'all' && selectedCategoryData ? selectedCategoryData.color : '#5D8A82' }}>
-        <div className="df-category-container">
-          <div className="df-category-content">
-            <nav className="df-breadcrumbs">
-              <Link to="/">Inicio</Link>
-              <ChevronRight size={14} />
-              {isMarcasPage ? (
-                <span>Marcas</span>
-              ) : selectedCategory !== 'all' ? (
-                <>
-                  <Link to="/tienda">Productos</Link>
-                  <ChevronRight size={14} />
-                  <span>{selectedSubcategoryData?.name || selectedCategoryData?.name}</span>
-                </>
-              ) : (
-                <span>Productos</span>
-              )}
-            </nav>
-            <h1>{isMarcasPage ? 'Nuestras Marcas' : selectedSubcategoryData?.name || selectedCategoryData?.name || 'Todos los productos'}</h1>
-          </div>
-        </div>
-      </div>
+      <PageBanner 
+        title={isMarcasPage ? 'Nuestras Marcas' : selectedSubcategoryData?.name || selectedCategoryData?.name || 'Todos los productos'}
+        backgroundColor={isMarcasPage ? '#8B5CF6' : (selectedCategoryData?.color || '#5D8A82')}
+        breadcrumbs={[
+          ...(isMarcasPage ? [{ label: 'Marcas' }] : [
+            ...(selectedCategory !== 'all' ? [{ label: 'Productos', href: '/tienda' }] : []),
+            ...(selectedSubcategoryData ? [{ label: selectedSubcategoryData.name }] : selectedCategoryData ? [{ label: selectedCategoryData.name }] : [])
+          ])
+        ]}
+      />
 
       {isMarcasPage ? (
         <div className="df-marcas-page">

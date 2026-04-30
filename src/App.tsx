@@ -22,7 +22,7 @@ import Header from './components/Header';
 import BottomNav from './components/BottomNav';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
-import CartNotification from './components/CartNotification';
+import CartPopup from './components/CartPopup';
 import { MessageCircle } from 'lucide-react';
 
 function AuthListener() {
@@ -127,7 +127,7 @@ function App() {
           </main>
           <BottomNav />
           <Footer />
-          <CartNotification />
+          <CartPopup />
           <a 
             href="https://wa.me/34666123456?text=Hola,%20necesito%20asesoramiento" 
             className="whatsapp-float"

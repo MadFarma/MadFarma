@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ArrowRight, Calendar, User } from 'lucide-react';
 import SEO from '../components/SEO';
+import PageBanner from '../components/PageBanner';
 import './Blog.css';
 
 const blogPosts = [
@@ -142,11 +143,18 @@ export default function Blog() {
     ? blogPosts 
     : blogPosts.filter(post => post.category === selectedCategory);
 
-  if (selectedPost) {
+if (selectedPost) {
     return (
-      <div className="page-container blog-page">
+      <div className="blog-page">
         <SEO title={`${selectedPost.title} | Blog MadFarma`} description={selectedPost.excerpt} />
-        <div className="blog-article">
+        
+        <PageBanner 
+          title=""
+          backgroundColor="#10B981"
+          breadcrumbs={[{ label: 'Blog', href: '/blog' }, { label: selectedPost.category }]}
+        />
+        
+        <div className="blog-article-container">
           <button className="back-btn" onClick={() => setSelectedPost(null)}>
             ← Volver al blog
           </button>
@@ -161,7 +169,6 @@ export default function Blog() {
           </div>
 
           <img src={selectedPost.image} alt={selectedPost.title} className="blog-article-image" />
-
           <div className="blog-article-content">
             <p className="lead">{selectedPost.excerpt}</p>
             <div className="article-body">
@@ -179,13 +186,14 @@ export default function Blog() {
   }
 
   return (
-    <div className="page-container blog-page">
+    <div className="blog-page">
       <SEO title="Blog de Salud y Bienestar | MadFarma" description="Consejos de nuestros farmacéuticos y expertos en salud en Madrid" />
       
-      <div className="blog-header">
-        <h1>Blog de Salud y Bienestar</h1>
-        <p>Consejos de nuestros farmacéuticos y expertos en salud</p>
-      </div>
+      <PageBanner 
+        title="Blog de Salud y Bienestar"
+        backgroundColor="#10B981"
+        breadcrumbs={[{ label: 'Blog' }]}
+      />
 
       <div className="blog-categories">
         {categories.map(cat => (
@@ -199,7 +207,8 @@ export default function Blog() {
         ))}
       </div>
 
-      <div className="blog-grid">
+      <div className="blog-content">
+        <div className="blog-grid">
         {filteredPosts.map(post => (
           <article key={post.id} className="blog-card" onClick={() => setSelectedPost(post)}>
             <div className="blog-card-image">
@@ -219,6 +228,7 @@ export default function Blog() {
             </div>
           </article>
         ))}
+        </div>
       </div>
 
       <div className="blog-newsletter">

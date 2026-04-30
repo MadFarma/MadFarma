@@ -386,7 +386,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
       return [...prev, { ...product, quantity }];
     });
     setShowCartNotification({ show: true, productName: product.name });
-    setTimeout(() => setShowCartNotification({ show: false, productName: '' }), 3000);
   };
 
   const hideCartNotification = () => {

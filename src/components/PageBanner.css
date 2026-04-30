@@ -1,0 +1,91 @@
+.page-banner {
+  padding: 24px 20px 32px;
+  margin-bottom: 0;
+  position: relative;
+}
+
+.page-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, var(--banner-color, #5D8A82) 0%, var(--banner-color-end, #5D8A82) 100%);
+  z-index: 0;
+}
+
+.page-banner::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 50%);
+  z-index: 1;
+}
+
+.page-banner-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.page-banner-content {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.page-banner-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  margin-bottom: 16px;
+  padding-top: 8px;
+  flex-wrap: wrap;
+}
+
+.page-banner-breadcrumbs a {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.page-banner-breadcrumbs a:hover {
+  color: #fff;
+}
+
+.page-banner-breadcrumb-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.page-banner-breadcrumb-item span {
+  color: #fff;
+}
+
+.page-banner-title {
+  font-family: 'Poppins', Georgia, serif;
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 56px;
+  color: #fff;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .page-banner {
+    padding: 20px 16px 28px;
+  }
+
+  .page-banner-title {
+    font-size: 32px;
+    line-height: 40px;
+  }
+}

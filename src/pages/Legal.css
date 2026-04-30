@@ -1,7 +1,6 @@
 .legal-page {
-  padding: 40px 0 60px;
-  background: #f8f9fa;
-  min-height: 60vh;
+  min-height: 100vh;
+  background: #f7f7f7;
 }
 
 .legal-container {
@@ -11,6 +10,7 @@
   background: white;
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  margin-top: 0;
 }
 
 .legal-container h1 {

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Settings, Bell, Shield, HelpCircle, LogOut, ChevronRight, Star, Package, Gift, MapPin, CreditCard } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import PageBanner from '../components/PageBanner';
 import './Perfil.css';
 
 const levelColors: Record<string, string> = {
@@ -39,10 +40,12 @@ export default function Perfil() {
   ];
 
   return (
-    <div className="page-container perfil-page">
-      <header className="perfil-header">
-        <h1 className="headline-lg">Mi Perfil</h1>
-      </header>
+    <div className="perfil-page">
+      <PageBanner 
+        title={`Hola, ${user.name.split(' ')[0]}`}
+        backgroundColor="#1A1D32"
+        breadcrumbs={[{ label: 'Mi Perfil' }]}
+      />
 
       <section className="user-info-card surface-lowest soft-lift" style={{ '--level-color': levelColors[user.level] } as React.CSSProperties}>
         <div className="avatar-wrapper">
