@@ -24,6 +24,17 @@ const promoBanners = [
   { id: 4, title: 'Club MF ELITE', subtitle: 'Accumula puntos en cada compra', img: 'https://images.unsplash.com/photo-1576091160550-21830c395212?w=600&h=400&fit=crop', link: '/retos', color: '#a71e2c' },
 ];
 
+const quickSearchChips = [
+  'Leche de continuación',
+  'Cosmética facial',
+  'Vitaminas',
+  'Cuidado del bebé',
+  'Suplementos',
+  'Protector solar',
+  'Colesterol',
+  'Inmunidad'
+];
+
 const heroSlides = [
   {
     title: 'Hasta -50% Solar',
@@ -96,17 +107,61 @@ export default function AppHome() {
         description="Tu farmacia online de confianza en Madrid. Encuentra los mejores productos de cuidado personal, belleza, salud, bebé y mamá con envío rápido a toda España."
       />
       <div className="df-home">
-      {/* Hero Slider */}
-      <section className="df-hero">
-        <div className="df-hero-slide">
-          <img src={heroSlides[currentSlide].image} alt={heroSlides[currentSlide].title} />
-          <div className="df-hero-content">
-            <h1>{heroSlides[currentSlide].title}</h1>
-            <p>{heroSlides[currentSlide].subtitle}</p>
-            <Link to={heroSlides[currentSlide].link} className="df-hero-btn">
-              {heroSlides[currentSlide].cta}
-            </Link>
+      
+      {/* PREMIUM HERO - IVB Style */}
+      <section className="df-hero-premium">
+        <div className="df-hero-grid">
+          <div className="df-hero-text">
+            <div className="df-hero-badge">
+              👩‍⚕️ Asesoramiento farmacéutico real
+            </div>
+            <h1 className="df-hero-title">
+              Tu farmacia<br />
+              en Madrid,<br />
+              <span>asesorada 24h</span>
+            </h1>
+            <p className="df-hero-subtitle">
+              Envío en 24-48h • Productos originales • Consejo profesional de farmacéuticos
+            </p>
+            <div className="df-hero-buttons">
+              <Link to="/tienda" className="df-hero-btn-primary">
+                Ver productos
+              </Link>
+              <button className="df-hero-btn-secondary">
+                Hablar con farmacéutico
+              </button>
+            </div>
+            <div className="df-hero-features">
+              <span>✅ Envío gratis desde 49€</span>
+              <span>✅ Devoluciones 30 días</span>
+              <span>✅ Pago seguro</span>
+            </div>
           </div>
+          <div className="df-hero-image">
+            <img 
+              src="https://images.unsplash.com/photo-1559757148-5e9952c318c9?w=800" 
+              alt="Farmacéutica MadFarma" 
+              className="df-hero-img"
+            />
+            <div className="df-hero-floating-1">
+              <img src="https://via.placeholder.com/140x140/14B8A6/ffffff?text=Nutribén" alt="Nutribén" />
+            </div>
+            <div className="df-hero-floating-2">
+              <img src="https://via.placeholder.com/100x100/14B8A6/ffffff?text=Crema" alt="Crema" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* QUICK SEARCH CHIPS */}
+      <section className="df-quick-search">
+        <h3 className="df-quick-search-title">¿Qué necesitas hoy?</h3>
+        <div className="df-chips-container">
+          {quickSearchChips.map((chip) => (
+            <button key={chip} className="df-chip" onClick={() => navigate(`/tienda?search=${chip}`)}>
+              {chip}
+            </button>
+          ))}
         </div>
       </section>
 
@@ -203,90 +258,48 @@ export default function AppHome() {
         </div>
       </section>
 
-      {/* Bestsellers Carousel */}
-      <section className="df-products-section">
-        <div className="df-container">
-          <div className="df-section-header">
-            <h2 className="df-section-title">Los más vendidos</h2>
-            <div className="df-carousel-controls">
-              <button onClick={() => scrollCarousel('bestsellers', 'left')}><ChevronLeft size={20} /></button>
-              <button onClick={() => scrollCarousel('bestsellers', 'right')}><ChevronRight size={20} /></button>
-              <Link to="/tienda" className="df-view-all">Ver todos</Link>
-            </div>
-          </div>
-          <div className="df-products-carousel" id="bestsellers">
-            {bestsellers.map((product) => (
-              <div key={product.id} className="df-product-card">
-                <Link to={`/producto/${product.id}`} className="df-product-image">
-                  {product.badge === 'sale' && <span className="df-product-badge">Oferta</span>}
-                  <img src={product.image} alt={product.name} />
-                </Link>
-                <div className="df-product-info">
-                  <span className="df-product-brand">{product.brand}</span>
-                  <Link to={`/producto/${product.id}`} className="df-product-name">{product.name}</Link>
-                  <div className="df-product-rating">
-                    <Star size={12} fill="#fbbf24" color="#fbbf24" />
-                    <span>{product.rating}</span>
-                    <span className="df-product-reviews">({product.reviews})</span>
-                  </div>
-                  <div className="df-product-price">
-                    <span className="df-price-current">€{product.price.toFixed(2)}</span>
-                    {product.originalPrice && (
-                      <span className="df-price-original">€{product.originalPrice.toFixed(2)}</span>
-                    )}
-                  </div>
-                  <button className="df-add-cart-btn" onClick={() => addToCart(product, 1)}>
+      {/* PREMIUM PRODUCT GRID */}
+      <section className="df-products-premium" id="productos">
+        <div className="df-section-header">
+          <h2 className="df-section-title-premium">Productos destacados</h2>
+          <Link to="/tienda" className="df-section-link">Ver todo →</Link>
+        </div>
+        <div className="df-products-grid-premium">
+          {bestsellers.slice(0, 8).map((product) => (
+            <div key={product.id} className="df-product-card-premium">
+              <div className="df-product-img-container">
+                {product.badge === 'sale' && <span className="df-product-badge-premium">Oferta</span>}
+                <img src={product.image} alt={product.name} className="df-product-img" />
+              </div>
+              <div className="df-product-info-premium">
+                <span className="df-product-brand-premium">{product.brand}</span>
+                <Link to={`/producto/${product.id}`} className="df-product-name-premium">{product.name}</Link>
+                <div className="df-product-rating-premium">
+                  <Star size={14} fill="#fbbf24" color="#fbbf24" />
+                  <span style={{ fontSize: '13px', color: '#6b7280' }}>{product.rating} ({product.reviews})</span>
+                </div>
+                <div className="df-product-price-premium">
+                  <span className="df-price-current-premium">€{product.price.toFixed(2)}</span>
+                  <button className="df-btn-add-premium" onClick={() => addToCart(product, 1)}>
                     Añadir
                   </button>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* Offers Carousel */}
-      {offers.length > 0 && (
-        <section className="df-products-section df-offers-section">
-          <div className="df-container">
-            <div className="df-section-header">
-              <h2 className="df-section-title">Ofertas destacadas</h2>
-              <div className="df-carousel-controls">
-                <button onClick={() => scrollCarousel('offers', 'left')}><ChevronLeft size={20} /></button>
-                <button onClick={() => scrollCarousel('offers', 'right')}><ChevronRight size={20} /></button>
-                <Link to="/tienda?sale=true" className="df-view-all">Ver todos</Link>
-              </div>
-            </div>
-            <div className="df-products-carousel" id="offers">
-              {offers.map((product) => (
-                <div key={product.id} className="df-product-card">
-                  <Link to={`/producto/${product.id}`} className="df-product-image">
-                    {product.badge === 'sale' && (
-                      <span className="df-product-badge df-offer-badge">
-                        -{Math.round((1 - product.price / (product.originalPrice || product.price)) * 100)}%
-                      </span>
-                    )}
-                    <img src={product.image} alt={product.name} />
-                  </Link>
-                  <div className="df-product-info">
-                    <span className="df-product-brand">{product.brand}</span>
-                    <Link to={`/producto/${product.id}`} className="df-product-name">{product.name}</Link>
-                    <div className="df-product-price">
-                      <span className="df-price-current">€{product.price.toFixed(2)}</span>
-                      {product.originalPrice && (
-                        <span className="df-price-original">€{product.originalPrice.toFixed(2)}</span>
-                      )}
-                    </div>
-                    <button className="df-add-cart-btn" onClick={() => addToCart(product, 1)}>
-                      Añadir
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      {/* ASESORAMIENTO PREMIUM */}
+      <section className="df-asesoramiento">
+        <div className="df-asesoramiento-content">
+          <h2>Asesoramiento Farmacéutico Real</h2>
+          <p>Nuestro equipo de farmacéuticos te atiende casi 24 horas. Pregunta lo que necesites.</p>
+          <button className="df-btn-asesoramiento" onClick={() => window.open('https://wa.me/34666123456?text=Hola,%20necesito%20asesoramiento%20farmacéutico', '_blank')}>
+            Hablar ahora con un Farmacéutico
+          </button>
+        </div>
+      </section>
 
       {/* Brands */}
       <section className="df-brands-section">

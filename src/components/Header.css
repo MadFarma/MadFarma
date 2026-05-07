@@ -46,8 +46,8 @@
 /* ─── Main header row ──────────────────────────────────────── */
 .df-main-header {
   background: white;
-  padding: 14px 0;
-  border-bottom: 1px solid #ebebeb;
+  padding: 16px 0;
+  border-bottom: 1px solid #f3f4f6;
 }
 
 .df-container {
