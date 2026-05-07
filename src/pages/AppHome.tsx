@@ -86,12 +86,6 @@ export default function AppHome() {
                 </button>
               </div>
             </div>
-            <div className="ivb-hero-image">
-              <img 
-                src="https://images.unsplash.com/photo-1559757148-5e9952c318c9?w=800&h=600&fit=crop" 
-                alt="Farmaceutica MadFarma" 
-              />
-            </div>
           </div>
         </section>
 
