@@ -436,10 +436,19 @@
 
 .df-search-box input {
   flex: 1;
-  border: none;
+  border: none !important;
   background: none;
   font-size: 14px;
-  outline: none;
+  outline: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
+.df-search-box input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
 }
 
 .df-search-box button {
