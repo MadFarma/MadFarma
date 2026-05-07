@@ -25,10 +25,10 @@ const promoBanners = [
 ];
 
 const quickSearchChips = [
-  'Leche de continuación',
-  'Cosmética facial',
+  'Leche de continuacion',
+  'Cosmetica facial',
   'Vitaminas',
-  'Cuidado del bebé',
+  'Cuidado del bebe',
   'Suplementos',
   'Protector solar',
   'Colesterol',
@@ -112,8 +112,9 @@ export default function AppHome() {
       <section className="df-hero-premium">
         <div className="df-hero-grid">
           <div className="df-hero-text">
-            <div className="df-hero-badge">
-              👩‍⚕️ Asesoramiento farmacéutico real
+            <div className="df-hero-badge" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'white', padding: '10px 20px', borderRadius: '50px', fontSize: '14px', fontWeight: '500', color: '#0d9488', boxShadow: '0 4px 20px rgba(0,0,0,0.08)', marginBottom: '24px' }}>
+              <span style={{ fontSize: '18px' }}><img src="https://cdn-icons-png.flaticon.com/512/2966/2966332.png" alt="" style={{ width: '20px', height: '20px', verticalAlign: 'middle' }} /></span>
+              Asesoramiento farmacéutico real
             </div>
             <h1 className="df-hero-title">
               Tu farmacia<br />
@@ -121,41 +122,36 @@ export default function AppHome() {
               <span>asesorada 24h</span>
             </h1>
             <p className="df-hero-subtitle">
-              Envío en 24-48h • Productos originales • Consejo profesional de farmacéuticos
+              Envio en 24-48h - Productos originales - Consejo profesional de farmaceuticos
             </p>
             <div className="df-hero-buttons">
               <Link to="/tienda" className="df-hero-btn-primary">
                 Ver productos
               </Link>
               <button className="df-hero-btn-secondary">
-                Hablar con farmacéutico
+                Hablar con farmaceutico
               </button>
             </div>
             <div className="df-hero-features">
-              <span>✅ Envío gratis desde 49€</span>
-              <span>✅ Devoluciones 30 días</span>
-              <span>✅ Pago seguro</span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>Envio gratis desde 49 EUR</span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>Devoluciones 30 dias</span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>Pago seguro</span>
             </div>
           </div>
           <div className="df-hero-image">
             <img 
-              src="https://images.unsplash.com/photo-1559757148-5e9952c318c9?w=800" 
-              alt="Farmacéutica MadFarma" 
+              src="https://images.unsplash.com/photo-1559757148-5e9952c318c9?w=800&h=600&fit=crop" 
+              alt="Farmaceutica MadFarma" 
               className="df-hero-img"
+              style={{ width: '100%', borderRadius: '24px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15)' }}
             />
-            <div className="df-hero-floating-1">
-              <img src="https://via.placeholder.com/140x140/14B8A6/ffffff?text=Nutribén" alt="Nutribén" />
-            </div>
-            <div className="df-hero-floating-2">
-              <img src="https://via.placeholder.com/100x100/14B8A6/ffffff?text=Crema" alt="Crema" />
-            </div>
           </div>
         </div>
       </section>
 
       {/* QUICK SEARCH CHIPS */}
       <section className="df-quick-search">
-        <h3 className="df-quick-search-title">¿Qué necesitas hoy?</h3>
+        <h3 className="df-quick-search-title">Que necesitas hoy?</h3>
         <div className="df-chips-container">
           {quickSearchChips.map((chip) => (
             <button key={chip} className="df-chip" onClick={() => navigate(`/tienda?search=${chip}`)}>
