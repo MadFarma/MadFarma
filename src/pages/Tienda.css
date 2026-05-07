@@ -1,6 +1,6 @@
 .df-tienda {
   min-height: 100vh;
-  background: #f7f7f7;
+  background: var(--color-surface-container-low);
 }
 
 /* Category Banner - DosFarma Style */
@@ -20,7 +20,7 @@
 }
 
 .df-category-content h1 {
-  font-family: 'Poppins', Georgia, serif;
+  font-family: var(--font-family-headline);
   font-size: 48px;
   font-weight: 600;
   line-height: 56px;
@@ -73,20 +73,20 @@
   align-items: center;
   gap: 8px;
   padding: 12px 20px;
-  background: #fff;
-  border: 1px solid #DDE2E5;
-  border-radius: 4px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--rounded-md);
   font-size: 14px;
   font-weight: 500;
-  color: #212429;
+  color: var(--color-on-surface);
   cursor: pointer;
   margin-bottom: 16px;
 }
 
 /* Sidebar */
 .df-sidebar {
-  background: #fff;
-  border-radius: 8px;
+  background: var(--color-surface);
+  border-radius: var(--rounded-lg);
   padding: 0;
   height: fit-content;
   position: sticky;
@@ -104,7 +104,7 @@
 .df-sidebar-header span {
   font-weight: 600;
   font-size: 16px;
-  color: #212429;
+  color: var(--color-on-surface);
 }
 
 .df-sidebar-close {
@@ -132,7 +132,7 @@
   padding: 16px 20px;
   font-weight: 600;
   font-size: 14px;
-  color: #212429;
+  color: var(--color-on-surface);
   cursor: pointer;
   user-select: none;
 }
@@ -144,8 +144,8 @@
 .df-filter-arrow {
   width: 10px;
   height: 10px;
-  border-right: 2px solid #6B7580;
-  border-bottom: 2px solid #6B7580;
+  border-right: 2px solid var(--color-on-surface-variant);
+  border-bottom: 2px solid var(--color-on-surface-variant);
   transform: rotate(45deg);
   transition: transform 0.2s;
 }
@@ -188,19 +188,19 @@
   border: none;
   text-align: left;
   font-size: 14px;
-  color: #495057;
+  color: var(--color-on-surface-variant);
   cursor: pointer;
   border-radius: 4px;
   transition: all 0.2s;
 }
 
 .df-cat-item:hover {
-  background: #f7f7f7;
+  background: var(--color-surface-container-low);
 }
 
 .df-cat-item.active {
-  background: #f7f7f7;
-  color: #212429;
+  background: var(--color-surface-container-low);
+  color: var(--color-on-surface);
   font-weight: 600;
 }
 
@@ -226,19 +226,19 @@
   border: none;
   text-align: left;
   font-size: 14px;
-  color: #495057;
+  color: var(--color-on-surface-variant);
   cursor: pointer;
   border-radius: 4px;
   transition: all 0.2s;
 }
 
 .df-subcat-item:hover {
-  background: #f7f7f7;
+  background: var(--color-surface-container-low);
 }
 
 .df-subcat-item.active {
-  background: #f7f7f7;
-  color: #212429;
+  background: var(--color-surface-container-low);
+  color: var(--color-on-surface);
   font-weight: 600;
 }
 
@@ -250,7 +250,7 @@
 .df-price-slider input[type="range"] {
   width: 100%;
   height: 4px;
-  background: #DDE2E5;
+  background: var(--color-outline-variant);
   border-radius: 2px;
   outline: none;
   -webkit-appearance: none;
@@ -260,7 +260,7 @@
   -webkit-appearance: none;
   width: 18px;
   height: 18px;
-  background: #212429;
+  background: var(--color-on-surface);
   border-radius: 50%;
   cursor: pointer;
   border: 2px solid #fff;
@@ -272,7 +272,7 @@
   justify-content: space-between;
   margin-top: 12px;
   font-size: 14px;
-  color: #495057;
+  color: var(--color-on-surface-variant);
 }
 
 /* Brand Filters */
@@ -281,7 +281,7 @@
   align-items: center;
   gap: 8px;
   padding: 8px 12px;
-  background: #f7f7f7;
+  background: var(--color-surface-container-low);
   border-radius: 4px;
   margin-bottom: 12px;
 }
@@ -295,7 +295,7 @@
 }
 
 .df-brand-search svg {
-  color: #6B7580;
+  color: var(--color-on-surface-variant);
 }
 
 .df-brand-filters {
@@ -309,18 +309,18 @@
   gap: 10px;
   padding: 6px 0;
   font-size: 14px;
-  color: #495057;
+  color: var(--color-on-surface-variant);
   cursor: pointer;
 }
 
 .df-brand-checkbox input {
   width: 18px;
   height: 18px;
-  accent-color: #212429;
+  accent-color: var(--color-on-surface);
 }
 
 .df-brand-checkbox:hover span {
-  color: #212429;
+  color: var(--color-on-surface);
 }
 
 .df-no-brands {
@@ -336,20 +336,20 @@
   width: calc(100% - 40px);
   margin: 16px 20px;
   padding: 12px;
-  background: #f7f7f7;
-  border: 1px solid #DDE2E5;
-  border-radius: 4px;
+  background: var(--color-surface-container-low);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--rounded-md);
   font-size: 14px;
   font-weight: 500;
-  color: #495057;
+  color: var(--color-on-surface-variant);
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .df-clear-all-filters:hover {
-  background: #212429;
+  background: var(--color-on-surface);
   color: #fff;
-  border-color: #212429;
+  border-color: var(--color-on-surface);
 }
 
 /* Products Section */
@@ -371,25 +371,25 @@
   align-items: center;
   gap: 6px;
   padding: 6px 12px;
-  background: #fff;
-  border: 1px solid #DDE2E5;
-  border-radius: 4px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--rounded-sm);
   font-size: 13px;
-  color: #495057;
+  color: var(--color-on-surface-variant);
 }
 
 .df-filter-tag button {
   background: none;
   border: none;
   font-size: 16px;
-  color: #6B7580;
+  color: var(--color-on-surface-variant);
   cursor: pointer;
   padding: 0;
   line-height: 1;
 }
 
 .df-filter-tag button:hover {
-  color: #212429;
+  color: var(--color-on-surface);
 }
 
 .df-clear-all {
@@ -397,13 +397,13 @@
   background: none;
   border: none;
   font-size: 13px;
-  color: #6B7580;
+  color: var(--color-on-surface-variant);
   text-decoration: underline;
   cursor: pointer;
 }
 
 .df-clear-all:hover {
-  color: #212429;
+  color: var(--color-on-surface);
 }
 
 /* Controls Bar */
@@ -414,7 +414,7 @@
   gap: 16px;
   padding: 16px 0;
   margin-bottom: 24px;
-  border-bottom: 1px solid #DDE2E5;
+  border-bottom: 1px solid var(--color-outline-variant);
 }
 
 .df-search-box {
@@ -422,15 +422,15 @@
   align-items: center;
   gap: 10px;
   padding: 10px 16px;
-  background: #fff;
-  border: 1px solid #DDE2E5;
-  border-radius: 4px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--rounded-md);
   flex: 1;
   max-width: 320px;
 }
 
 .df-search-box svg {
-  color: #6B7580;
+  color: var(--color-on-surface-variant);
   flex-shrink: 0;
 }
 
@@ -447,7 +447,7 @@
   border: none;
   padding: 4px;
   cursor: pointer;
-  color: #6B7580;
+  color: var(--color-on-surface-variant);
 }
 
 .df-controls-right {
@@ -458,16 +458,16 @@
 
 .df-products-count {
   font-size: 14px;
-  color: #6B7580;
+  color: var(--color-on-surface-variant);
 }
 
 .df-sort-select select {
   padding: 10px 32px 10px 12px;
-  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B7580' d='M6 8L1 3h10z'/%3E%3C/svg%3E") no-repeat right 12px center;
-  border: 1px solid #DDE2E5;
-  border-radius: 4px;
+  background: var(--color-surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B7580' d='M6 8L1 3h10z'/%3E%3C/svg%3E") no-repeat right 12px center;
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--rounded-md);
   font-size: 14px;
-  color: #212429;
+  color: var(--color-on-surface);
   cursor: pointer;
   appearance: none;
   -webkit-appearance: none;
@@ -475,35 +475,35 @@
 
 .df-sort-select select:focus {
   outline: none;
-  border-color: #212429;
+  border-color: var(--color-on-surface);
 }
 
 .df-view-toggle {
   display: flex;
-  border: 1px solid #DDE2E5;
-  border-radius: 4px;
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--rounded-md);
   overflow: hidden;
 }
 
 .df-view-toggle button {
   padding: 10px 12px;
-  background: #fff;
+  background: var(--color-surface);
   border: none;
   cursor: pointer;
-  color: #6B7580;
+  color: var(--color-on-surface-variant);
   transition: all 0.2s;
 }
 
 .df-view-toggle button:not(:last-child) {
-  border-right: 1px solid #DDE2E5;
+  border-right: 1px solid var(--color-outline-variant);
 }
 
 .df-view-toggle button:hover {
-  color: #212429;
+  color: var(--color-on-surface);
 }
 
 .df-view-toggle button.active {
-  background: #212429;
+  background: var(--color-on-surface);
   color: #fff;
 }
 
@@ -518,14 +518,14 @@
 .df-product-item {
   display: flex;
   flex-direction: column;
-  background: #fff;
-  border-radius: 8px;
+  background: var(--color-surface);
+  border-radius: var(--rounded-lg);
   overflow: hidden;
   transition: all 0.3s ease;
 }
 
 .df-product-item:hover {
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  box-shadow: var(--shadow-lg);
   transform: translateY(-4px);
 }
 
@@ -534,14 +534,13 @@
   align-items: center;
   justify-content: center;
   padding: 24px;
-  background: #fff;
-  min-height: 240px;
+  background: var(--color-surface);
+  min-height: 200px;
 }
 
 .df-product-image {
   width: 100%;
-  height: 100%;
-  max-height: 180px;
+  height: 160px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -549,7 +548,7 @@
 
 .df-product-image img {
   max-width: 100%;
-  max-height: 180px;
+  max-height: 160px;
   object-fit: contain;
   transition: transform 0.3s ease;
 }
@@ -568,7 +567,7 @@
 
 .df-product-brand {
   font-size: 12px;
-  color: #6B7580;
+  color: var(--color-on-surface-variant);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 4px;
@@ -581,7 +580,7 @@
   overflow: hidden;
   font-size: 14px;
   font-weight: 600;
-  color: #212429;
+  color: var(--color-on-surface);
   text-decoration: none;
   line-height: 1.4;
   margin-bottom: 12px;
@@ -589,7 +588,7 @@
 }
 
 .df-product-name:hover {
-  color: #5D8A82;
+  color: var(--color-primary);
 }
 
 .df-product-price {
@@ -599,13 +598,13 @@
 .df-price-final {
   font-size: 24px;
   font-weight: 600;
-  color: #212429;
+  color: var(--color-on-surface);
 }
 
 .df-price-old {
   display: block;
   font-size: 14px;
-  color: #6B7580;
+  color: var(--color-on-surface-variant);
   text-decoration: line-through;
   margin-top: 2px;
 }
@@ -617,25 +616,25 @@
 .df-add-btn {
   width: 100%;
   padding: 14px 20px;
-  background: #5D8A82;
+  background: #50C878;
   border: none;
-  border-radius: 6px;
+  border-radius: 50px;
   font-size: 14px;
   font-weight: 600;
-  color: #fff;
+  color: #ffffff;
   cursor: pointer;
   transition: all 0.25s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  box-shadow: 0 2px 8px rgba(93, 138, 130, 0.3);
+  box-shadow: 0 4px 15px rgba(80, 200, 120, 0.4);
 }
 
 .df-add-btn:hover {
-  background: #4a7268;
+  background: #3CB361;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(93, 138, 130, 0.4);
+  box-shadow: 0 6px 20px rgba(80, 200, 120, 0.5);
 }
 
 .df-add-btn:active {
@@ -643,11 +642,11 @@
 }
 
 .df-add-btn.added {
-  background: #5D8A82;
+  background: #3CB361;
 }
 
 .df-add-btn.added:hover {
-  background: #5D8A82;
+  background: #3CB361;
 }
 
 .df-add-btn.added::before {
@@ -670,27 +669,27 @@
 .df-empty {
   text-align: center;
   padding: 60px 20px;
-  background: #fff;
-  border-radius: 8px;
+  background: var(--color-surface);
+  border-radius: var(--rounded-lg);
 }
 
 .df-empty h3 {
   font-size: 20px;
-  color: #212429;
+  color: var(--color-on-surface);
   margin-bottom: 8px;
 }
 
 .df-empty p {
   font-size: 14px;
-  color: #6B7580;
+  color: var(--color-on-surface-variant);
   margin-bottom: 24px;
 }
 
 .df-view-all-btn {
   padding: 12px 24px;
-  background: #212429;
+  background: var(--color-on-surface);
   border: none;
-  border-radius: 4px;
+  border-radius: var(--rounded-md);
   font-size: 14px;
   font-weight: 600;
   color: #fff;
@@ -698,7 +697,7 @@
 }
 
 .df-view-all-btn:hover {
-  background: #5D8A82;
+  background: var(--color-primary);
 }
 
 /* Loading */
@@ -706,7 +705,7 @@
   text-align: center;
   padding: 60px 20px;
   font-size: 16px;
-  color: #6B7580;
+  color: var(--color-on-surface-variant);
 }
 
 /* Overlay */
@@ -737,16 +736,16 @@
   align-items: center;
   justify-content: center;
   padding: 32px 20px;
-  background: #fff;
-  border: 1px solid #DDE2E5;
-  border-radius: 8px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--rounded-lg);
   text-decoration: none;
   transition: all 0.2s;
 }
 
 .df-marca-card:hover {
-  border-color: #5D8A82;
-  box-shadow: 0 4px 12px rgba(93,138,130,0.15);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
 }
 
 .df-marca-logo {
@@ -765,7 +764,7 @@
 .df-marca-logo span {
   font-size: 14px;
   font-weight: 500;
-  color: #212429;
+  color: var(--color-on-surface);
 }
 
 /* Responsive */
@@ -865,16 +864,24 @@
   }
   
   .df-product-link {
-    min-height: 180px;
+    min-height: 160px;
     padding: 16px;
   }
   
+  .df-product-image {
+    height: 120px;
+  }
+  
   .df-product-image img {
-    max-height: 140px;
+    max-height: 120px;
   }
   
   .df-product-info {
     padding: 12px;
+  }
+  
+  .df-product-name {
+    min-height: 52px;
   }
   
   .df-price-final {
@@ -882,8 +889,9 @@
   }
   
   .df-add-btn {
-    padding: 10px 16px;
-    font-size: 13px;
+    padding: 14px 20px;
+    font-size: 15px;
+    min-height: 48px;
   }
   
   .df-marcas-grid {
@@ -899,16 +907,39 @@
 @media (max-width: 480px) {
   .df-products-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+    gap: 10px;
+  }
+  
+  .df-product-link {
+    min-height: 140px;
+    padding: 12px;
+  }
+  
+  .df-product-image {
+    height: 100px;
+  }
+  
+  .df-product-image img {
+    max-height: 100px;
   }
   
   .df-product-name {
     font-size: 13px;
-    min-height: 52px;
+    min-height: 48px;
+  }
+  
+  .df-product-info {
+    padding: 10px;
   }
   
   .df-price-final {
     font-size: 18px;
+  }
+  
+  .df-add-btn {
+    padding: 12px 16px;
+    font-size: 14px;
+    min-height: 44px;
   }
   
   .df-controls-right {
@@ -923,5 +954,17 @@
   
   .df-sort-select select {
     width: 100%;
+  }
+  
+  .df-sidebar-header {
+    padding: 16px;
+  }
+  
+  .df-filter-title {
+    padding: 14px 16px;
+  }
+  
+  .df-filter-content {
+    padding: 0 16px 14px;
   }
 }
