@@ -2,9 +2,9 @@
   padding-bottom: 40px;
 }
 
-/* PREMIUM HERO - IVB Wellness Style */
+/* PREMIUM HERO - Gradiente Verde Farmacia */
 .df-hero-premium {
-  background: linear-gradient(135deg, #f8fafc 0%, #f0fdfa 100%);
+  background: linear-gradient(135deg, #0F766E 0%, #14B8A6 50%, #0F766E 100%);
   padding: 80px 0 100px;
   position: relative;
   overflow: hidden;
@@ -44,17 +44,19 @@
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -1px;
-  color: #111827;
+  color: white;
   margin: 0 0 20px;
 }
 
 .df-hero-title span {
-  color: #14B8A6;
+  color: #ffffff;
+  text-decoration: underline;
+  text-decoration-color: rgba(255,255,255,0.5);
 }
 
 .df-hero-subtitle {
   font-size: 20px;
-  color: #6b7280;
+  color: rgba(255,255,255,0.9);
   margin: 0 0 32px;
   line-height: 1.6;
 }
@@ -66,44 +68,42 @@
 }
 
 .df-hero-btn-primary {
-  background: #14B8A6;
+  background: white;
+  color: #0F766E;
+  padding: 18px 36px;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.df-hero-btn-primary:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+}
+
+.df-hero-btn-secondary {
+  background: transparent;
   color: white;
   padding: 18px 36px;
   border-radius: 16px;
   font-size: 16px;
   font-weight: 600;
   text-decoration: none;
-  transition: all 0.2s;
-  box-shadow: 0 4px 14px rgba(20, 184, 166, 0.3);
-}
-
-.df-hero-btn-primary:hover {
-  background: #0d9488;
-  transform: translateY(-2px);
-}
-
-.df-hero-btn-secondary {
-  background: white;
-  color: #111827;
-  padding: 18px 36px;
-  border-radius: 16px;
-  font-size: 16px;
-  font-weight: 600;
-  text-decoration: none;
-  border: 2px solid #e5e7eb;
+  border: 2px solid white;
   transition: all 0.2s;
 }
 
 .df-hero-btn-secondary:hover {
-  border-color: #111827;
-  background: #f9fafb;
+  background: rgba(255,255,255,0.1);
 }
 
 .df-hero-features {
   display: flex;
   gap: 32px;
   font-size: 14px;
-  color: #6b7280;
+  color: rgba(255,255,255,0.9);
 }
 
 .df-hero-features span {

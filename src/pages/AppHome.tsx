@@ -112,9 +112,8 @@ export default function AppHome() {
       <section className="df-hero-premium">
         <div className="df-hero-grid">
           <div className="df-hero-text">
-            <div className="df-hero-badge" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'white', padding: '10px 20px', borderRadius: '50px', fontSize: '14px', fontWeight: '500', color: '#0d9488', boxShadow: '0 4px 20px rgba(0,0,0,0.08)', marginBottom: '24px' }}>
-              <span style={{ fontSize: '18px' }}><img src="https://cdn-icons-png.flaticon.com/512/2966/2966332.png" alt="" style={{ width: '20px', height: '20px', verticalAlign: 'middle' }} /></span>
-              Asesoramiento farmacéutico real
+            <div className="df-hero-badge" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(10px)', padding: '10px 20px', borderRadius: '50px', fontSize: '14px', fontWeight: '500', color: 'white', marginBottom: '24px' }}>
+              Asesoramiento Farmaceutico 24h
             </div>
             <h1 className="df-hero-title">
               Tu farmacia<br />
